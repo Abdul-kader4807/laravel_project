@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-       return view('students.create');
+        //
     }
 
     /**
@@ -35,13 +35,15 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-       return view('students.show');
+        //
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(string $id)
     {
-        return view('students.update');
+        //
     }
 
     /**
@@ -52,9 +54,11 @@ class StudentController extends Controller
         //
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
-       return view('students.delete');
+        //
     }
 }
