@@ -1,7 +1,9 @@
-CREATE DATABASE pharmacy_management;
-USE pharmacy_management;
--- Table: `phar_adjustment_type`
-CREATE TABLE `phar_adjustment_type` (
+CREATE DATABASE pharmacy_ms;
+USE pharmacy_ms
+
+
+-- 1 Table: `phar_adjustment_type`
+CREATE TABLE if not exists `phar_adjustment_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `factor` FLOAT DEFAULT NULL,
@@ -9,8 +11,8 @@ CREATE TABLE `phar_adjustment_type` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Table: `phar_categories`
-CREATE TABLE `phar_categories` (
+--2 Table: `phar_categories`
+CREATE TABLE if not exists `phar_categories` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `description` VARCHAR(150) DEFAULT NULL,
@@ -18,8 +20,8 @@ CREATE TABLE `phar_categories` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Table: `phar_category_product`
-CREATE TABLE `phar_category_product` (
+-- 3 Table: `phar_category_product`
+CREATE TABLE if not exists `phar_category_product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `category_id` INT(11) NOT NULL,
   `product_id` INT(11) NOT NULL,
@@ -29,8 +31,8 @@ CREATE TABLE `phar_category_product` (
   FOREIGN KEY (`product_id`) REFERENCES `phar_products`(`id`)
 );
 
--- Table: `phar_customers`
-CREATE TABLE `phar_customers` (
+-- 4 Table: `phar_customers`
+CREATE TABLE if not exists `phar_customers` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `photo` VARCHAR(150) DEFAULT NULL,
@@ -41,8 +43,10 @@ CREATE TABLE `phar_customers` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Table: `phar_prescriptions`
-CREATE TABLE `phar_prescriptions` (
+
+
+-- 5 Table: `phar_prescriptions`
+CREATE TABLE if not exists `phar_prescriptions` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `customer_id` INT(11) DEFAULT NULL,
   `user_id` INT(11) DEFAULT NULL,
@@ -57,8 +61,8 @@ CREATE TABLE `phar_prescriptions` (
   FOREIGN KEY (`user_id`) REFERENCES `phar_users`(`id`)
 );
 
--- Table: `phar_medicines`
-CREATE TABLE `phar_medicines` (
+--6 Table: `phar_medicines`
+CREATE TABLE if not exists `phar_medicines` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `category_id` INT(11) DEFAULT NULL,
@@ -69,8 +73,8 @@ CREATE TABLE `phar_medicines` (
   FOREIGN KEY (`category_id`) REFERENCES `phar_categories`(`id`)
 );
 
--- Table: `phar_batches`
-CREATE TABLE `phar_batches` (
+--7 Table: `phar_batches`
+CREATE TABLE if not exists `phar_batches` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `medicine_id` INT(11) DEFAULT NULL,
   `quantity` INT(11) DEFAULT NULL,
@@ -80,8 +84,8 @@ CREATE TABLE `phar_batches` (
   FOREIGN KEY (`medicine_id`) REFERENCES `phar_medicines`(`id`)
 );
 
--- Table: `phar_notifications`
-CREATE TABLE `phar_notifications` (
+--8 Table: `phar_notifications`
+CREATE TABLE if not exists `phar_notifications` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT(11) DEFAULT NULL,
   `message` VARCHAR(255) DEFAULT NULL,
@@ -91,8 +95,8 @@ CREATE TABLE `phar_notifications` (
   FOREIGN KEY (`user_id`) REFERENCES `phar_users`(`id`)
 );
 
--- Table: `phar_audit_logs`
-CREATE TABLE `phar_audit_logs` (
+-- 9 Table: `phar_audit_logs`
+CREATE TABLE if not exists `phar_audit_logs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `action` VARCHAR(255) DEFAULT NULL,
   `table_name` VARCHAR(255) DEFAULT NULL,
@@ -105,8 +109,8 @@ CREATE TABLE `phar_audit_logs` (
   FOREIGN KEY (`user_id`) REFERENCES `phar_users`(`id`)
 );
 
--- Table: `phar_settings`
-CREATE TABLE `phar_settings` (
+--10 Table: `phar_settings`
+CREATE TABLE if not exists `phar_settings` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `key` VARCHAR(255) DEFAULT NULL,
   `value` TEXT DEFAULT NULL,
@@ -114,10 +118,10 @@ CREATE TABLE `phar_settings` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+--11  Table: `phar_manufacturers`
 
-
-CREATE TABLE `phar_manufacturers` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+ CREATE TABLE if not exists `phar_manufacturers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `phone` VARCHAR(20) DEFAULT NULL,
   `email` VARCHAR(50) DEFAULT NULL,
@@ -128,8 +132,9 @@ CREATE TABLE `phar_manufacturers` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `phar_sales` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--12 Table: `phar_sales`
+CREATE TABLE if not exists `phar_sales` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `customer_id` INT(11) DEFAULT NULL,
   `total_amount` DECIMAL(10,2) NOT NULL,
   `customer_name` VARCHAR(255) DEFAULT NULL,
@@ -144,8 +149,9 @@ CREATE TABLE `phar_sales` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `phar_sales_items` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--13 Table: `phar_sales_items`
+CREATE TABLE if not exists `phar_sales_items` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `sale_id` INT(11) NOT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `medicine_id` INT(11) DEFAULT NULL,
@@ -157,8 +163,9 @@ CREATE TABLE `phar_sales_items` (
   FOREIGN KEY (`sale_id`) REFERENCES `phar_sales` (`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE `phar_invoices` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--14 Table: `phar_invoices`
+CREATE TABLE if not exists `phar_invoices` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `sale_id` INT(11) NOT NULL,
   `invoice_number` INT(11) NOT NULL UNIQUE,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -167,8 +174,10 @@ CREATE TABLE `phar_invoices` (
   FOREIGN KEY (`sale_id`) REFERENCES `phar_sales` (`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE `phar_orders` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+
+--15 Table: `phar_orders`
+CREATE TABLE if not exists `phar_orders` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `customer_id` INT(11) DEFAULT NULL,
   `user_id` INT(11) DEFAULT NULL,
   `total_order` DOUBLE DEFAULT NULL,
@@ -186,9 +195,9 @@ CREATE TABLE `phar_orders` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
-
-CREATE TABLE `phar_order_items` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--16 Table: `phar_order_items`
+CREATE TABLE if not exists `phar_order_items` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `order_id` INT(11) NOT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `quantity` INT(11) NOT NULL,
@@ -198,9 +207,9 @@ CREATE TABLE `phar_order_items` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`order_id`) REFERENCES `phar_orders` (`id`) ON DELETE CASCADE
 );
-
-CREATE TABLE `phar_order_details` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--17 Table: `phar_order_details`
+CREATE TABLE if not exists `phar_order_details` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `order_id` INT(11) NOT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `qty` DOUBLE DEFAULT NULL,
@@ -214,9 +223,9 @@ CREATE TABLE `phar_order_details` (
   FOREIGN KEY (`order_id`) REFERENCES `phar_orders` (`id`) ON DELETE CASCADE
 );
 
-
-CREATE TABLE `phar_products` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--18 Table: `phar_products`
+CREATE TABLE if not exists `phar_products` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `category_id` INT(11) DEFAULT NULL,
   `brand_id` INT(11) DEFAULT NULL,
@@ -247,8 +256,9 @@ CREATE TABLE `phar_products` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `phar_purchases` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--19 Table: `phar_purchases`
+CREATE TABLE if not exists `phar_purchases` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `supplier_id` INT(11) DEFAULT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `status_id` INT(11) DEFAULT NULL,
@@ -266,9 +276,9 @@ CREATE TABLE `phar_purchases` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
-
-CREATE TABLE `phar_purchases_items` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--20 Table: `phar_purchases_items`
+CREATE TABLE if not exists `phar_purchases_items` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `purchases_id` INT(11) NOT NULL,
   `product_id` INT(11) NOT NULL,
   `quantity` INT(11) NOT NULL,
@@ -279,8 +289,9 @@ CREATE TABLE `phar_purchases_items` (
   FOREIGN KEY (`purchases_id`) REFERENCES `phar_purchases` (`id`) ON DELETE CASCADE
 );
 
-CREATE TABLE `phar_purchases_details` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--21 Table: `phar_purchases_details`
+CREATE TABLE if not exists `phar_purchases_details` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `purchases_id` INT(11) NOT NULL,
   `product_id` INT(11) NOT NULL,
   `qty` DOUBLE DEFAULT NULL,
@@ -292,19 +303,17 @@ CREATE TABLE `phar_purchases_details` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`purchases_id`) REFERENCES `phar_purchases` (`id`) ON DELETE CASCADE
 );
-
-CREATE TABLE `phar_status` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+--22 Table: `phar_status`
+CREATE TABLE if not exists `phar_status` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
 
-
-
--- Stock Table
-CREATE TABLE `phar_stock` (
+--23 Stock Table
+CREATE TABLE if not exists `phar_stock` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `product_id` INT NOT NULL,
   `transaction_type_id` INT NOT NULL,
@@ -312,6 +321,7 @@ CREATE TABLE `phar_stock` (
   `quantity` INT NOT NULL,
   `uom_id` INT NOT NULL,
   `remark` VARCHAR(200),
+  `price` DOUBLE DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`product_id`) REFERENCES `phar_supplier_products`(`id`),
@@ -320,8 +330,8 @@ CREATE TABLE `phar_stock` (
   FOREIGN KEY (`uom_id`) REFERENCES `phar_uoms`(`id`)
 );
 
--- Stock Adjustment
-CREATE TABLE `phar_stock_adjustment` (
+--24 Stock Adjustment
+CREATE TABLE if not exists `phar_stock_adjustment` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
@@ -334,8 +344,8 @@ CREATE TABLE `phar_stock_adjustment` (
   FOREIGN KEY (`warehouse_id`) REFERENCES `phar_warehouse`(`id`)
 );
 
--- Stock Adjustment Details
-CREATE TABLE `phar_stock_adjustment_details` (
+--25 Stock Adjustment Details
+CREATE TABLE if not exists `phar_stock_adjustment_details` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `stock_adjustment_id` INT NOT NULL,
   `product_id` INT NOT NULL,
@@ -347,8 +357,8 @@ CREATE TABLE `phar_stock_adjustment_details` (
   FOREIGN KEY (`product_id`) REFERENCES `phar_supplier_products`(`id`)
 );
 
--- Suppliers
-CREATE TABLE `phar_suppliers` (
+--26 Suppliers
+CREATE TABLE if not exists `phar_suppliers` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `contact_person` VARCHAR(50),
@@ -360,8 +370,9 @@ CREATE TABLE `phar_suppliers` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Supplier Returns
-CREATE TABLE `phar_supplier_returns` (
+
+--27 Supplier Returns
+CREATE TABLE if not exists `phar_supplier_returns` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `supplier_id` INT NOT NULL,
   `purchase_id` INT NOT NULL,
@@ -374,8 +385,8 @@ CREATE TABLE `phar_supplier_returns` (
   FOREIGN KEY (`product_id`) REFERENCES `phar_supplier_products`(`id`)
 );
 
--- Supplier Products
-CREATE TABLE `phar_supplier_products` (
+--28 Supplier Products
+CREATE TABLE if not exists `phar_supplier_products` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `supplier_id` INT NOT NULL,
   `purchase_id` INT NOT NULL,
@@ -386,8 +397,8 @@ CREATE TABLE `phar_supplier_products` (
   FOREIGN KEY (`supplier_id`) REFERENCES `phar_suppliers`(`id`)
 );
 
--- Transaction Type
-CREATE TABLE `phar_transaction_type` (
+--29 Transaction Type
+CREATE TABLE if not exists `phar_transaction_type` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `factor` FLOAT NOT NULL DEFAULT 1,
@@ -395,16 +406,16 @@ CREATE TABLE `phar_transaction_type` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Units of Measurement
-CREATE TABLE `phar_uoms` (
+--30 Units of Measurement
+CREATE TABLE if not exists `phar_uoms` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL UNIQUE,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Users
-CREATE TABLE `phar_users` (
+--31 Users
+CREATE TABLE if not exists `phar_users` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `role_id` INT NOT NULL,
@@ -423,15 +434,17 @@ CREATE TABLE `phar_users` (
   FOREIGN KEY (`role_id`) REFERENCES `phar_roles`(`id`)
 );
 
--- Roles
-CREATE TABLE `phar_roles` (
+
+--32 Roles
+CREATE TABLE if not exists `phar_roles` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) NOT NULL UNIQUE,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- User Roles (Many-to-Many Relationship)
-CREATE TABLE `phar_user_roles` (
+--33 User Roles (Many-to-Many Relationship)
+CREATE TABLE if not exists `phar_user_roles` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `role_id` INT NOT NULL,
   `user_id` INT NOT NULL,
@@ -441,8 +454,8 @@ CREATE TABLE `phar_user_roles` (
   FOREIGN KEY (`user_id`) REFERENCES `phar_users`(`id`)
 );
 
--- Warehouse
-CREATE TABLE `phar_warehouse` (
+--34 Warehouse
+CREATE TABLE if not exists `phar_warehouse` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `phone` VARCHAR(20),
@@ -452,11 +465,12 @@ CREATE TABLE `phar_warehouse` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Brands
-CREATE TABLE `phar_brands` (
+--35 Brands
+CREATE TABLE if not exists `phar_brands` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) NOT NULL UNIQUE,
   `description` VARCHAR(150),
   `location` VARCHAR(200),
+   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
