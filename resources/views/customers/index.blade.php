@@ -1,11 +1,16 @@
 @extends('layout.backend.main')
 
 @section('page_content')
+
+<div class="row d-flex">
+    <div class="btn btn-warning px-4">
+        <h4 class="mb-3"> Customer List</h4>
+    </div>
+    </div>
     <div class="row">
 
         <div class="col-lg-12">
             <div class="card">
-
 
                 <div class="row">
 
@@ -17,29 +22,16 @@
 
                     <form class="col-md-9" action=" {{ url('customer/search') }}" method="post">
                         @csrf
-                        <div class="row d-flex">
-                            <div class="btn btn-warning px-4">
-                                <h4 class="mb-3"> Customer List</h4>
-                            </div>
-                        </div>
                         <label class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-
-                            <div class="position-relative input-icon">
-                                <input type="text" class="form-control" name="name" value="{{@$requestdata}}"
-                                    id="input42" placeholder="Enter Your Name">
-
-                                <button type="button" class="btn btn-primary px-4 ">Submit</button>
-
+                            <div class="d-flex">
+                                <input type="text" class="form-control " name="name" value="{{@$requestdata}}" id="input42" placeholder="Enter Your Name">
+                                <button type="submit" class="btn btn-primary px-4 ">Submit</button>
                             </div>
-
-
-
                         </div>
                     </form>
 
                 </div>
-
 
                 <div class="card-body">
                     <div class="table-responsive">
@@ -58,6 +50,7 @@
                             <tbody>
                                 @forelse ($customers as $customer)
                                     <tr>
+                                        <td>{{ $customer->id }}</td>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>{{ $customer->email }}</td>
@@ -87,7 +80,7 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                        {!! $customer->links('pagination::bootstrap-5') !!}
+                        {!! $customers->links('pagination::bootstrap-5') !!}
                     </div>
 
                 </div>

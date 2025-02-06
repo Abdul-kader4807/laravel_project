@@ -10,9 +10,9 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::get();
-        $customers = Customer::paginate(1);
-        print_r($customers);
+       // $customers = Customer::get();
+        $customers = Customer::paginate(2);
+       // print_r($customers);
 
         return view('customers.index', compact('customers'));
     }
@@ -29,7 +29,7 @@ class CustomerController extends Controller
             'name'   => 'required|min:5',
             'phone'  => 'required|min:4|numeric',
             'email'  => 'required|email',
-            'address' => 'required|min:4',
+            'address' => 'required|min:4|in:Dhaka,Comilla',
             'photo'  => 'required|image|mimes:png,jpg,jpeg|max:2048',
 
         ], ['address.in' => "Address must be inbetween Dhaka or Comilla",]);
@@ -113,11 +113,12 @@ class CustomerController extends Controller
 
     public function search(Request $request)
     {
-        $customer = Customer::where('name', "like", "%{$request->name}%")->get();
+        $customers = Customer::where('name', "like", "%{$request->name}%")->paginate(2);
         $requestdata = $request->name;
-        return view('customers.index', compact('customer', 'requestdata'));
+
+        // return view('customers.index', compact('customers', 'requestdata'));
         if ($customers) {
-            return view('customers.index', compact('customers'));
+            return view('customers.index', compact('customers','requestdata'));
         } else {
             $customers = [];
         }

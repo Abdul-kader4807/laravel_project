@@ -61,8 +61,8 @@
                 <div class="row mb-3">
                     <label for="input47" class="col-sm-3 col-form-label">Address</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" name="address" value="{{ old('address') }}" id="input47" rows="3"
-                            placeholder="Address"></textarea>
+                        <textarea class="form-control" name="address"  id="input47" rows="3"
+                            placeholder="Address">{{old('address')}}</textarea>
                         @error('address')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
@@ -87,8 +87,8 @@
                     <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">
                         <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end">
-                            <button type="button" class="btn btn-success px-4 ">Submit</button>
-                            <button type="button" class="btn btn-danger px-4 ">Reset</button>
+                            <button type="submit" class="btn btn-success px-4 ">Submit</button>
+                            <button type="submit" class="btn btn-danger px-4 ">Reset</button>
                         </div>
 
 
