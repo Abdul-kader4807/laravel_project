@@ -10,9 +10,9 @@ class CustomerController extends Controller
 
     public function index()
     {
-       // $customers = Customer::get();
-        $customers = Customer::paginate(2);
-       // print_r($customers);
+        // $customers = Customer::get();
+        $customers = Customer::paginate(4);
+        // print_r($customers);
 
         return view('customers.index', compact('customers'));
     }
@@ -40,6 +40,11 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->address = $request->address;
         $photoname = $request->name . "." . $request->file('photo')->extension();
+        $photoPath = public_path('photo/' . $photoname);
+        if (file_exists($photoPath)) {
+            unlink($photoPath);
+        }
+
         $request->file('photo')->move(public_path('photo'), $photoname);
         $customer->photo = $photoname;
 
@@ -68,7 +73,7 @@ class CustomerController extends Controller
 
 
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name'   => 'required|min:5',
@@ -81,15 +86,24 @@ class CustomerController extends Controller
 
         // print_r($request->all());
 
-        $customer = Customer::find($request->id);
+        $customer = Customer::find($id);
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->email = $request->email;
         $customer->address = $request->address;
         $photoname = $request->name . "." . $request->file('photo')->extension();
-        $request->file('photo')->move(public_path('photo'), $photoname);
 
-        $customer->photo = $photoname;
+        $photoPath = public_path('photo/' . $photoname);
+        if (file_exists($photoPath)) {
+            unlink($photoPath);
+
+            $request->file('photo')->move(public_path('photo'), $photoname);
+
+            $customer->photo = $photoname;
+        }else{
+            $customer->photo =$customer->photo ;
+        }
+
 
         if ($customer->save()) {
             return redirect('customer')->with('success', "Customer has been updated");
@@ -103,27 +117,30 @@ class CustomerController extends Controller
         return view('customers.delete', compact('customer'));
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $del = Customer::destroy($request->id);
+        $del = Customer::destroy($id);
         if ($del) {
             return redirect('customer')->with('success', "Customer has been Deleted");
         }
     }
 
+
+
     public function search(Request $request)
     {
-        $customers = Customer::where('name', "like", "%{$request->name}%")->paginate(2);
+        $customers = Customer::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
 
-        // return view('customers.index', compact('customers', 'requestdata'));
+        return view('customers.index', compact('customers', 'requestdata'));
+
         if ($customers) {
-            return view('customers.index', compact('customers','requestdata'));
+            return view('customers.index', compact('customers'));
         } else {
             $customers = [];
         }
     }
 
 
-
+    
 }

@@ -9,7 +9,7 @@
 
 
         <div class="col-3">
-            <h4 class="mb-3 btn btn-warning px-4">Supplier List</h4>
+            <h4 class="mb-3 btn btn-warning px-4">category List</h4>
         </div>
 
 
@@ -20,11 +20,11 @@
                 <div class="row d-flex justify-content-between mb-3 m-3">
 
                     <div class="col-md-3">
-                        <a class="btn btn-secondary" href="{{ url('supplier/create') }}">Register</a>
+                        <a class="btn btn-secondary" href="{{ url('category/create') }}">Register</a>
 
                     </div>
 
-                    <form class="col-md-6" action="{{ url('supplier/search') }}" method="post">
+                    <form class="col-md-6" action="{{ url('category/search') }}" method="post">
                         @csrf
                         <div class="input-group mb-2">
                             <div class="col-sm-10  position-relative input-icon">
@@ -48,38 +48,30 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Contact_person</th>
-                                    <th class="text-center">Phone</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Address</th>
-                                    <th class="text-center">Photo</th>
+                                    <th class="text-center">Description</th>
+
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($suppliers as $supplier)
+                                @forelse ($categories as $category)
                                     <tr>
-                                        <td>{{ $supplier->id }}</td>
-                                        <td>{{ $supplier->name }}</td>
-                                        <td>{{ $supplier->contact_person }}</td>
-                                        <td>{{ $supplier->phone }}</td>
-                                        <td>{{ $supplier->email }}</td>
-                                        <td>{{ $supplier->address }}</td>
-                                        <td><img width="50" height=""
-                                                src="{{ asset('photo') }}/{{ $supplier->photo }}"
-                                                alt="{{ $supplier->name }}" srcset=""></td>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->description }}</td>
+
                                         <td>
 
-                                            <a href="{{ url("supplier/$supplier->id") }}" class="btn btn-secondary">
+                                            <a href="{{ url("category/$category->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ url("supplier/$supplier->id/edit") }}" class="btn btn-success">
+                                            <a href="{{ url("category/$category->id/edit") }}" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{ url("supplier/delete/$supplier->id") }}" class="btn btn-danger">
+                                            <a href="{{ url("category/delete/$category->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            <form action="{{ url("supplier/$supplier->id") }}" method="post">
+                                            <form action="{{ url("category/$category->id") }}" method="post">
                                                 @csrf
                                                 @method('Delete')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -98,7 +90,7 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                        {!! $suppliers->links('pagination::bootstrap-5') !!}
+                        {!! $categories->links('pagination::bootstrap-5') !!}
                     </div>
 
                 </div>

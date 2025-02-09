@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--favicon-->
-	<link rel="icon" href="{{asset('assets')}}/images/favicon-32x32.png" type="image/png"/>
+	<link rel="icon" href="{{asset('assets')}}/images/pos_logo.png" type="image/png"/>
 	<!--plugins-->
 	<link href="{{asset('assets')}}/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
 	<link href="{{asset('assets')}}/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
@@ -24,11 +24,12 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
 	<link href="{{asset('assets')}}/css/app.css" rel="stylesheet">
 	<link href="{{asset('assets')}}/css/icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<!-- Theme Style CSS -->
 	<link rel="stylesheet" href="{{asset('assets')}}/css/dark-theme.css"/>
 	<link rel="stylesheet" href="{{asset('assets')}}/css/semi-dark.css"/>
 	<link rel="stylesheet" href="{{asset('assets')}}/css/header-colors.css"/>
-	<title>Rocker - Bootstrap 5 Admin Dashboard Template</title>
+	<title>PMS</title>
     @yield('css')
 </head>
 
@@ -42,7 +43,7 @@
 					<img src="{{asset('assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
-					<h4 class="logo-text">Rocker</h4>
+					<h4 class="logo-text">MF-pharma</h4>
 				</div>
 				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-back'></i>
 				</div>
@@ -235,6 +236,41 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+
+ {{-- my decesion --}}
+<!--end switcher-->
+
+	<!--plugins-->
+
+
+	<script src="{{asset('assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="{{asset('assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+
+
+      {{-- <script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+	 <script>
+        $(document).ready(function () {
+            $('#example2').DataTable({
+                lengthChange: false, // "Entries" dropdown লুকানোর জন্য
+                paging: false,       // Pagination লুকানোর জন্য
+                info: false,         // Information ("Showing X to Y of Z entries") লুকানোর জন্য
+                searching: false,    // Search Box লুকানোর জন্য
+                buttons: ['copy', 'excel', 'pdf', 'print'], // Buttons থাকলে
+                dom: 'Brtip'         // 'f' (Search Box) এবং 'p' (Pagination) বাদ দিয়ে DOM
+            });
+
+            var table = $('#example2').DataTable();
+            table.buttons().container()
+                .appendTo('#example2_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+ --}}
+
+
       @yield('script')
 </body>
 
