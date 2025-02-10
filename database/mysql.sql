@@ -307,6 +307,7 @@ CREATE TABLE if not exists `phar_purchases_details` (
 CREATE TABLE if not exists `phar_status` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) DEFAULT NULL,
+  `description` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 --   PRIMARY KEY (`id`)
@@ -398,15 +399,33 @@ CREATE TABLE if not exists `phar_supplier_products` (
 );
 
 --29 Transaction Type
-CREATE TABLE if not exists `phar_transaction_type` (
+CREATE TABLE if not exists `phar_transaction_types` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(255) NOT NULL,
+  `type_name` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) DEFAULT NULL,
   `factor` FLOAT NOT NULL DEFAULT 1,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
---30 Units of Measurement
+--30 transactions
+
+CREATE TABLE if not exists `transactions` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `transaction_type_id` INT NOT NULL,
+    `amount` DECIMAL(10,2) NOT NULL,
+    `transaction_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `details` VARCHAR(255) NULL,
+ `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+    -- FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(id) ON DELETE CASCADE
+);
+
+
+
+
+--31 Units of Measurement
 CREATE TABLE if not exists `phar_uoms` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL UNIQUE,
@@ -414,7 +433,7 @@ CREATE TABLE if not exists `phar_uoms` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
---31 Users
+--32 Users
 CREATE TABLE if not exists `phar_users` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
@@ -435,7 +454,7 @@ CREATE TABLE if not exists `phar_users` (
 );
 
 
---32 Roles
+--33 Roles
 CREATE TABLE if not exists `phar_roles` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) NOT NULL UNIQUE,
@@ -443,7 +462,7 @@ CREATE TABLE if not exists `phar_roles` (
    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
---33 User Roles (Many-to-Many Relationship)
+--34 User Roles (Many-to-Many Relationship)
 CREATE TABLE if not exists `phar_user_roles` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `role_id` INT NOT NULL,
@@ -454,7 +473,7 @@ CREATE TABLE if not exists `phar_user_roles` (
 --   FOREIGN KEY (`user_id`) REFERENCES `phar_users`(`id`)
 );
 
---34 Warehouse
+--35 Warehouse
 CREATE TABLE if not exists `phar_warehouse` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
@@ -465,12 +484,45 @@ CREATE TABLE if not exists `phar_warehouse` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
---35 Brands
+--36 Brands
 CREATE TABLE if not exists `phar_brands` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(50) NOT NULL UNIQUE,
-  `description` VARCHAR(150),
-  `location` VARCHAR(200),
+  `brand_name` VARCHAR(255) NOT NULL UNIQUE,
+  `contact_info` VARCHAR(255),
+  `address` VARCHAR(200),
+  `status` ENUM('active', 'inactive') DEFAULT 'active',
    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+--37 phar_payments
+CREATE TABLE phar_payments (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `order_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `payment_method_id` INT NOT NULL,
+    `amount` DECIMAL(10,2) NOT NULL,
+    `payment_status` ENUM('pending', 'completed', 'failed', 'refunded') DEFAULT 'pending',
+    `transaction_id` VARCHAR(100) UNIQUE NULL,
+    `payment_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+    -- FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    -- FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+    -- FOREIGN KEY (payment_method_id) REFERENCES payment_method(id) ON DELETE SET NULL
+);
+
+
+--38 phar_payment_methods
+
+CREATE TABLE phar_payment_methods (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `method_name` VARCHAR(50) NOT NULL,
+    `details` VARCHAR(255) NULL,
+    `status` ENUM('active', 'inactive') DEFAULT 'active',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

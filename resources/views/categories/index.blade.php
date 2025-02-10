@@ -71,11 +71,11 @@
                                             <a href="{{ url("category/delete/$category->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            <form action="{{ url("category/$category->id") }}" method="post">
+                                            {{-- <form action="{{ url("category/$category->id") }}" method="post">
                                                 @csrf
                                                 @method('Delete')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                            </form> --}}
 
                                         </td>
                                     </tr>

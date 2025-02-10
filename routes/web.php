@@ -24,16 +24,16 @@ Route::get('/', function () {
 
 // });
 
-
+Route::get('customer/delete/{id}',[CustomerController::class,'destroy_view']);
 Route::post('customer/search',[CustomerController::class,'search']);
 Route::resource('customer',CustomerController::class);
 
 
+Route::get('supplier/delete/{id}' ,[SupplierController::class, 'destroy_view']);
  Route::post('supplier/search' ,[SupplierController::class, 'search']);
- Route::post('supplier/delete' ,[SupplierController::class, 'delete']);
 Route::resource('supplier', SupplierController::class);
 
-
+Route::get('category/delete/{id}', [CategoryController::class,'destroy_view']);
 Route::post('category/search',[CategoryController::class,'search']);
 Route::resource('category', CategoryController::class);
 

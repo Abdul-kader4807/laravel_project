@@ -30,6 +30,20 @@
                 </div>
 
 
+                <div class="row mb-3">
+                    <label for="input47" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <textarea class="form-control" name="description" id="input47" rows="3" placeholder="description">{{ old('description') }}</textarea>
+                        </div>
+                        @error('description')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">

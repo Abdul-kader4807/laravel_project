@@ -10,15 +10,15 @@ class StatusController extends Controller
 
     public function index()
     {
-        $statuses = status::paginate(3);
+        $status = status::paginate(3);
         // print_r($statuses);
-        return view('statuses.index', compact('statuses'));
+        return view('status.index', compact('status'));
     }
 
 
     public function create()
     {
-        return view('statuses.create');
+        return view('status.create');
     }
 
 
@@ -27,10 +27,12 @@ class StatusController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
+            'description' => 'required|min:6',
 
         ]);
         $status = new Status();
         $status->name = $request->name;
+        $status->description = $request->description;
         if ($status->save()) {
             return redirect('status')->with('success', "Status has been registred");
         };
@@ -40,7 +42,7 @@ class StatusController extends Controller
     public function show($id)
     {
         $status = Status::find($id);
-        return view('statuses.show', compact('status'));
+        return view('status.show', compact('status'));
     }
 
 
@@ -52,7 +54,7 @@ class StatusController extends Controller
         $status = Status::find($id);
         // $status = Status::where('id', $id)->get();
 
-        return view('statuses.update', compact('status'));
+        return view('status.update', compact('status'));
     }
 
 
@@ -62,11 +64,13 @@ class StatusController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
+            'description' => 'required|min:4',
 
         ]);
         // print_r($status->all());
         $status = Status::find($id);
         $status->name = $request->name;
+        $status->description = $request->description;
 
         if ($status->save()) {
             return redirect('status')->with('status', "Status has been update");
@@ -77,7 +81,7 @@ class StatusController extends Controller
 
     {
         $status = Status::find($id);
-        return view('statuses.delete', compact('status'));
+        return view('status.delete', compact('status'));
     }
 
     public function destroy($id)
@@ -92,9 +96,9 @@ class StatusController extends Controller
     {
         $statuses = Status::where('name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
-        return view('statuses.index', compact('statuses', 'requestdata'));
+        return view('status.index', compact('statuses', 'requestdata'));
         if ($statuses) {
-            return view('statuses.index', compact('statuses'));
+            return view('status.index', compact('statuses'));
         } else {
             $statuses = [];
         }

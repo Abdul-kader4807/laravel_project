@@ -17,8 +17,9 @@
 
         <div class="card-body p-4">
 
-            <form action="{{url('customer/delete')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url("customer/{$customer['id']}")}}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('delete')
 
                 <div class="row mb-3">
                     <label for="input42" class="col-sm-3 col-form-label"> Name</label>

@@ -163,7 +163,7 @@
             <div class="menu-title">Supplier</div>
         </a>
         <ul>
-            <li> <a href="icons-line-icons.html"><i class='bx bx-radio-circle'></i>Supplier-List </a>
+            <li> <a href="{{url('supplier')}}"><i class='bx bx-radio-circle'></i>Supplier-List </a>
             </li>
             <li> <a href="icons-boxicons.html"><i class='bx bx-radio-circle'></i>Supplier Returns </a>
             </li>
