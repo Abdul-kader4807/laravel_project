@@ -132,6 +132,9 @@ CREATE TABLE if not exists `phar_settings` (
 --   PRIMARY KEY (`id`)
 );
 
+
+
+
 --12 Table: `phar_sales`
 CREATE TABLE if not exists `phar_sales` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -516,7 +519,19 @@ CREATE TABLE phar_payments (
 );
 
 
---38 phar_payment_methods
+--- 38phar_parment-status
+CREATE TABLE if not exists `phar_payment_status` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `status` VARCHAR(50) NOT NULL, -- Example: 'Pending', 'Completed', 'Failed', 'Refunded'
+     `description` VARCHAR(255) DEFAULT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+
+--39 phar_payment_methods
 
 CREATE TABLE phar_payment_methods (
     `id` INT AUTO_INCREMENT PRIMARY KEY,

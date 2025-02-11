@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,14 @@ Route::resource('supplier', SupplierController::class);
 Route::get('category/delete/{id}', [CategoryController::class,'destroy_view']);
 Route::post('category/search',[CategoryController::class,'search']);
 Route::resource('category', CategoryController::class);
+
+
+Route::resource('product', ProductController::class);
+
+
+
+
+
 
 
 Route::post('status/search',[StatusController::class,'search']);
