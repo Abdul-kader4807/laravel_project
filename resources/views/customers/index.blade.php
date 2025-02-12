@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-    <div class="row">
+    <div class="row"> 
 
         @if (@session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

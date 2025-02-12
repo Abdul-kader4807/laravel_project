@@ -10,9 +10,10 @@ class StatusController extends Controller
 
     public function index()
     {
-        $status = status::paginate(3);
+        $status = Status::all();
+        $status = Status::paginate(3);
         // print_r($statuses);
-        return view('status.index', compact('status'));
+        return view('status.index', compact('status','status'));
     }
 
 

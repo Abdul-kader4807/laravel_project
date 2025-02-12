@@ -29,33 +29,48 @@
                     </div>
                 </div>
 
+
                 <div class="row mb-3">
-                    <label for="category_id" class="col-sm-3 col-form-label">Category ID</label>
+                    <label for="category_id" class="col-sm-3 col-form-label">Category</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
                             <select name="category_id" id="category_id" class="form-control">
                                 <option value="">Select Category</option>
-                                {{-- Populate categories dynamically --}}
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
                             </select>
-                            @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('category_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-category'></i></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label for="brand_id" class="col-sm-3 col-form-label">Brand ID</label>
+                    <label for="brand_id" class="col-sm-3 col-form-label">Brand</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
                             <select name="brand_id" id="brand_id" class="form-control">
                                 <option value="">Select Brand</option>
-                                {{-- Populate brands dynamically --}}
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
+                                        {{ $brand->name }}
+                                    </option>
+                                @endforeach
                             </select>
-                            @error('brand_id') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('brand_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-label'></i></span>
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="row mb-3">
                     <label for="generic_name" class="col-sm-3 col-form-label">Generic Name</label>
@@ -86,6 +101,33 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+                <div class="row mb-3">
+                    <label for="manufacturer_id" class="col-sm-3 col-form-label">Manufacturer</label>
+                    <div class="col-sm-9">
+                        <div class="position-relative">
+                            <select name="manufacturer_id" class="form-control" id="manufacturer_id" required>
+                                <option value="">Select Manufacturer</option>
+                                @foreach ($manufacturers as $manufacturer)
+                                    <option value="{{ $manufacturer->id }}" {{ old('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>
+                                        {{ $manufacturer->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('manufacturer_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <span class="position-absolute end-0 top-50 translate-middle-y pe-3">
+                                <i class='bx bx-factory text-secondary'></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
                 <div class="row mb-3">
@@ -134,23 +176,6 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative">
-                            <input type="text" name="quantity" value="{{ old('quantity') }}" class="form-control" id="quantity" placeholder="Enter Quantity">
-                            @error('quantity')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                            <span class="position-absolute end-0 top-50 translate-middle-y pe-3">
-                                <i class='bx bx-box text-info'></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="row mb-3">
                     <label for="offer_price" class="col-sm-3 col-form-label">Offer Price</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
@@ -165,20 +190,23 @@
                     </div>
                 </div>
 
+
                 <div class="row mb-3">
-                    <label for="stock_quantity" class="col-sm-3 col-form-label">Stock Quantity</label>
+                    <label for="max_quantity" class="col-sm-3 col-form-label"> Max_Quantity</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="stock_quantity" value="{{ old('stock_quantity') }}" class="form-control" id="stock_quantity" placeholder="Stock Quantity">
-                            @error('stock_quantity')
+                            <input type="text" name="max_quantity" value="{{ old('max_quantity') }}" class="form-control" id="max_quantity" placeholder="Enter max_quantity">
+                            @error('max_quantity')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <span class="position-absolute end-0 top-50 translate-middle-y pe-3">
-                                <i class='bx bx-layer text-warning'></i>
+                                <i class='bx bx-box text-info'></i>
                             </span>
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="row mb-3">
                     <label for="reorder_level" class="col-sm-3 col-form-label">Reorder Level</label>
@@ -283,20 +311,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="manufacturer_id" class="col-sm-3 col-form-label">Manufacturer ID</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative">
-                            <input type="text" name="manufacturer_id" value="{{ old('manufacturer_id') }}" class="form-control" id="manufacturer_id" placeholder="Manufacturer ID">
-                            @error('manufacturer_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                            <span class="position-absolute end-0 top-50 translate-middle-y pe-3">
-                                <i class='bx bx-factory text-secondary'></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="row mb-3">
                     <label for="star" class="col-sm-3 col-form-label">Star Rating</label>
