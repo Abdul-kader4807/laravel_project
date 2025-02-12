@@ -185,11 +185,11 @@
         <ul>
             <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Product List </a>
             </li>
-            <li> <a href="{{url('category')}}"><i class='bx bx-radio-circle'></i>Categories</a>
+            <li> <a href="{{url('category')}}"><i class='bx bx-radio-circle'></i>Category List</a>
             </li>
-            <li> <a href="form-radios-and-checkboxes.html"><i class='bx bx-radio-circle'></i>Brands</a>
+            <li> <a href="form-radios-and-checkboxes.html"><i class='bx bx-radio-circle'></i>Brand List</a>
             </li>
-            <li> <a href="form-layouts.html"><i class='bx bx-radio-circle'></i>Manufacturers</a>
+            <li> <a href="{{url('manufacturer')}}"><i class='bx bx-radio-circle'></i>Manufacturer List</a>
             </li>
 
             {{-- <li> <a href="form-validations.html"><i class='bx bx-radio-circle'></i>Form Validation</a>
@@ -252,7 +252,7 @@
             </li>
             <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>UOMs </a>
             </li>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Statuses </a>
+            <li> <a href="{{url('status')}}"><i class='bx bx-radio-circle'></i>Status List </a>
             </li>
 
         </ul>

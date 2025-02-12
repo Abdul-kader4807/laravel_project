@@ -34,7 +34,7 @@
                     <label for="input47" class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-9">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <span class="input-group-text"><i class="bx bx-align-left"></i></span>
                             <textarea class="form-control" name="description" id="input47" rows="3" placeholder="description">{{ old('description') }}</textarea>
                         </div>
                         @error('description')

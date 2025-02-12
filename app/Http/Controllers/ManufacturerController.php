@@ -10,7 +10,10 @@ class ManufacturerController extends Controller
 {
 
     public function index()
-    {
+    {  // $manufacturers = Manufacturer::get();
+        // print_r($manufacturers);
+
+        
         $manufacturers = Manufacturer::all();
         $manufacturers = Manufacturer::paginate(4);
         return view('manufacturers.index', compact('manufacturers'));
@@ -47,14 +50,15 @@ class ManufacturerController extends Controller
 
     public function show($id)
     {
-        $manufacturer = Manufacturer::findOrFail($id);
-        return view('manufacturers.show' ,compact('manufacturer'));
+        $manufacturers = Manufacturer::find($id);
+        return view('manufacturers.show' ,compact('manufacturers'));
     }
 
 
-    public function edit(string $id)
+    public function edit($id)
     {
         $manufacturer = Manufacturer::find($id);
+         // $manufacturer=Manufacturer::where('id',$id)->get();
         return view('manufacturers.update',compact('manufacturer'));
     }
 
@@ -67,7 +71,15 @@ class ManufacturerController extends Controller
         'address' => 'required|min:4',
         'country' => 'required|min:4',
     ]);
-    $manufacturer = Manufacturer::findOrFail($id);
+
+    // print_r($request->all());
+    $manufacturer = Manufacturer::find($id);
+    $manufacturer->name = $request->name;
+    $manufacturer->phone = $request->phone;
+    $manufacturer->email = $request->email;
+    $manufacturer->address = $request->address;
+    $manufacturer->country = $request->country;
+
 
     if ($manufacturer->save()) {
         return redirect('manufacturer')->with('success', "Manufacturer has been updated");
@@ -76,9 +88,12 @@ class ManufacturerController extends Controller
     }
 
 
+
+
+
     public function destroy_view($id)
     {
-        $manufacturer = Manufacturer::findOrFail($id);
+        $manufacturer = Manufacturer::find($id);
         return view('manufacturers.delete', compact('manufacturer'));
     }
 
@@ -87,7 +102,10 @@ class ManufacturerController extends Controller
 
     public function destroy($id)
     {
-        if (Manufacturer::destroy($id)) {
+
+        $del = Manufacturer::destroy($id);
+
+        if ($del) {
             return redirect('manufacturer')->with('success', "manufacturer has been deleted");
         }
     }
@@ -98,6 +116,12 @@ class ManufacturerController extends Controller
         $requestdata = $request->name;
 
         return view('manufacturers.index', compact('manufacturers', 'requestdata'));
+
+        if($manufacturers){
+            return view('manufacturers.index',compact('manufacturers'));
+        }else{
+            $manufacturers =[];
+        }
     }
 
 
@@ -105,3 +129,5 @@ class ManufacturerController extends Controller
 
 
 }
+
+

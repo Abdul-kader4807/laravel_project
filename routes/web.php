@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
@@ -43,9 +44,11 @@ Route::resource('product', ProductController::class);
 
 
 
-
-
-
-
+Route::get('status/delete/{id}',[StatusController::class,'destroy_view']);
 Route::post('status/search',[StatusController::class,'search']);
 Route::resource('status',StatusController::class);
+
+
+Route::get('manufacturer/delete/{id}',[ManufacturerController::class,'destroy_view']);
+Route::post('manufacturer/search',[ManufacturerController::class,'search']);
+Route::resource('manufacturer', ManufacturerController::class);
