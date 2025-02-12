@@ -9,9 +9,16 @@
 
 
     <div class="row d-flex">
-        <div class="col-12">
+        <div class="col-6">
             <h4 class="mb-3 btn btn-secondary px-4">Delete manufacturer</h4>
         </div>
+        <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end mb-2 col-6">
+            <a class="btn btn-success" href="{{ url('manufacturer') }}">Back</a>
+
+        </div>
+
+
+
     </div>
     <div class="card">
 

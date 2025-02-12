@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManufacturerController;
@@ -52,3 +53,9 @@ Route::resource('status',StatusController::class);
 Route::get('manufacturer/delete/{id}',[ManufacturerController::class,'destroy_view']);
 Route::post('manufacturer/search',[ManufacturerController::class,'search']);
 Route::resource('manufacturer', ManufacturerController::class);
+
+
+Route::get('brand/delete/{id}', [BrandController::class,'destroy_view']);
+Route::post('brand/search',[BrandController::class,'search']);
+Route::resource('brand',BrandController::class);
+

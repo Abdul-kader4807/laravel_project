@@ -6,51 +6,56 @@
     @endphp
 
 
-    <div class="row d-flex">
-        <div class="col-12">
-            <h4 class="mb-3 btn btn-secondary px-4">Register category</h4>
+    <div class="row ">
+        <div class="col-6">
+            <h4 class="mb-3 btn btn-secondary px-4">category Details</h4>
+
         </div>
+        <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-6"> <a
+                href="{{ route('category.index') }}" class="btn btn-success">Back</a>
+        </div>
+
+    </div>
     </div>
     <div class="card">
 
         <div class="card-body p-4">
 
 
-            <div class="row mb-3">
-                <label for="input42" class="col-sm-3 col-form-label"> Name</label>
-                <div class="col-sm-9">
-                    <div class="position-relative input-icon">
-                        <input type="text" class="form-control" name="name" value="{{ $category['name'] }}">
-                        <input type="hidden" class="form-control" name="id" value="{{ $category['id'] }}">
-                        @error('name')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
 
+            <div class="container">
+
+                <div id="printableArea">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> Id:{{ $category->id }}</h5>
+                             <h5 class="card-title">{{ $category->name }}</h5>
+                            <p><strong>Description:</strong> {{ $category->description }}</p>
+                            <p><strong>Created_at:</strong> {{ $category->created_at }}</p>
+                            <p><strong>Updated_at:</strong> {{ $category->updated_at }}</p>
+
+
+                        </div>
                     </div>
+
                 </div>
+
             </div>
+            <div class=" row col-12">
+                <div class="col-6 p-2">
+                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-warning">Edit</a>
 
 
-            <div class="row mb-3">
-                <label for="input47" class="col-sm-3 col-form-label">Description</label>
-                <div class="col-sm-9">
-                    <div class="input-group">
-
-                        <textarea class="form-control" name="description" id="input47" rows="3" placeholder="description">{{ $category['description'] }}</textarea>
-                    </div>
-                    @error('description')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
                 </div>
+                <div class="col-6 d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end p-2 "> <button onclick="printDiv('printableArea')" class="btn btn-primary">Print</button>
+                </div>
+
             </div>
-
-
-
-
-
-
 
         </div>
+
+
+
 
 
 

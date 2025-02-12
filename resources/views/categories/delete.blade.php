@@ -6,10 +6,17 @@
     @endphp
 
 
-    <div class="row d-flex">
-        <div class="col-12">
+    <div class="row ">
+        <div class="col-6">
             <h4 class="mb-3 btn btn-secondary px-4">Delete category</h4>
         </div>
+        <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end mb-2 col-6">
+            <a class="btn btn-success" href="{{ url('category') }}">Back</a>
+
+        </div>
+
+
+
     </div>
     <div class="card">
 
@@ -32,16 +39,11 @@
                     </div>
                 </div>
 
-
-
-
-
-
                 <div class="row mb-3">
                     <label for="input47" class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-9">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <span class="input-group-text"><i class="bx bx-align-left"></i></span>
                             <textarea class="form-control" name="description" id="input47" rows="3" placeholder="Description">{{ $category['description'] }}</textarea>
                         </div>
                         @error('description')

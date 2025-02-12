@@ -27,8 +27,8 @@ class StatusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:4',
-            'description' => 'required|min:6',
+            'name' => 'required|min:3',
+            'description' => 'required|min:3',
 
         ]);
         $status = new Status();
@@ -64,8 +64,8 @@ class StatusController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:4',
-            'description' => 'required|min:4',
+            'name' => 'required|min:3',
+            'description' => 'required|min:3',
 
         ]);
         // print_r($status->all());

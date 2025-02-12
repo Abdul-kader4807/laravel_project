@@ -1,32 +1,37 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-
-@php
-    // print_r($manufacturer);
-
- @endphp
+    @php
+        // print_r($manufacturer);
+    @endphp
 
 
-    <div class="row d-flex">
-        <div class="col-12">
-            <h4 class="mb-3 btn btn-secondary px-4">Register manufacturer</h4>
+    <div class="row ">
+        <div class="col-6">
+            <h4 class="mb-3 btn btn-secondary px-4">Update manufacturer</h4>
         </div>
+
+        <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end mb-2 col-6">
+            <a class="btn btn-success" href="{{ url('manufacturer') }}">Back</a>
+
+        </div>
+
+
     </div>
     <div class="card">
 
         <div class="card-body p-4">
 
-            <form action="{{url("manufacturer/{$manufacturer['id']}")}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url("manufacturer/{$manufacturer['id']}") }}" method="post" enctype="multipart/form-data">
                 @csrf
-                    {{-- @method('PUT') --}}
-                    <input type="hidden"  name="_method"  value="put">
+                {{-- @method('PUT') --}}
+                <input type="hidden" name="_method" value="put">
 
                 <div class="row mb-3">
                     <label for="input42" class="col-sm-3 col-form-label"> Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" class="form-control" name="name" value="{{$manufacturer['name']}}"
+                            <input type="text" class="form-control" name="name" value="{{ $manufacturer['name'] }}"
                                 id="input42" placeholder="Enter Your Name">
                             @error('name')
                                 <span style="color: red">{{ $message }}</span>
@@ -39,7 +44,7 @@
                     <label for="input43" class="col-sm-3 col-form-label">Phone No</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" name="phone" value="{{$manufacturer['phone']}}" class="form-control"
+                            <input type="text" name="phone" value="{{ $manufacturer['phone'] }}" class="form-control"
                                 id="input43" placeholder="Phone No">
                             @error('phone')
                                 <span style="color: red">{{ $message }}</span>
@@ -53,7 +58,7 @@
                     <label for="input44" class="col-sm-3 col-form-label">Email Address</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" name="email" value="{{$manufacturer['email']}}" class="form-control"
+                            <input type="text" name="email" value="{{ $manufacturer['email'] }}" class="form-control"
                                 id="input44" placeholder="Email Address">
                             @error('email')
                                 <span style="color: red">{{ $message }}</span>
@@ -70,7 +75,7 @@
                     <div class="col-sm-9">
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <textarea class="form-control" name="address" id="input47" rows="3" placeholder="Address">{{$manufacturer['address']}}</textarea>
+                            <textarea class="form-control" name="address" id="input47" rows="3" placeholder="Address">{{ $manufacturer['address'] }}</textarea>
                         </div>
                         @error('address')
                             <span style="color: red">{{ $message }}</span>
@@ -82,8 +87,8 @@
                     <label for="input44" class="col-sm-3 col-form-label">Country</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" name="country" value="{{$manufacturer['country']}}" class="form-control"
-                                id="input44" placeholder="country">
+                            <input type="text" name="country" value="{{ $manufacturer['country'] }}"
+                                class="form-control" id="input44" placeholder="country">
                             @error('country')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror

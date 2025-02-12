@@ -11,10 +11,24 @@ class BrandController extends Controller
 
     public function index()
     {
+        // $brands = brand::get();
+        // print_r($brands);
+
+
+        // $brands = Brand::with('status')->paginate(3); // Status name er sathe data load korchi
+
         $brands = Brand::all();
-        $brands = Brand::paginate(4);
+        $brands = Brand::paginate(3);
         return view('brands.index', compact('brands'));
     }
+
+
+
+
+
+
+
+
 
 
     public function create()
@@ -26,11 +40,12 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
-            'brand_name'   => 'required|min:5',
-            'contact_info'   => 'required|min:5',
+            'brand_name'   => 'required|min:3',
+            'contact_info'   => 'required|min:3',
             'status_id' => 'required|exists:status,id',
-            'address'   => 'required|min:5',
+            'address'   => 'required|min:3',
 
         ]);
         $brand = new Brand();
@@ -43,14 +58,13 @@ class BrandController extends Controller
         if ($brand->save()) {
             return redirect('brand')->with('success', "Brand has been registered");
         };
-
     }
 
 
-    public function show( $id)
+    public function show($id)
     {
-        $brand = Brand::findOrFail($id);
-        return view('brands.show', compact('brand'));
+        $brands = Brand::find($id);
+        return view('brands.show', compact('brands'));
     }
 
 
@@ -59,30 +73,36 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id);
         $status = Status::all();
-        return view('brands.update',compact('brand','status'));
+        return view('brands.update', compact('brand', 'status'));
     }
 
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'brand_name'   => 'required|min:5',
-            'contact_info'   => 'required|min:5',
+            'brand_name'   => 'required|min:3',
+            'contact_info'   => 'required|min:3',
             'status_id' => 'required|exists:status,id',
-            'address'   => 'required|min:5',
+            'address'   => 'required|min:3',
 
         ]);
-        $brand = Brand::findOrFail($id);
+        // print_r($request->all());
+
+        $brand = Brand::find($id);
+        $brand->brand_name = $request->brand_name;
+        $brand->contact_info = $request->contact_info;
+        $brand->status_id = $request->status_id;
+        $brand->address = $request->address;
+
         if ($brand->save()) {
             return redirect('brand')->with('success', "Brand has been updated");
         };
-
     }
 
 
     public function destroy_view($id)
     {
-        $brand = Brand::findOrFail($id);
+        $brand = Brand::find($id);
         return view('brands.delete', compact('brand'));
     }
 
@@ -95,13 +115,15 @@ class BrandController extends Controller
 
     public function search(Request $request)
     {
-        $brandS = Brand::where('name', "like", "%{$request->name}%")->paginate(4);
+        $brands = Brand::where('brand_name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
 
         return view('brands.index', compact('brands', 'requestdata'));
+
+        if ($brands) {
+            return view('brands.index', compact('brands'));
+        } else {
+            $brands = [];
+        }
     }
-
-
-    
-
 }

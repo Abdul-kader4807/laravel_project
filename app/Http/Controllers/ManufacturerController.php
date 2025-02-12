@@ -13,7 +13,7 @@ class ManufacturerController extends Controller
     {  // $manufacturers = Manufacturer::get();
         // print_r($manufacturers);
 
-        
+
         $manufacturers = Manufacturer::all();
         $manufacturers = Manufacturer::paginate(4);
         return view('manufacturers.index', compact('manufacturers'));
@@ -29,11 +29,11 @@ class ManufacturerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|min:5',
+            'name'   => 'required|min:4',
             'phone'  => 'required|min:4|numeric',
             'email'  => 'required|email',
-            'address' => 'required|min:4',
-            'country' => 'required|min:4',
+            'address' => 'required|min:3',
+            'country' => 'required|min:3',
         ]);
         $manufacturer = new Manufacturer();
         $manufacturer->name = $request->name;
@@ -68,8 +68,8 @@ class ManufacturerController extends Controller
         'name'   => 'required|min:5',
         'phone'  => 'required|min:4|numeric',
         'email'  => 'required|email',
-        'address' => 'required|min:4',
-        'country' => 'required|min:4',
+        'address' => 'required|min:3',
+        'country' => 'required|min:3',
     ]);
 
     // print_r($request->all());

@@ -29,8 +29,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:5',
-            'description' => 'required|min:6',
+            'name' => 'required|min:4',
+            'description' => 'required|min:3',
         ]);
 
         $category = new Category();
@@ -63,8 +63,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:5',
-            'description' => 'required|min:6',
+            'name' => 'required|min:4',
+            'description' => 'required|min:3',
         ]);
 
         // print_r($request->all());
