@@ -13,13 +13,13 @@ class StatusController extends Controller
         $status = Status::all();
         $statuses = Status::paginate(2);
         // print_r($statuses);
-        return view('status.index', compact('statuses','status'));
+        return view('pages.status.index', compact('statuses','status'));
     }
 
 
     public function create()
     {
-        return view('status.create');
+        return view('pages.status.create');
     }
 
 
@@ -43,7 +43,7 @@ class StatusController extends Controller
     public function show($id)
     {
         $status = Status::find($id);
-        return view('status.show', compact('status'));
+        return view('pages.status.show', compact('status'));
     }
 
 
@@ -55,7 +55,7 @@ class StatusController extends Controller
         $status = Status::find($id);
         // $status = Status::where('id', $id)->get();
 
-        return view('status.update', compact('status'));
+        return view('pages.status.update', compact('status'));
     }
 
 
@@ -82,7 +82,7 @@ class StatusController extends Controller
 
     {
         $status = Status::find($id);
-        return view('status.delete', compact('status'));
+        return view('pages.status.delete', compact('status'));
     }
 
     public function destroy($id)
@@ -97,9 +97,9 @@ class StatusController extends Controller
     {
         $statuses = Status::where('name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
-        return view('status.index', compact('statuses', 'requestdata'));
+        return view('pages.status.index', compact('statuses', 'requestdata'));
         if ($statuses) {
-            return view('status.index', compact('statuses'));
+            return view('pages.status.index', compact('statuses'));
         } else {
             $statuses = [];
         }

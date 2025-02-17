@@ -14,14 +14,14 @@ class CategoryController extends Controller
 
         $categories = Category::paginate(3);
         //  print_r($categories);
-        return view('categories.index', compact('categories'));
+        return view('pages.categories.index', compact('categories'));
     }
 
 
 
     public function create()
     {
-        return view('categories.create');
+        return view('pages.categories.create');
     }
 
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-        return view('categories.show', compact('category'));
+        return view('pages.categories.show', compact('category'));
     }
 
 
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         // $category = Category::where('id',$id)->get();
-        return view('categories.update', compact('category'));
+        return view('pages.categories.update', compact('category'));
     }
 
 
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     public function destroy_view($id)
     {
         $category = Category::find($id);
-        return view('categories.delete', compact('category'));
+        return view('pages.categories.delete', compact('category'));
     }
 
 
@@ -99,10 +99,10 @@ class CategoryController extends Controller
     {
         $categories = Category::where('name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
-        return view('categories.index', compact('categories', 'requestdata'));
+        return view('pages.categories.index', compact('categories', 'requestdata'));
 
         if ($categories) {
-            return view('categories.index', compact('categories'));
+            return view('pages.categories.index', compact('categories'));
         } else {
             $categories = [];
         }

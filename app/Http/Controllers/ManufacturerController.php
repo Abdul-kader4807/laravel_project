@@ -16,13 +16,13 @@ class ManufacturerController extends Controller
 
         $manufacturers = Manufacturer::all();
         $manufacturers = Manufacturer::paginate(4);
-        return view('manufacturers.index', compact('manufacturers'));
+        return view('pages.manufacturers.index', compact('manufacturers'));
     }
 
 
     public function create()
     {
-        return view('manufacturers.create');
+        return view('pages.manufacturers.create');
     }
 
 
@@ -51,7 +51,7 @@ class ManufacturerController extends Controller
     public function show($id)
     {
         $manufacturers = Manufacturer::find($id);
-        return view('manufacturers.show' ,compact('manufacturers'));
+        return view('pages.manufacturers.show' ,compact('manufacturers'));
     }
 
 
@@ -59,7 +59,7 @@ class ManufacturerController extends Controller
     {
         $manufacturer = Manufacturer::find($id);
          // $manufacturer=Manufacturer::where('id',$id)->get();
-        return view('manufacturers.update',compact('manufacturer'));
+        return view('pages.manufacturers.update',compact('manufacturer'));
     }
 
 
@@ -94,7 +94,7 @@ class ManufacturerController extends Controller
     public function destroy_view($id)
     {
         $manufacturer = Manufacturer::find($id);
-        return view('manufacturers.delete', compact('manufacturer'));
+        return view('pages.manufacturers.delete', compact('manufacturer'));
     }
 
 
@@ -115,10 +115,10 @@ class ManufacturerController extends Controller
         $manufacturers = Manufacturer::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
 
-        return view('manufacturers.index', compact('manufacturers', 'requestdata'));
+        return view('pages.manufacturers.index', compact('manufacturers', 'requestdata'));
 
         if($manufacturers){
-            return view('manufacturers.index',compact('manufacturers'));
+            return view('pages.manufacturers.index',compact('manufacturers'));
         }else{
             $manufacturers =[];
         }

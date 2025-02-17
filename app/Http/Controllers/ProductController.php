@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(4);
-        return view('products.index', compact('products'));
+        return view('pages.products.index', compact('products'));
     }
 
 
@@ -24,7 +24,7 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        return view('products.create', compact('manufacturers', 'brands', 'categories'));
+        return view('pages.products.create', compact('manufacturers', 'brands', 'categories'));
     }
 
 
@@ -98,7 +98,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.show', compact('product'));
+        return view('pages.products.show', compact('product'));
     }
 
 
@@ -108,7 +108,7 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        return view('products.update', compact('product', 'manufacturers', 'brands', 'categories'));
+        return view('pages.products.update', compact('product', 'manufacturers', 'brands', 'categories'));
     }
 
 
@@ -160,7 +160,7 @@ class ProductController extends Controller
     public function destroy_view($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.delete', compact('product'));
+        return view('pages.products.delete', compact('product'));
     }
 
 
@@ -177,6 +177,6 @@ class ProductController extends Controller
         $products = Product::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
 
-        return view('products.index', compact('products', 'requestdata'));
+        return view('pages.products.index', compact('products', 'requestdata'));
     }
 }

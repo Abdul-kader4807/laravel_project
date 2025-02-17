@@ -14,12 +14,12 @@ class CustomerController extends Controller
         $customers = Customer::paginate(4);
         // print_r($customers);
 
-        return view('customers.index', compact('customers'));
+        return view('pages.customers.index', compact('customers'));
     }
 
     public function create()
     {
-        return view('customers.create');
+        return view('pages.customers.create');
     }
 
 
@@ -29,11 +29,12 @@ class CustomerController extends Controller
             'name'   => 'required|min:5',
             'phone'  => 'required|min:4|numeric',
             'email'  => 'required|email',
-            'address' => 'required|min:4|in:Dhaka,Comilla',
+            'address' => 'required|min:4',
+            //|in:Dhaka,Comilla
             'photo'  => 'required|image|mimes:png,jpg,jpeg|max:2048',
 
-        ], ['address.in' => "Address must be inbetween Dhaka or Comilla",]);
-
+        ]);
+// requred dite caile evabehobe, ['address.in' => "Address must be inbetween Dhaka or Comilla",]
         $customer = new Customer();
         $customer->name = $request->name;
         $customer->phone = $request->phone;
@@ -58,7 +59,7 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = Customer::find($id);
-        return view('customers.show', compact('customer'));
+        return view('pages.customers.show', compact('customer'));
     }
 
 
@@ -67,7 +68,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         // $customer=Customer::where('id',$id)->get();
-        return view('customers.update', compact('customer'));
+        return view('pages.customers.update', compact('customer'));
     }
 
 
@@ -82,8 +83,8 @@ class CustomerController extends Controller
             'address' => 'required|min:4',
             'photo'  => 'required|image|mimes:png,jpg,jpeg|max:2048',
 
-        ], ['address.in' => "Address must be inbetween Dhaka or Comilla",]);
-
+        ]);
+//['address.in' => "Address must be inbetween Dhaka or Comilla",] requerid
         // print_r($request->all());
 
         $customer = Customer::find($id);
@@ -114,7 +115,7 @@ class CustomerController extends Controller
     public function destroy_view($id)
     {
         $customer = Customer::find($id);
-        return view('customers.delete', compact('customer'));
+        return view('pages.customers.delete', compact('customer'));
     }
 
     public function destroy($id)
@@ -132,10 +133,10 @@ class CustomerController extends Controller
         $customers = Customer::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
 
-        return view('customers.index', compact('customers', 'requestdata'));
+        return view('pages.customers.index', compact('customers', 'requestdata'));
 
         if ($customers) {
-            return view('customers.index', compact('customers'));
+            return view('pages.customers.index', compact('customers'));
         } else {
             $customers = [];
         }

@@ -16,13 +16,13 @@ class SupplierController extends Controller
 
         // print_r($suppliers);
 
-        return view('suppliers.index', compact('suppliers'));
+        return view('pages.suppliers.index', compact('suppliers'));
     }
 
 
     public function create()
     {
-        return view('suppliers.create');
+        return view('pages.suppliers.create');
     }
 
 
@@ -63,14 +63,14 @@ class SupplierController extends Controller
     public function show($id)
     {
         $supplier = Supplier::find($id);
-        return view('suppliers.show', compact('supplier'));
+        return view('pages.suppliers.show', compact('supplier'));
     }
 
 
     public function edit($id)
     {
         $supplier = Supplier::find($id);
-        return view('suppliers.update', compact('supplier'));
+        return view('pages.suppliers.update', compact('supplier'));
     }
 
 
@@ -116,7 +116,7 @@ class SupplierController extends Controller
     public function destroy_view($id)
     {
         $supplier = Supplier::find($id);
-        return view('suppliers.delete', compact('supplier'));
+        return view('pages.suppliers.delete', compact('supplier'));
     }
 
 
@@ -134,10 +134,10 @@ class SupplierController extends Controller
     {
         $suppliers = Supplier::where('name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
-        return view('suppliers.index', compact('suppliers', 'requestdata'));
+        return view('pages.suppliers.index', compact('suppliers', 'requestdata'));
 
         if ($suppliers) {
-            return view('suppliers.index', compact('suppliers'));
+            return view('pages.suppliers.index', compact('suppliers'));
         } else {
             $suppliers = [];
         }

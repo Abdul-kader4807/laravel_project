@@ -44,5 +44,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+
     }
+
+    function isAdmin(){
+        return $this->role_id == 1;
+    }
+
+    function isProvider(){
+       return $this->role_id == 2;
+    }
+
+    function isCashier(){
+       return $this->role_id == 3;
+    }
+
+    function isManager(){
+      return  $this->role_id == 4;
+    }
+
+
+
 }
