@@ -271,18 +271,17 @@
  --}}
 
  {{-- show print korar  jonno --}}
- <script>
-    function printDiv(divId) {
-        var printContents = document.getElementById(divId).innerHTML;
-        var originalContents = document.body.innerHTML;
 
+<script>
+    function printPage() {
+        var printContents = document.getElementById("printableArea").innerHTML;
+        var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
+        location.reload(); // Reload the page to restore buttons after printing
     }
-    </script>
-
-
+</script>
 
 
 

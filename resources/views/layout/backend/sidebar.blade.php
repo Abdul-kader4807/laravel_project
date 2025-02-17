@@ -148,7 +148,7 @@
             <div class="menu-title">Warehouse</div>
         </a>
         <ul>
-            <li> <a href="icons-line-icons.html"><i class='bx bx-radio-circle'></i>Warehouse-List</a>
+            <li> <a href="{{url('warehouse')}}"><i class='bx bx-radio-circle'></i>Warehouse-List</a>
             </li>
              {{-- <li> <a href="icons-boxicons.html"><i class='bx bx-radio-circle'></i>Boxicons</a>
             </li> --}}
@@ -187,7 +187,7 @@
             </li>
             <li> <a href="{{url('category')}}"><i class='bx bx-radio-circle'></i>Category List</a>
             </li>
-            <li> <a href="form-radios-and-checkboxes.html"><i class='bx bx-radio-circle'></i>Brand List</a>
+            <li> <a href="{{url('brand')}}"><i class='bx bx-radio-circle'></i>Brand List</a>
             </li>
             <li> <a href="{{url('manufacturer')}}"><i class='bx bx-radio-circle'></i>Manufacturer List</a>
             </li>

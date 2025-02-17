@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WarehouseController;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -58,7 +60,9 @@ Route::post('brand/search',[BrandController::class,'search']);
 Route::resource('brand',BrandController::class);
 
 
-
+Route::get('warehouse/delete/{id}',[WarehouseController::class,'destroy_view']);
+Route::post('warehouse/search', [WarehouseController::class,'search']);
+Route::resource('warehouse',WarehouseController::class);
 
 
 

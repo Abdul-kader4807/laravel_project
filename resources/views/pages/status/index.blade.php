@@ -48,7 +48,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Name</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Description</th>
                                 <th class="text-center">Action</th>
                             </tr>

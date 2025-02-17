@@ -19,22 +19,14 @@ class BrandController extends Controller
 
         $brands = Brand::all();
         $brands = Brand::paginate(3);
-        return view('brands.index', compact('brands'));
+        return view('pages.brands.index', compact('brands'));
     }
-
-
-
-
-
-
-
-
 
 
     public function create()
     {
         $status = Status::all();
-        return view('brands.create', compact('status'));
+        return view('pages.brands.create', compact('status'));
     }
 
 
@@ -63,8 +55,8 @@ class BrandController extends Controller
 
     public function show($id)
     {
-        $brands = Brand::find($id);
-        return view('brands.show', compact('brands'));
+        $brand = Brand::find($id);
+        return view('pages.brands.show', compact('brand'));
     }
 
 
@@ -73,7 +65,7 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id);
         $status = Status::all();
-        return view('brands.update', compact('brand', 'status'));
+        return view('pages.brands.update', compact('brand', 'status'));
     }
 
 
@@ -103,7 +95,7 @@ class BrandController extends Controller
     public function destroy_view($id)
     {
         $brand = Brand::find($id);
-        return view('brands.delete', compact('brand'));
+        return view('pages.brands.delete', compact('brand'));
     }
 
     public function destroy(string $id)
@@ -118,10 +110,10 @@ class BrandController extends Controller
         $brands = Brand::where('brand_name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
 
-        return view('brands.index', compact('brands', 'requestdata'));
+        return view('pages.brands.index', compact('brands', 'requestdata'));
 
         if ($brands) {
-            return view('brands.index', compact('brands'));
+            return view('pages.brands.index', compact('brands'));
         } else {
             $brands = [];
         }

@@ -50,8 +50,8 @@ class ManufacturerController extends Controller
 
     public function show($id)
     {
-        $manufacturers = Manufacturer::find($id);
-        return view('pages.manufacturers.show' ,compact('manufacturers'));
+        $manufacturer = Manufacturer::find($id);
+        return view('pages.manufacturers.show' ,compact('manufacturer'));
     }
 
 

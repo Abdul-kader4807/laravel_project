@@ -2,17 +2,17 @@
 
 @section('page_content')
     @php
-        // print_r($customer);
+        // print_r($warehouse);
     @endphp
 
 
     <div class="row ">
         <div class="col-6">
-            <h4 class="mb-3 btn btn-secondary px-4">Customer Details</h4>
+            <h4 class="mb-3 btn btn-secondary px-4">warehouse Details</h4>
 
         </div>
         <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-6"> <a
-                href="{{ route('customer.index') }}" class="btn btn-success">Back</a>
+                href="{{ route('warehouse.index') }}" class="btn btn-success">Back</a>
         </div>
 
     </div>
@@ -28,15 +28,15 @@
                 <div id="printableArea">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"> Id:{{ $customer->id }}</h5>
-                             <h5 class="card-title">{{ $customer->name }}</h5>
-                            <p><strong>Phone:</strong> {{ $customer->phone }}</p>
-                            <p><strong>Email:</strong> {{ $customer->email }}</p>
-                            <p><strong>Address:</strong> {{ $customer->address }}</p>
+                            <h5 class="card-title"> Id:{{ $warehouse->id }}</h5>
+                             <h5 class="card-title">{{ $warehouse->name }}</h5>
+                            <p><strong>Phone:</strong> {{ $warehouse->phone }}</p>
+                            <p><strong>Email:</strong> {{ $warehouse->email }}</p>
+                            <p><strong>Address:</strong> {{ $warehouse->address }}</p>
                             <p><strong>Photo:</strong></p>
-                            <img width="250" height="150" src="{{asset('photo')}}/{{$customer['photo']}}" alt="{{$customer['name']}}" srcset="">
-                            <p><strong>Created_at:</strong> {{ $customer->created_at }}</p>
-                            <p><strong>Updated_at:</strong> {{ $customer->updated_at }}</p>
+                            <img width="250" height="150" src="{{asset('photo')}}/{{$warehouse['photo']}}" alt="{{$warehouse['name']}}" srcset="">
+                            <p><strong>Created_at:</strong> {{ $warehouse->created_at }}</p>
+                            <p><strong>Updated_at:</strong> {{ $warehouse->updated_at }}</p>
 
 
                         </div>
@@ -47,7 +47,7 @@
             </div>
             <div class=" row col-12">
                 <div class="col-6 p-2">
-                    <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('warehouse.edit', $warehouse->id) }}" class="btn btn-warning">Edit</a>
 
 
                 </div>
@@ -73,7 +73,7 @@
 @section('page_content')
     <div class="row">
         <div class="col-12 d-flex justify-content-between align-items-center">
-            <h4 class="mb-3 btn btn-secondary px-4">customer Details</h4>
+            <h4 class="mb-3 btn btn-secondary px-4">warehouse Details</h4>
             <button class="btn btn-primary" onclick="printPage()">Print</button>
         </div>
     </div>
@@ -84,41 +84,35 @@
 
                 <tr>
                     <th>ID</th>
-                    <td>{{ $customer['id'] }}</td>
+                    <td>{{ $warehouse['id'] }}</td>
                 </tr>
 
                 <tr>
                     <th>Name</th>
-                    <td>{{ $customer['name'] }}</td>
+                    <td>{{ $warehouse['name'] }}</td>
                 </tr>
 
                 <tr>
                     <th>Phone No</th>
-                    <td>{{ $customer['phone'] }}</td>
+                    <td>{{ $warehouse['phone'] }}</td>
                 </tr>
                 <tr>
-                    <th>Email Address</th>
-                    <td>{{ $customer['email'] }}</td>
+                    <th>Location</th>
+                    <td>{{ $warehouse['location'] }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td>{{ $customer['address'] }}</td>
+                    <td>{{ $warehouse['address'] }}</td>
                 </tr>
-                <tr>
-                    <th>Photo</th>
-                    <td>
-                        <img width="80" src="{{ asset('photo') }}/{{ $customer['photo'] }}"
-                            alt="{{ $customer['name'] }}">
-                    </td>
-                </tr>
+
                 <tr>
                     <th>Created_at</th>
-                    <td>{{ $customer['created_at'] }}</td>
+                    <td>{{ $warehouse['created_at'] }}</td>
                 </tr>
 
                 <tr>
                     <th>Updated_at</th>
-                    <td>{{ $customer['updated_at'] }}</td>
+                    <td>{{ $warehouse['updated_at'] }}</td>
                 </tr>
             </table>
 
@@ -127,10 +121,10 @@
 
         <div class="row col-12">
             <div class="col-6 p-4">
-                <a href="{{ url('customer') }}" class="btn btn-warning">Back</a>
+                <a href="{{ url('warehouse') }}" class="btn btn-warning">Back</a>
             </div>
             <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-6 p-2">
-                <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-success">Edit</a>
+                <a href="{{ route('warehouse.edit', $warehouse->id) }}" class="btn btn-success">Edit</a>
             </div>
         </div>
     </div>
