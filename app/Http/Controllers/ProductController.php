@@ -83,21 +83,24 @@ class ProductController extends Controller
         $product->is_featured = $request->is_featured;
         $product->is_brand = $request->is_brand;
 
-        if ($request->hasFile('photo')) {
-            $photoname = $request->name . "." . $request->file('photo')->extension();
-            $request->file('photo')->move(public_path('photo'), $photoname);
-            $product->photo = $photoname;
+        $photoname = $request->name . "." . $request->file('photo')->extension();
+        $photoPath = public_path('photo/' . $photoname);
+        if (file_exists($photoPath)) {
+            unlink($photoPath);
         }
 
+        $request->file('photo')->move(public_path('photo'), $photoname);
+        $product->photo = $photoname;
+
         if ($product->save()) {
-            return redirect('product')->with('success', "Product has been registered");
+            return redirect('product')->with('success', "product has been registered");
         };
     }
 
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         return view('pages.products.show', compact('product'));
     }
 
@@ -140,43 +143,72 @@ class ProductController extends Controller
             'is_brand' => 'required|boolean',
             'photo'  => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
-
-        $product = Product::findOrFail($id);
-
-        $product->fill($request->except('photo'));
-
-        if ($request->hasFile('photo')) {
-            $photoname = $request->name . "." . $request->file('photo')->extension();
+$product =  Product::find($id);
+$product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
+        $product->generic_name = $request->generic_name;
+        $product->dosage = $request->dosage;
+        $product->strength = $request->strength;
+        $product->manufacturer_id = $request->manufacturer_id;
+        $product->unit = $request->unit;
+        $product->price = $request->price;
+        $product->offer_price = $request->offer_price;
+        $product->max_quantity = $request->max_quantity;
+        $product->reorder_level = $request->reorder_level;
+        $product->discount = $request->discount;
+        $product->expiry_date = $request->expiry_date;
+        $product->description = $request->description;
+        $product->uom_id = $request->uom_id;
+        $product->barcode = $request->barcode;
+        $product->sku = $request->sku;
+        $product->star = $request->star;
+        $product->weight = $request->weight;
+        $product->size = $request->size;
+        $product->is_featured = $request->is_featured;
+        $product->is_brand = $request->is_brand;
+        $photoname = $request->name . "." . $request->file('photo')->extension();
+        $photoPath = public_path('photo/' . $photoname);
+        if (file_exists($photoPath)) {
+            unlink($photoPath);
             $request->file('photo')->move(public_path('photo'), $photoname);
-            $product->photo = $photoname;
+        $product->photo = $photoname;
+        }else{
+            $product->photo= $product->photo;
         }
-
         if ($product->save()) {
-            return redirect('product')->with('success', "Product has been updated");
+            return redirect('product')->with('success', "product has been registered");
         };
     }
 
 
     public function destroy_view($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         return view('pages.products.delete', compact('product'));
     }
 
-
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        if (Product::destroy($id)) {
-            return redirect('product')->with('success', "Product has been deleted");
+        $del = Product::destroy($id);
+        if ($del) {
+            return redirect('product')->with('success', "product has been Deleted");
         }
     }
 
 
+
     public function search(Request $request)
     {
-        $products = Product::where('name', "like", "%{$request->name}%")->paginate(4);
+        $products = Product::where('name', "like", "%{$request->name}%")->paginate(3);
         $requestdata = $request->name;
 
         return view('pages.products.index', compact('products', 'requestdata'));
+
+        if ($products) {
+            return view('pages.products.index', compact('products'));
+        } else {
+            $products = [];
+        }
     }
 }

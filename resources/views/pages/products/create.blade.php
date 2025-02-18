@@ -3,7 +3,6 @@
 @section('page_content')
 
 
-
     <div class="row d-flex">
         <div class="col-12">
             <h4 class="mb-3 btn btn-secondary px-4">Register product</h4>
@@ -13,13 +12,13 @@
 
         <div class="card-body p-4">
 
-            <form action="{{url('product')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('product') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <label for="input42" class="col-sm-3 col-form-label"> Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" class="form-control" name="name" value="{{old('name')}}"
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}"
                                 id="input42" placeholder="Enter Your Name">
                             @error('name')
                                 <span style="color: red">{{ $message }}</span>
@@ -37,7 +36,8 @@
                             <select name="category_id" id="category_id" class="form-control">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -54,14 +54,20 @@
                     <label for="brand_id" class="col-sm-3 col-form-label">Brand</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
+
                             <select name="brand_id" id="brand_id" class="form-control">
                                 <option value="">Select Brand</option>
                                 @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
+                                    <option value="{{ $brand->id }}"
+                                        {{ old('brand_id', $product->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
                                         {{ $brand->name }}
                                     </option>
+
+
+
                                 @endforeach
                             </select>
+
                             @error('brand_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -72,12 +78,14 @@
 
 
 
+
+
                 <div class="row mb-3">
                     <label for="generic_name" class="col-sm-3 col-form-label">Generic Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" name="generic_name" value="{{ old('generic_name') }}" class="form-control"
-                                id="generic_name" placeholder="Enter Generic Name">
+                            <input type="text" name="generic_name" value="{{ old('generic_name') }}"
+                                class="form-control" id="generic_name" placeholder="Enter Generic Name">
                             @error('generic_name')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror
@@ -91,7 +99,8 @@
                     <label for="dosage" class="col-sm-3 col-form-label">Dosage</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="dosage" value="{{ old('dosage') }}" class="form-control" id="dosage" placeholder="Enter Dosage">
+                            <input type="text" name="dosage" value="{{ old('dosage') }}" class="form-control"
+                                id="dosage" placeholder="Enter Dosage">
                             @error('dosage')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -112,7 +121,8 @@
                             <select name="manufacturer_id" class="form-control" id="manufacturer_id" required>
                                 <option value="">Select Manufacturer</option>
                                 @foreach ($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id }}" {{ old('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>
+                                    <option value="{{ $manufacturer->id }}"
+                                        {{ old('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>
                                         {{ $manufacturer->name }}
                                     </option>
                                 @endforeach
@@ -134,7 +144,8 @@
                     <label for="strength" class="col-sm-3 col-form-label">Strength</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="strength" value="{{ old('strength') }}" class="form-control" id="strength" placeholder="Enter Strength">
+                            <input type="text" name="strength" value="{{ old('strength') }}" class="form-control"
+                                id="strength" placeholder="Enter Strength">
                             @error('strength')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -149,7 +160,8 @@
                     <label for="unit" class="col-sm-3 col-form-label">Unit</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="unit" value="{{ old('unit') }}" class="form-control" id="unit" placeholder="Enter Unit">
+                            <input type="text" name="unit" value="{{ old('unit') }}" class="form-control"
+                                id="unit" placeholder="Enter Unit">
                             @error('unit')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -164,7 +176,8 @@
                     <label for="price" class="col-sm-3 col-form-label">Price</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="price" value="{{ old('price') }}" class="form-control" id="price" placeholder="Enter Price">
+                            <input type="text" name="price" value="{{ old('price') }}" class="form-control"
+                                id="price" placeholder="Enter Price">
                             @error('price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -179,7 +192,8 @@
                     <label for="offer_price" class="col-sm-3 col-form-label">Offer Price</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="offer_price" value="{{ old('offer_price') }}" class="form-control" id="offer_price" placeholder="Offer Price">
+                            <input type="text" name="offer_price" value="{{ old('offer_price') }}"
+                                class="form-control" id="offer_price" placeholder="Offer Price">
                             @error('offer_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -195,7 +209,8 @@
                     <label for="max_quantity" class="col-sm-3 col-form-label"> Max_Quantity</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="max_quantity" value="{{ old('max_quantity') }}" class="form-control" id="max_quantity" placeholder="Enter max_quantity">
+                            <input type="text" name="max_quantity" value="{{ old('max_quantity') }}"
+                                class="form-control" id="max_quantity" placeholder="Enter max_quantity">
                             @error('max_quantity')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -212,7 +227,8 @@
                     <label for="reorder_level" class="col-sm-3 col-form-label">Reorder Level</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="reorder_level" value="{{ old('reorder_level') }}" class="form-control" id="reorder_level" placeholder="Reorder Level">
+                            <input type="text" name="reorder_level" value="{{ old('reorder_level') }}"
+                                class="form-control" id="reorder_level" placeholder="Reorder Level">
                             @error('reorder_level')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -227,7 +243,8 @@
                     <label for="expiry_date" class="col-sm-3 col-form-label">Expiry Date</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="date" name="expiry_date" value="{{ old('expiry_date') }}" class="form-control" id="expiry_date">
+                            <input type="date" name="expiry_date" value="{{ old('expiry_date') }}"
+                                class="form-control" id="expiry_date">
                             @error('expiry_date')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -255,7 +272,8 @@
                     <label for="discount" class="col-sm-3 col-form-label">Discount</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="discount" value="{{ old('discount') }}" class="form-control" id="discount" placeholder="Discount">
+                            <input type="text" name="discount" value="{{ old('discount') }}" class="form-control"
+                                id="discount" placeholder="Discount">
                             @error('discount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -270,7 +288,8 @@
                     <label for="uom_id" class="col-sm-3 col-form-label">UOM ID</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="uom_id" value="{{ old('uom_id') }}" class="form-control" id="uom_id" placeholder="Unit of Measure ID">
+                            <input type="text" name="uom_id" value="{{ old('uom_id') }}" class="form-control"
+                                id="uom_id" placeholder="Unit of Measure ID">
                             @error('uom_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -285,7 +304,8 @@
                     <label for="barcode" class="col-sm-3 col-form-label">Barcode</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="barcode" value="{{ old('barcode') }}" class="form-control" id="barcode" placeholder="Barcode">
+                            <input type="text" name="barcode" value="{{ old('barcode') }}" class="form-control"
+                                id="barcode" placeholder="Barcode">
                             @error('barcode')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -300,7 +320,8 @@
                     <label for="sku" class="col-sm-3 col-form-label">SKU</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="sku" value="{{ old('sku') }}" class="form-control" id="sku" placeholder="SKU">
+                            <input type="text" name="sku" value="{{ old('sku') }}" class="form-control"
+                                id="sku" placeholder="SKU">
                             @error('sku')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -317,7 +338,8 @@
                     <label for="star" class="col-sm-3 col-form-label">Star Rating</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="star" value="{{ old('star') }}" class="form-control" id="star" placeholder="Star Rating">
+                            <input type="text" name="star" value="{{ old('star') }}" class="form-control"
+                                id="star" placeholder="Star Rating">
                             @error('star')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -332,7 +354,8 @@
                     <label for="weight" class="col-sm-3 col-form-label">Weight</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="weight" value="{{ old('weight') }}" class="form-control" id="weight" placeholder="Weight">
+                            <input type="text" name="weight" value="{{ old('weight') }}" class="form-control"
+                                id="weight" placeholder="Weight">
                             @error('weight')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -347,7 +370,8 @@
                     <label for="size" class="col-sm-3 col-form-label">Size</label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="size" value="{{ old('size') }}" class="form-control" id="size" placeholder="Size">
+                            <input type="text" name="size" value="{{ old('size') }}" class="form-control"
+                                id="size" placeholder="Size">
                             @error('size')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

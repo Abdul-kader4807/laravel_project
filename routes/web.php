@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Warehouse;
@@ -41,7 +42,8 @@ Route::get('category/delete/{id}', [CategoryController::class,'destroy_view']);
 Route::post('category/search',[CategoryController::class,'search']);
 Route::resource('category', CategoryController::class);
 
-
+Route::get('product/delete/{id}',[ProductController::class,'destroy_view']);
+Route::post('product/search',[PurchaseController::class,'search']);
 Route::resource('product', ProductController::class);
 
 
@@ -70,6 +72,13 @@ Route::resource('warehouse',WarehouseController::class);
 Route::get('uom/delete/{id}',[UomController::class,'destroy_view']);
 Route::post('uom/search', [UomController::class,'search']);
 Route::resource('uom',UomController::class);
+
+
+Route::get('purchase/delete/{id}',[PurchaseController::class,'destroy_view']);
+Route::post('purchase/search',[PurchaseController::class,'search']);
+Route::resource('purchase',PurchaseController::class);
+
+
 
 
 require __DIR__.'/auth.php';

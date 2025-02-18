@@ -60,6 +60,7 @@
                                 <th class="text-center">Reorder Level </th>
                                 <th class="text-center">Max_quantity</th>
                                 <th class="text-center">Expiry Date</th>
+                                <th class="text-center">Manufacturer</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -73,8 +74,8 @@
                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->generic_name }}</td>
-                                    <td>{{ $product->category_id }}</td>
-                                    <td>{{ $product->brand_id }}</td>
+                                    <td>{{optional($product->category_id)->name}}</td>
+                                    <td>{{optional($product->brand_id)->name}}</td>
                                     <td>{{ $product->dosage }}</td>
                                     <td>{{ $product->strength }}</td>
                                     <td>{{ $product->unit }}</td>
@@ -83,6 +84,7 @@
                                     <td>{{ $product->reorder_level }}</td>
                                     <td>{{ $product->max_quantity }}</td>
                                     <td>{{ $product->expiry_date }}</td>
+                                    <td>{{optional($product->manufacturer_id)->name }}</td>
 
                                     <td>
 

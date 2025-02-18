@@ -117,7 +117,7 @@
             <div class="menu-title">Purchases </div>
         </a>
         <ul>
-            <li> <a href="table-basic-table.html"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
+            <li> <a href="{{url('purchase')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
             <li> <a href="table-datatable.html"><i class='bx bx-radio-circle'></i>Purchase Details</a>
             </li>
@@ -183,7 +183,7 @@
             <div class="menu-title">Products</div>
         </a>
         <ul>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Product List </a>
+            <li> <a href="{{url('product')}}"><i class='bx bx-radio-circle'></i>Product List </a>
             </li>
             <li> <a href="{{url('category')}}"><i class='bx bx-radio-circle'></i>Category List</a>
             </li>

@@ -17,7 +17,7 @@ class BrandController extends Controller
 
         // $brands = Brand::with('status')->paginate(3); // Status name er sathe data load korchi
 
-        $brands = Brand::all();
+        // $brands = Brand::all();
         $brands = Brand::paginate(3);
 
           //print_r( Brand::with('status')->get());
