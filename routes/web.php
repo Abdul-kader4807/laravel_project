@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,9 @@ Route::resource('warehouse',WarehouseController::class);
 
 
 
+Route::get('uom/delete/{id}',[UomController::class,'destroy_view']);
+Route::post('uom/search', [UomController::class,'search']);
+Route::resource('uom',UomController::class);
 
 
 require __DIR__.'/auth.php';

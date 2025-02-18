@@ -72,14 +72,6 @@
                 </div>
 
 
-
-
-
-
-
-
-
-
                 <div class="row mb-3">
                     <label for="input44" class="col-sm-3 col-form-label">Photo</label>
                     <div class="col-sm-9">

@@ -97,20 +97,32 @@ CREATE TABLE if not exists `phar_purchases` (
   `supplier_id` INT(11) DEFAULT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `status_id` INT(11) DEFAULT NULL,
-  `total_order` DOUBLE DEFAULT NULL,
-  `paid_amount` DOUBLE DEFAULT NULL,
+   `total_order` DECIMAL(10,2) DEFAULT 0.00,
+  `paid_amount` DECIMAL(10,2) DEFAULT 0.00,
   `total_amount` DECIMAL(10,2) NOT NULL,
-  `discount` DOUBLE DEFAULT NULL,
---   `status` VARCHAR(100) DEFAULT NULL,
-  `vat` DOUBLE DEFAULT NULL,
-  `photo` VARCHAR(150) DEFAULT NULL,
+  `discount` DECIMAL(10,2) DEFAULT 0.00,
+  `vat` DECIMAL(10,2) DEFAULT 0.00,
+ `photo` VARCHAR(255) DEFAULT NULL,
   `purchase_date` DATE DEFAULT NULL,
-  `shipping_address` VARCHAR(150) DEFAULT NULL,
+  `shipping_address` VARCHAR(255) DEFAULT NULL,
   `description` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  CONSTRAINT `fk_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_product` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_status` FOREIGN KEY (`status_id`) REFERENCES `statuses`(`id`) ON DELETE SET NULL);
 
-);
+
+
+
+
+
+
+
+
+
+
+
 --7 Table: `phar_purchases_items`
 CREATE TABLE if not exists `phar_purchases_items` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -161,15 +173,15 @@ CREATE TABLE if not exists `phar_stock` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `product_id` INT NOT NULL,
   `transaction_type_id` INT NOT NULL,
-  `warehouse_id` INT NOT NULL,
+  `price` DECIMAL(8,2) NOT NULL,
+  `offer_price` DOUBLE DEFAULT NULL,
   `warehouse_id` INT NOT NULL,
   `quantity` INT NOT NULL,
   `uom_id` INT NOT NULL,
-  `batche_id` INT NOT NULL,
+  `batch_id` INT NOT NULL,
   `remark` VARCHAR(200),
-  `price` DOUBLE DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

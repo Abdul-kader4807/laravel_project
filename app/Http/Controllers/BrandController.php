@@ -19,7 +19,11 @@ class BrandController extends Controller
 
         $brands = Brand::all();
         $brands = Brand::paginate(3);
-        return view('pages.brands.index', compact('brands'));
+
+          //print_r( Brand::with('status')->get());
+
+
+       return view('pages.brands.index', compact('brands'));
     }
 
 

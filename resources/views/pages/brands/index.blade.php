@@ -60,7 +60,9 @@
                                         <td>{{ $brand->id }}</td>
                                         <td>{{ $brand->brand_name }}</td>
                                         <td>{{ $brand->contact_info }}</td>
-                                        <td>{{ $brand->status_id }}</td>
+                                        <td>{{ optional($brand->status)->name }}</td>
+
+
                                         <td>{{ $brand->address }}</td>
 
                                         <td>

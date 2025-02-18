@@ -250,7 +250,7 @@
             </li>
             <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Transaction Types </a>
             </li>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>UOMs </a>
+            <li> <a href="{{url('uom')}}"><i class='bx bx-radio-circle'></i>UOMs </a>
             </li>
             <li> <a href="{{url('status')}}"><i class='bx bx-radio-circle'></i>Status List </a>
             </li>
