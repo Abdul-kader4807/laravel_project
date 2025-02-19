@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Product;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +14,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::paginate(4);
+        $products = Product::paginate(3);
         return view('pages.products.index', compact('products'));
     }
 
@@ -24,20 +25,21 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        return view('pages.products.create', compact('manufacturers', 'brands', 'categories'));
+        $uoms= Uom::all();
+        return view('pages.products.create', compact('manufacturers', 'brands', 'categories','uoms'));
     }
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|min:5',
+            'name'   => 'required|min:3',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'manufacturer_id' => 'required|exists:manufacturers,id',
-            'generic_name'   => 'required|min:5',
-            'dosage' => 'nullable|min:4',
-            'strength' => 'nullable|min:4',
+            'generic_name'   => 'required|min:3',
+            'dosage' => 'nullable|min:3',
+            'strength' => 'nullable|min:3',
             'unit' => 'required|min:2',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0|lt:price',
@@ -111,20 +113,21 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        return view('pages.products.update', compact('product', 'manufacturers', 'brands', 'categories'));
+        $uoms= Uom::all();
+        return view('pages.products.update', compact('product', 'manufacturers', 'brands', 'categories','uoms'));
     }
 
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'   => 'required|min:5',
+            'name'   => 'required|min:3',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'manufacturer_id' => 'required|exists:manufacturers,id',
             'generic_name'   => 'required|min:5',
-            'dosage' => 'nullable|min:4',
-            'strength' => 'nullable|min:4',
+            'dosage' => 'nullable|min:3',
+            'strength' => 'nullable|min:3',
             'unit' => 'required|min:2',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0|lt:price',
@@ -211,4 +214,6 @@ $product->name = $request->name;
             $products = [];
         }
     }
+
+    
 }

@@ -54,16 +54,13 @@
                     <label for="brand_id" class="col-sm-3 col-form-label">Brand</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-
                             <select name="brand_id" id="brand_id" class="form-control">
                                 <option value="">Select Brand</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}"
                                         {{ old('brand_id', $product->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
-                                        {{ $brand->name }}
+                                        {{ $brand->brand_name }}
                                     </option>
-
-
 
                                 @endforeach
                             </select>
@@ -285,11 +282,20 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="uom_id" class="col-sm-3 col-form-label">UOM ID</label>
+                    <label for="uom_id" class="col-sm-3 col-form-label">UOM </label>
                     <div class="col-sm-9">
                         <div class="position-relative">
-                            <input type="text" name="uom_id" value="{{ old('uom_id') }}" class="form-control"
-                                id="uom_id" placeholder="Unit of Measure ID">
+                            <select name="uom_id" id="uom_id" class="form-control">
+                                <option value="">Select Uom</option>
+                                @foreach ($uoms as $uom)
+                                    <option value="{{ $uom->id }}"
+                                        {{ old('uom_id', $product->uom_id ?? '') == $uom->id ? 'selected' : '' }}>
+                                        {{ $uom->name }}
+                                    </option>
+
+                                @endforeach
+                            </select>
+
                             @error('uom_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
