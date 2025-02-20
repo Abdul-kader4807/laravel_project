@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Status;
 use App\Models\Uom;
 use App\Models\User;
@@ -22,10 +23,11 @@ class OrderController extends Controller
     public function create()
     {
         $customers = Customer::all();
+        $products= Product::all();
         $users = User::all();
         $statuses = Status::all();
         $uoms= Uom::all();
-        return view('pages.orders.create', compact('customers', 'users', 'statuses','uoms'));
+        return view('pages.orders.create', compact('customers', 'users', 'statuses','uoms','products'));
     }
 
 
@@ -35,6 +37,7 @@ class OrderController extends Controller
         $request->validate([
 
             'customer_id' => 'required|exists:customers,id',
+            'product_id' => 'required|exists:products,id',
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:status,id',
             'uom_id' => 'required|exists:uoms,id',
@@ -49,6 +52,7 @@ class OrderController extends Controller
         ]);
         $order = new Order();
         $order->customer_id = $request->customer_id;
+        $order->product_id = $request->product_id;
         $order->user_id = $request->user_id;
         $order->status_id = $request->status_id;
         $order->uom_id = $request->uom_id;
@@ -83,10 +87,11 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         $customers = Customer::all();
+        $products= Product::all();
         $users = User::all();
         $statuses = Status::all();
         $uoms= Uom::all();
-        return view('pages.orders.update', compact('customers', 'users', 'statuses','uoms'));
+        return view('pages.orders.update', compact('customers', 'users', 'statuses','uoms','products'));
     }
 
 
@@ -95,6 +100,7 @@ class OrderController extends Controller
         $request->validate([
 
             'customer_id' => 'required|exists:customers,id',
+            'product_id' => 'required|exists:products,id',
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:status,id',
             'uom_id' => 'required|exists:uoms,id',
@@ -110,6 +116,7 @@ class OrderController extends Controller
 
         $order =  Order::find($id);
         $order->customer_id = $request->customer_id;
+        $order->product_id = $request->product_id;
         $order->user_id = $request->user_id;
         $order->status_id = $request->status_id;
         $order->uom_id = $request->uom_id;
@@ -157,7 +164,7 @@ class OrderController extends Controller
         $query = $request->input('query');
 
 
-        $orders = Order::where('uom_id', "like", "%{$query}%")
+        $orders = Order::where('product_id', "like", "%{$query}%")
             ->orWhere('customer_id', 'like', "%{$query}%")
             ->orWhere('user_id', 'like', "%{$query}%")
             ->orWhere('status_id', 'like', "%{$query}%")
@@ -173,6 +180,14 @@ class OrderController extends Controller
 
 
 
+    public function find_customer(Request $request){
+		$customer = Customer::find($request->id);
+		return response()->json(['customer'=> $customer]);
+	}
+	public function find_product(Request $request){
+		$product = Product::find($request->id);
+		return response()->json(['product'=> $product]);
+	}
 
 
 

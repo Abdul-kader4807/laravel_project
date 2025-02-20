@@ -1,45 +1,44 @@
-
-
 @extends('layout.backend.main')
 
 @section('page_content')
     <div class="row d-flex">
         <div class="col-12">
-            <h4 class="mb-3 btn btn-secondary px-4">Register Purchase</h4>
+            <h4 class="mb-3 btn btn-secondary px-4">Register order</h4>
         </div>
     </div>
     <div class="card">
         <div class="card-body p-4">
-            <form action="{{ url('purchase') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('order') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="supplier_id" class="col-sm-3 col-form-label">Supplier Name</label>
+                    <label for="customer_id" class="col-sm-3 col-form-label">Customer Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <select class="form-control" name="supplier_id" id="supplier_id">
-                                <option value="">Select Supplier</option>
-                                @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}"
-                                        {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
-                                        {{ $supplier->name }}
+                            <select class="form-control" name="customer_id" id="customer_id">
+                                <option value="">Select order</option>
+                                @foreach ($customers as $customer)
+                                    <option value="{{ $customer->id }}"
+                                        {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                                        {{ $customer->name }}
                                     </option>
                                 @endforeach
                             </select>
                             <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
                         </div>
-                        @error('supplier_id')
+                        @error('customer_id')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
+
 
                 <div class="row mb-3">
                     <label for="product_id" class="col-sm-3 col-form-label">Product Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
                             <select class="form-control" name="product_id" id="product_id">
-                                <option value="">Select Product</option>
+                                <option value="">Select product</option>
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}"
                                         {{ old('product_id') == $product->id ? 'selected' : '' }}>
@@ -54,6 +53,50 @@
                         @enderror
                     </div>
                 </div>
+
+
+                <div class="row mb-3">
+                    <label for="user_id" class="col-sm-3 col-form-label">User Name</label>
+                    <div class="col-sm-9">
+                        <div class="position-relative input-icon">
+                            <select class="form-control" name="user_id" id="user_id">
+                                <option value="">Select order</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
+                        </div>
+                        @error('user_id')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <label for="uom_id" class="col-sm-3 col-form-label">UOMs</label>
+                    <div class="col-sm-9">
+                        <div class="position-relative input-icon">
+                            <select class="form-control" name="uom_id" id="uom_id">
+                                <option value="">Select order</option>
+                                @foreach ($uoms as $uom)
+                                    <option value="{{ $uom->id }}" {{ old('uom_id') == $uom->id ? 'selected' : '' }}>
+                                        {{ $uom->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-ruler'></i></span>
+                        </div>
+                        @error('uom_id')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
 
                 <div class="row mb-3">
                     <label for="status_id" class="col-sm-3 col-form-label">Status</label>
@@ -77,7 +120,8 @@
                     </div>
                 </div>
 
-                @foreach (['total_order' => 'cart', 'paid_amount' => 'dollar-circle', 'total_amount' => 'dollar-circle', 'discount' => 'tag', 'vat' => 'calculator'] as $field => $icon)
+
+                @foreach (['total_order' => 'cart', 'paid_amount' => 'dollar-circle', 'discount' => 'tag', 'vat' => 'calculator'] as $field => $icon)
                     <div class="row mb-3">
                         <label for="{{ $field }}"
                             class="col-sm-3 col-form-label">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
@@ -97,20 +141,38 @@
                 @endforeach
 
                 <div class="row mb-3">
-                    <label for="purchase_date" class="col-sm-3 col-form-label">Purchase Date</label>
+                    <label for="order_date" class="col-sm-3 col-form-label">order Date</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="date" name="purchase_date" value="{{ old('purchase_date') }}"
-                                class="form-control" id="purchase_date">
+                            <input type="date" name="order_date" value="{{ old('order_date') }}" class="form-control"
+                                id="order_date">
                             <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-calendar'></i></span>
                         </div>
-                        @error('purchase_date')
+                        @error('order_date')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                @foreach (['shipping_address' => 'map', 'description' => 'align-left'] as $field => $icon)
+
+                <div class="row mb-3">
+                    <label for="delivery_date	" class="col-sm-3 col-form-label">Delivery_date </label>
+                    <div class="col-sm-9">
+                        <div class="position-relative input-icon">
+                            <input type="date" name="delivery_date" value="{{ old('delivery_date') }}"
+                                class="form-control" id="delivery_date">
+
+                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-calendar'></i></span>
+                        </div>
+                        @error('delivery_date')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
+
+                @foreach (['shipping_address' => 'map', 'remark' => 'align-left'] as $field => $icon)
                     <div class="row mb-3">
                         <label for="{{ $field }}"
                             class="col-sm-3 col-form-label">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
@@ -127,18 +189,7 @@
                     </div>
                 @endforeach
 
-                <div class="row mb-3">
-                    <label for="photo" class="col-sm-3 col-form-label">Photo</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <input type="file" name="photo" class="form-control" id="photo">
-                            <span class="position-absolute top-50 translate-middle-y"><i class="lni lni-image"></i></span>
-                        </div>
-                        @error('photo')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-sm-9 offset-sm-3">

@@ -1,181 +1,144 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-    <div class="row d-flex">
-        <div class="col-12">
-            <h4 class="mb-3 btn btn-secondary px-4">Register order</h4>
-        </div>
-    </div>
     <div class="card">
-        <div class="card-body p-4">
-            <form action="{{ url('order') }}" method="post" enctype="multipart/form-data">
-                @csrf
-
-                <div class="row mb-3">
-                    <label for="customer_id" class="col-sm-3 col-form-label">Customer Name</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <select class="form-control" name="customer_id" id="customer_id">
-                                <option value="">Select order</option>
-                                @foreach ($customers as $customer)
-                                    <option value="{{ $customer->id }}"
-                                        {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
-                                        {{ $customer->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-user'></i></span>
-                        </div>
-                        @error('customer_id')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
+        <div class="card-body">
+            <div id="invoice">
+                <div class="toolbar hidden-print">
+                    <div class="text-end">
+                        <button type="button" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
                     </div>
+                    <hr />
                 </div>
-
-                <div class="row mb-3">
-                    <label for="user_id" class="col-sm-3 col-form-label">User Name</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <select class="form-control" name="user_id" id="user_id">
-                                <option value="">Select order</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                        {{ $user->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-box'></i></span>
-                        </div>
-                        @error('user_id')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="row mb-3">
-                    <label for="uom_id" class="col-sm-3 col-form-label">UOMs</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <select class="form-control" name="uom_id" id="uom_id">
-                                <option value="">Select order</option>
-                                @foreach ($uoms as $uom)
-                                    <option value="{{ $user->id }}" {{ old('uom_id') == $uom->id ? 'selected' : '' }}>
-                                        {{ $uom->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-ruler'></i></span>
-                        </div>
-                        @error('uom_id')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-
-
-                <div class="row mb-3">
-                    <label for="status_id" class="col-sm-3 col-form-label">Status</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <select class="form-control" name="status_id" id="status_id">
-                                <option value="">Select Status</option>
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}"
-                                        {{ old('status_id') == $status->id ? 'selected' : '' }}>
-                                        {{ $status->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="position-absolute top-50 translate-middle-y"><i
-                                    class='bx bx-check-circle'></i></span>
-                        </div>
-                        @error('status_id')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-
-                @foreach (['total_order' => 'cart', 'paid_amount' => 'dollar-circle', 'discount' => 'tag', 'vat' => 'calculator'] as $field => $icon)
-                    <div class="row mb-3">
-                        <label for="{{ $field }}"
-                            class="col-sm-3 col-form-label">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
-                        <div class="col-sm-9">
-                            <div class="position-relative input-icon">
-                                <input type="number" step="0.01" name="{{ $field }}"
-                                    value="{{ old($field) }}" class="form-control" id="{{ $field }}"
-                                    placeholder="{{ ucfirst(str_replace('_', ' ', $field)) }}">
-                                <span class="position-absolute top-50 translate-middle-y"><i
-                                        class='bx bx-{{ $icon }}'></i></span>
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px">
+                        <header>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:;">
+                                        <img src="{{asset('assets')}}/images/logo-icon.png" width="80" alt="" />
+                                    </a>
+                                </div>
+                                <div class="col company-details">
+                                    <h2 class="name">
+                                        <a target="_blank" href="javascript:;">
+                                            MF-Pharma
+                                        </a>
+                                    </h2>
+                                    
+                                    <div>61,Progoti Sharoni,
+                                        Shajadpur,Gulshan, Dhaka-1212</div>
+                                    <div>(+880)16344-31926</div>
+                                    <div>mf-pharma25@gmail.com</div>
+                                </div>
                             </div>
-                            @error($field)
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                @endforeach
-
-                <div class="row mb-3">
-                    <label for="order_date" class="col-sm-3 col-form-label">order Date</label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <input type="date" name="order_date" value="{{ old('order_date') }}" class="form-control"
-                                id="order_date">
-                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-calendar'></i></span>
-                        </div>
-                        @error('order_date')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="row mb-3">
-                    <label for="delivery_date	" class="col-sm-3 col-form-label">Delivery_date </label>
-                    <div class="col-sm-9">
-                        <div class="position-relative input-icon">
-                            <input type="date" name="delivery_date" value="{{ old('delivery_date') }}"
-                                class="form-control" id="delivery_date">
-
-                            <span class="position-absolute top-50 translate-middle-y"><i class='bx bx-calendar'></i></span>
-                        </div>
-                        @error('delivery_date')
-                            <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-
-
-                @foreach (['shipping_address' => 'map', 'remark' => 'align-left'] as $field => $icon)
-                    <div class="row mb-3">
-                        <label for="{{ $field }}"
-                            class="col-sm-3 col-form-label">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bx bx-{{ $icon }}"></i></span>
-                                <textarea class="form-control" name="{{ $field }}" id="{{ $field }}" rows="3"
-                                    placeholder="{{ ucfirst(str_replace('_', ' ', $field)) }}">{{ old($field) }}</textarea>
+                        </header>
+                        <main>
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    <div class="text-gray-light">INVOICE TO:</div>
+                                    <h2 class="to">John Doe</h2>
+                                    <div class="address">796 Silver Harbour, TX 79273, US</div>
+                                    <div class="email"><a href="mailto:john@example.com">john@example.com</a>
+                                    </div>
+                                </div>
+                                <div class="col invoice-details">
+                                    <h1 class="invoice-id">INVOICE 3-2-1</h1>
+                                    <div class="date">Date of Invoice: 01/10/2018</div>
+                                    <div class="date">Due Date: 30/10/2018</div>
+                                </div>
                             </div>
-                            @error($field)
-                                <span style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th class="text-left">DESCRIPTION</th>
+                                        <th class="text-right">HOUR PRICE</th>
+                                        <th class="text-right">HOURS</th>
+                                        <th class="text-right">TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="no">04</td>
+                                        <td class="text-left">
+                                            <h3>
+                                                <a target="_blank" href="javascript:;">
+                                                    Youtube channel
+                                                </a>
+                                            </h3>
+                                            <a target="_blank" href="javascript:;">
+                                                Useful videos
+                                            </a> to improve your Javascript skills. Subscribe and stay tuned :)
+                                        </td>
+                                        <td class="unit">$0.00</td>
+                                        <td class="qty">100</td>
+                                        <td class="total">$0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no">01</td>
+                                        <td class="text-left">
+                                            <h3>Website Design</h3>Creating a recognizable design solution based on the
+                                            company's existing visual identity
+                                        </td>
+                                        <td class="unit">$40.00</td>
+                                        <td class="qty">30</td>
+                                        <td class="total">$1,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no">02</td>
+                                        <td class="text-left">
+                                            <h3>Website Development</h3>Developing a Content Management System-based Website
+                                        </td>
+                                        <td class="unit">$40.00</td>
+                                        <td class="qty">80</td>
+                                        <td class="total">$3,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no">03</td>
+                                        <td class="text-left">
+                                            <h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)
+                                        </td>
+                                        <td class="unit">$40.00</td>
+                                        <td class="qty">20</td>
+                                        <td class="total">$800.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">SUBTOTAL</td>
+                                        <td>$5,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">TAX 25%</td>
+                                        <td>$1,300.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">GRAND TOTAL</td>
+                                        <td>$6,500.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="thanks">Thank you!</div>
+                            <div class="notices">
+                                <div>NOTICE:</div>
+                                <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.
+                                </div>
+                            </div>
+                        </main>
+                        <footer>Invoice was created on a computer and is valid without the signature and seal.</footer>
                     </div>
-                @endforeach
-
-
-
-                <div class="row">
-                    <div class="col-sm-9 offset-sm-3">
-                        <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end"><button
-                                type="submit" class="btn btn-success px-4">Submit</button></div>
-
-                    </div>
+                    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                    <div></div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+    </div>
+
+    <!--end page wrapper -->
 @endsection

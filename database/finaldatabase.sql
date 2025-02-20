@@ -49,6 +49,7 @@ CREATE TABLE if not exists `phar_products` (
 CREATE TABLE if not exists `phar_orders` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `customer_id` INT(11) DEFAULT NULL,
+  `product_id` INT(11) DEFAULT NULL,
   `user_id` INT(11) DEFAULT NULL,
   `total_order` DOUBLE DEFAULT NULL,
   `discount` DOUBLE DEFAULT NULL,
@@ -172,13 +173,13 @@ CREATE TABLE if not exists `phar_categories` (
 CREATE TABLE if not exists `phar_stock` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `product_id` INT NOT NULL,
-  `transaction_type_id` INT NOT NULL,
+  `transaction_type_id` INT NULL,
   `price` DECIMAL(8,2) NOT NULL,
   `offer_price` DOUBLE DEFAULT NULL,
   `warehouse_id` INT NOT NULL,
   `quantity` INT NOT NULL,
   `uom_id` INT NOT NULL,
-  `batch_id` INT NOT NULL,
+  `batch_id` INT NULL,
   `remark` VARCHAR(200),
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -307,7 +308,7 @@ CREATE TABLE if not exists `phar_uoms` (
 --22 Transaction Type
 CREATE TABLE if not exists `phar_transaction_types` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `type_name` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
   `description` VARCHAR(255) DEFAULT NULL,
   `factor` FLOAT NOT NULL DEFAULT 1,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,

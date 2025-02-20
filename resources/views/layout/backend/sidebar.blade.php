@@ -133,7 +133,7 @@
             <div class="menu-title">Stock</div>
         </a>
         <ul>
-            <li> <a href="content-grid-system.html"><i class='bx bx-radio-circle'></i>Stock </a>
+            <li> <a href="{{url('stock')}}"><i class='bx bx-radio-circle'></i>Stock </a>
             </li>
             <li> <a href="content-grid-system.html"><i class='bx bx-radio-circle'></i>Transactions </a>
             </li>

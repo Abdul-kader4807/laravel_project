@@ -17,12 +17,18 @@
             <div class="row mb-3">
                 <label for="product_id" class="col-sm-3 col-form-label">Product</label>
                 <div class="col-sm-9">
-                    <select name="product_id" class="form-control">
-                        <option value="">Select Product</option>
-                        @foreach($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="position-relative input-icon">
+                        <select class="form-control" name="product_id" id="product_id">
+                            <option value="">Select product</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}"
+                                    {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <span class="position-absolute top-50 start-0 ps-2 translate-middle-y"><i class='bx bx-package'></i></sp>
+                    </div>
                     @error('product_id')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
@@ -30,13 +36,16 @@
             </div>
 
             <!-- Transaction Type -->
+
+
             <div class="row mb-3">
                 <label for="transaction_type_id" class="col-sm-3 col-form-label">Transaction Type</label>
                 <div class="col-sm-9">
                     <select name="transaction_type_id" class="form-control">
-                        <option value="1">Purchase</option>
-                        <option value="2">Sales</option>
+                        <option value="1" {{ old('transaction_type_id') == 1 ? 'selected' : '' }}>Purchase</option>
+                        <option value="2" {{ old('transaction_type_id') == 2 ? 'selected' : '' }}>Sales</option>
                     </select>
+
                     @error('transaction_type_id')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
@@ -47,7 +56,7 @@
             <div class="row mb-3">
                 <label for="price" class="col-sm-3 col-form-label">Price</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="price" value="{{ old('price') }}" placeholder="Enter Price">
+                    <input type="number" class="form-control" name="price" value="{{ old('price') }}" placeholder="Enter Price">
                     @error('price')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
@@ -55,10 +64,11 @@
             </div>
 
             <!-- Offer Price -->
+
             <div class="row mb-3">
                 <label for="offer_price" class="col-sm-3 col-form-label">Offer Price</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="offer_price" value="{{ old('offer_price') }}" placeholder="Enter Offer Price (Optional)">
+                    <input type="number" class="form-control"  name="offer_price" value="{{ old('offer_price') }}" placeholder="Enter Offer Price (Optional)">
                 </div>
             </div>
 
@@ -106,15 +116,25 @@
             </div>
 
             <!-- Batch ID -->
-            <div class="row mb-3">
-                <label for="batch_id" class="col-sm-3 col-form-label">Batch ID</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="batch_id" value="{{ old('batch_id') }}" placeholder="Enter Batch ID">
-                    @error('batch_id')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
+
+<div class="row mb-3">
+    <label for="batch_id" class="col-sm-3 col-form-label">Batch ID</label>
+    <div class="col-sm-9 position-relative">
+        <select name="batch_id" class="form-control ps-4">
+            <option value="">Select Batch</option>
+            @foreach($batches as $batch)
+                <option value="{{ $batch->id }}">
+                    {{ $batch->id }} - Expiry: {{ $batch->expiry_date }}
+                </option>
+            @endforeach
+        </select>
+
+        @error('batch_id')
+            <span style="color: red">{{ $message }}</span>
+        @enderror
+    </div>
+</div>
+
 
             <!-- Remarks -->
             <div class="row mb-3">
@@ -139,3 +159,8 @@
 </div>
 
 @endsection
+
+
+
+
+
