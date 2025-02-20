@@ -3,7 +3,7 @@
 @section('page_content')
 
 <x-product/>
-
+      
     <div class="row">
 
         @if (@session('success'))

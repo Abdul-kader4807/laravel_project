@@ -202,11 +202,17 @@ $product->name = $request->name;
 
 
     public function search(Request $request)
-    {
-        $products = Product::where('name', "like", "%{$request->name}%")->paginate(3);
-        $requestdata = $request->name;
 
-        return view('pages.products.index', compact('products', 'requestdata'));
+    {
+$query = $request->input('query');
+
+
+        $products = Product::where('name', "like", "%{$query}%")
+        ->orWhere('sku','like',"%{$query}%")
+        ->orWhere('barcode','like',"%{$query}%")
+        ->orWhere('category_id','like',"%{$query}%")
+        ->paginate(3);
+        return view('pages.products.index', compact('products'));
 
         if ($products) {
             return view('pages.products.index', compact('products'));
@@ -215,5 +221,5 @@ $product->name = $request->name;
         }
     }
 
-    
+
 }

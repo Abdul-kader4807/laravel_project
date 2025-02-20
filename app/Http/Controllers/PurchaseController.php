@@ -126,14 +126,13 @@ class PurchaseController extends Controller
         if (file_exists($photoPath)) {
             unlink($photoPath);
             $request->file('photo')->move(public_path('photo'), $photoname);
-        $purchase->photo = $photoname;
-        }else{
-            $purchase->photo= $purchase->photo;
+            $purchase->photo = $photoname;
+        } else {
+            $purchase->photo = $purchase->photo;
         }
         if ($purchase->save()) {
             return redirect('purchase')->with('success', "Purchase has been registered");
         };
-
     }
 
 
@@ -158,11 +157,17 @@ class PurchaseController extends Controller
 
 
     public function search(Request $request)
-    {
-        $purchases = Purchase::where('supplier_id', "like", "%{$request->supplier_id}%")->paginate(3);
-        $requestdata = $request->supplier_id;
 
-        return view('pages.purchases.index', compact('purchases', 'requestdata'));
+    {
+        $query = $request->input('query');
+
+
+        $purchases = Purchase::where('description', "like", "%{$query}%")
+            ->orWhere('supplier_id', 'like', "%{$query}%")
+            ->orWhere('product_id', 'like', "%{$query}%")
+            ->orWhere('status_id', 'like', "%{$query}%")
+            ->paginate(3);
+        return view('pages.purchases.index', compact('purchases'));
 
         if ($purchases) {
             return view('pages.purchases.index', compact('purchases'));
@@ -170,18 +175,4 @@ class PurchaseController extends Controller
             $purchases = [];
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-

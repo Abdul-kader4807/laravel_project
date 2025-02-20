@@ -52,7 +52,7 @@
             <div class="menu-title">Sales </div>
         </a>
         <ul>
-            <li> <a href="ecommerce-products.html"><i class='bx bx-radio-circle'></i>Sales</a>
+            <li> <a href="{{url('order')}}"><i class='bx bx-radio-circle'></i>Sales</a>
             </li>
             <li> <a href="ecommerce-products-details.html"><i class='bx bx-radio-circle'></i>Sales List</a>
             </li>

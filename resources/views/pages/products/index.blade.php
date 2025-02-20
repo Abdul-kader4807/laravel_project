@@ -29,7 +29,7 @@
                     <div class="input-group mb-2">
                         <div class="col-sm-10  position-relative input-icon">
                             <div class="d-flex mb-2">
-                                <input type="text" class="form-control " name="name" value="{{ @$requestdata }}"
+                                <input type="text" class="form-control " name="query" value="{{ @$requestdata }}"
                                     id="input42" placeholder="Search">
                                 <span class="position-absolute top-50 translate-middle-y"><i
                                         class="bx bx-search"></i></span>
