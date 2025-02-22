@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Stock;
-
 use App\Models\Uom;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -94,13 +93,14 @@ class StockController extends Controller
             // 'transaction_type_id' => 'required|exists:transaction_types,id',
             'price' => 'required|numeric|min:0',
             // 'offer_price' => 'nullable|numeric|min:0',
-            'warehouse_id' => 'required|exists:warehouses,id',
+            'warehouse_id' => 'required|exists:warehouse,id',
             'quantity' => 'required|integer|min:1',
             'uom_id' => 'required|exists:uoms,id',
             // 'batch_id' => 'required|exists:batches,id',
             'remark' => 'nullable|string|max:200',
         ]);
         $stock =  Stock::find($id);
+        $stock->update($request->all());
         $stock->product_id = $request->product_id;
         // $stock->transaction_type_id = $request->transaction_type_id;
         $stock->price = $request->price;
@@ -136,14 +136,21 @@ class StockController extends Controller
 
 
 
-    public function search(Request $request)
+     public function search(Request $request)
     {
+
         $query = $request->input('query');
         $stocks = Stock::where('product_id', 'like', "%{$query}%")
+            ->orWhere('transaction_type_id', 'like', "%{$query}%")
             ->orWhere('warehouse_id', 'like', "%{$query}%")
+            ->orWhere('uom_id', 'like', "%{$query}%")
+            ->orWhere('batch_id', 'like', "%{$query}%")
             ->paginate(3);
         return view('pages.stocks.index', compact('stocks'));
-    }
+     }
+
+
+
 
 
 

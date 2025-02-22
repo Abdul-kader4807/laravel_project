@@ -54,7 +54,7 @@
         <ul>
             <li> <a href="{{url('order')}}"><i class='bx bx-radio-circle'></i>Sales</a>
             </li>
-            <li> <a href="ecommerce-products-details.html"><i class='bx bx-radio-circle'></i>Sales List</a>
+            <li> <a href="{{url('order_detail')}}"><i class='bx bx-radio-circle'></i>Sales List</a>
             </li>
             <li> <a href="ecommerce-add-new-products.html"><i class='bx bx-radio-circle'></i>Invoices</a>
             </li>

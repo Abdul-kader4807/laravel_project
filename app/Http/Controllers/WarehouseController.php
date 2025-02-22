@@ -92,8 +92,6 @@ class WarehouseController extends Controller
 
 
 
-
-
     public function destroy(string $id)
     {
         $del = Warehouse::destroy($id);
@@ -116,6 +114,8 @@ class WarehouseController extends Controller
             }
         }
 
+
+        
 
 
     }

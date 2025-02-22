@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
@@ -87,9 +88,14 @@ Route::resource('order',OrderController::class);
 
 
 Route::get('stock/delete/{id}',[StockController::class,'destroy_view']);
-Route::post('stock/search',[StockController::class,'search']);
+Route::post('/stock/search', [StockController::class, 'search']);
+// Route::put('/stock/{id}', [StockController::class, 'update']);
 Route::resource('stock',StockController::class);
 
+
+Route::get('order_detail/delete/{id}',[OrderDetailController::class,'destroy_view']);
+Route::post('order_detail/search',[OrderDetailController::class,'search']);
+Route::resource('order_detail',OrderDetailController::class);
 
 
 

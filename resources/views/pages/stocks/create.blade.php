@@ -38,7 +38,7 @@
             <!-- Transaction Type -->
 
 
-            <div class="row mb-3">
+            {{-- <div class="row mb-3">
                 <label for="transaction_type_id" class="col-sm-3 col-form-label">Transaction Type</label>
                 <div class="col-sm-9">
                     <select name="transaction_type_id" class="form-control">
@@ -50,7 +50,7 @@
                         <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Price -->
             <div class="row mb-3">
@@ -65,12 +65,12 @@
 
             <!-- Offer Price -->
 
-            <div class="row mb-3">
+            {{-- <div class="row mb-3">
                 <label for="offer_price" class="col-sm-3 col-form-label">Offer Price</label>
                 <div class="col-sm-9">
                     <input type="number" class="form-control"  name="offer_price" value="{{ old('offer_price') }}" placeholder="Enter Offer Price (Optional)">
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Warehouse Selection -->
             <div class="row mb-3">
@@ -117,7 +117,7 @@
 
             <!-- Batch ID -->
 
-<div class="row mb-3">
+{{-- <div class="row mb-3">
     <label for="batch_id" class="col-sm-3 col-form-label">Batch ID</label>
     <div class="col-sm-9 position-relative">
         <select name="batch_id" class="form-control ps-4">
@@ -133,7 +133,7 @@
             <span style="color: red">{{ $message }}</span>
         @enderror
     </div>
-</div>
+</div> --}}
 
 
             <!-- Remarks -->
