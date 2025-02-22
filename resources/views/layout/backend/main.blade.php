@@ -8,6 +8,8 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 	<!--favicon-->
 	<link rel="icon" href="{{asset('assets')}}/images/pos_logo.png" type="image/png"/>
 	<!--plugins-->
@@ -245,7 +247,7 @@
 
 	<script src="{{asset('assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
 	<script src="{{asset('assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-
+    <script src="{{ asset('assets/js/cart_.js') }}"></script>
 
       {{-- <script>
 		$(document).ready(function() {

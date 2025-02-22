@@ -143,10 +143,10 @@ class CustomerController extends Controller
     }
 
 
-    // public function find_customer($id){
-	// 	$customer = Customer::find($id);
-	// 	return response()->json(['customer'=> $customer]);
-	// }
+    public function find_customer($id){
+		$customer = Customer::find($id);
+		return response()->json(['customer'=> $customer]);
+	}
 
 
 

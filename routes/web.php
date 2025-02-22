@@ -85,6 +85,11 @@ Route::resource('purchase',PurchaseController::class);
 Route::get('order/delete/{id}',[OrderController::class,'destroy_view']);
 Route::post('order/search',[OrderController::class,'search']);
 Route::resource('order',OrderController::class);
+Route::post('find_customer', [OrderController::class, 'find_customer']);
+ Route::post('find_product', [OrderController::class, 'find_product']);
+
+
+
 
 
 Route::get('stock/delete/{id}',[StockController::class,'destroy_view']);

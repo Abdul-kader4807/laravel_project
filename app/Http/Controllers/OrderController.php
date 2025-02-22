@@ -184,8 +184,11 @@ class OrderController extends Controller
 		$customer = Customer::find($request->id);
 		return response()->json(['customer'=> $customer]);
 	}
+
+    
 	public function find_product(Request $request){
 		$product = Product::find($request->id);
+        // print_r($product);
 		return response()->json(['product'=> $product]);
 	}
 

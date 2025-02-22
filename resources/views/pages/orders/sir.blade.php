@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="invoice-payment">
-								<button class="btn btn-warning clearAll" >Clear All</button>
+                                <button class="btn btn-warning clearAll">Clear All</button>
                                 <h6 class="mb-4">Payment info:</h6>
                                 <ul>
                                     <li>Credit Card - 123***********789</li>
@@ -120,16 +120,19 @@
                             <div class="d-flex justify-content-end">
                                 <div class="invoice-total">
                                     <ul>
-                                        <li class="d-flex justify-content-between gap-5">Sub Total  <span  class="subtotal">244.00</span></li>
-                                        <li class="d-flex justify-content-between gap-5">Tax(5%) <span class="tax">8.36</span></li>
-                                        <li class="d-flex justify-content-between gap-5">Discount<span class="Discount">8.36</span></li>
+                                        <li class="d-flex justify-content-between gap-5">Sub Total <span
+                                                class="subtotal">244.00</span></li>
+                                        <li class="d-flex justify-content-between gap-5">Tax(5%) <span
+                                                class="tax">8.36</span></li>
+                                        <li class="d-flex justify-content-between gap-5">Discount<span
+                                                class="Discount">8.36</span></li>
                                         <li class="d-flex justify-content-between gap-5 mb-0">Total <span
-                                                class="text-dark grandtotal" > 252.36</span></li>
+                                                class="text-dark grandtotal"> 252.36</span></li>
                                     </ul>
                                 </div>
 
                             </div>
-							<button class="btn btn-primary btn_process">Order</button>
+                            <button class="btn btn-primary btn_process">Order</button>
                         </div>
 
                         <div class="invoice-terms rounded">
@@ -157,7 +160,7 @@
     <script>
         $(function() {
             const cart = new Cart('order');
-			printCart();
+            printCart();
 
             $.ajaxSetup({
                 headers: {
@@ -241,16 +244,16 @@
                 if (cartdata) {
 
 
-                let htmldata = "";
-				let subtotal=0;
-				let dicount=0;
-				let grandtotal=0;
+                    let htmldata = "";
+                    let subtotal = 0;
+                    let dicount = 0;
+                    let grandtotal = 0;
 
-                cartdata.forEach(element => {
-					subtotal+=element.subtotal
-					dicount+=element.total_discount
+                    cartdata.forEach(element => {
+                        subtotal += element.subtotal
+                        dicount += element.total_discount
 
-                    htmldata += `
+                        htmldata += `
 				 <tr>
 					<td>
 						 <button data="${element.item_id}" class='btn btn-danger remove'>-</button>
@@ -270,41 +273,77 @@
 					<td><span class="fs-14 text-gray">$${element.subtotal} </span></td>
 				</tr>
 				`;
-                });
+                    });
 
-				 $('.dataAppend').html(htmldata);
+                    $('.dataAppend').html(htmldata);
 
 
-				 $('.subtotal').html(subtotal);
-				 $('.tax').html(subtotal * 5/100);
-				 $('.Discount').html(dicount);
-				 $('.grandtotal').html(subtotal + (subtotal * 5/100));
-				 cartIconIncrease()
-				}
+                    $('.subtotal').html(subtotal);
+                    $('.tax').html(subtotal * 5 / 100);
+                    $('.Discount').html(dicount);
+                    $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
+                    cartIconIncrease()
+                }
 
             }
 
 
-			$(document).on('click', '.remove', function(){
-				let id = $(this).attr('data');
-				cart.delItem(id);
-				printCart();
-			})
+            $(document).on('click', '.remove', function() {
+                let id = $(this).attr('data');
+                cart.delItem(id);
+                printCart();
+            })
 
 
-			$(document).on('click', '.clearAll', function(){
-				cart.clearCart();
-				printCart();
-			});
-			cartIconIncrease()
-			function cartIconIncrease(){
-				let items= cart.getCart().length
-				$(".cartIcon").html(items);
-			}
+            $(document).on('click', '.clearAll', function() {
+                cart.clearCart();
+                printCart();
+            });
+            cartIconIncrease()
 
-			$('.btn_process').on('click', function(){
-				alert()
-			})
+            function cartIconIncrease() {
+                let items = cart.getCart().length
+                $(".cartIcon").html(items);
+            }
+
+            $('.btn_process').on('click', function() {
+
+                let customer_id = $('#customer_id').val();
+                let order_total = $('.grandtotal').text();
+                let paid_amount = $('.grandtotal').text();
+                let discount = $('.Discount').text();
+                let vat = $('.tax').text();
+                let products = cart.getCart()
+
+
+                // let dataItem = {
+                //     customer_id: customer_id,
+                //     order_total: order_total,
+                //     paid_amount: paid_amount,
+                //     discount: discount,
+                //     vat: vat,
+                //     product: product,
+                // }
+
+                $.ajax({
+                    url: "{{ url('api/orders') }}",
+                    type: 'Post',
+                    data: {
+                        customer_id: customer_id,
+                        order_total: order_total,
+                        paid_amount: paid_amount,
+                        discount: discount,
+                        vat: vat,
+                        products: products,
+                    },
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            })
 
 
         })
