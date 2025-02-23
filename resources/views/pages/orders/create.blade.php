@@ -1,6 +1,9 @@
+
+
 @extends('layout.backend.main')
 
 @section('page_content')
+
     <div class="card">
         <div class="card-body">
             <div id="invoice">
@@ -31,9 +34,9 @@
                                             <option value="">No Customer Found</option>
                                         @endforelse
                                     </select>
-                                    <p>Email: <span class="email">mfpharma25@gmail.com</span></p>
-                                    <p>Phone: <span class="phone">01771503646</span></p>
-                                    <p>Address: <span class="address">Dhaka</span></p>
+                                    <p>Email: <span class="email"></span></p>
+                                    <p>Phone: <span class="phone"></span></p>
+                                    <p>Address: <span class="address"></span></p>
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <h1 class="invoice-id">INVOICE #321</h1>
@@ -51,70 +54,66 @@
                                             <th class="fw-bold ">Unit Price</th>
                                             <th class="fw-bold ">Quantity</th>
                                             <th class="fw-bold ">Discount</th>
-                                            <th class="fw-bold ">Total</th>
+                                            <th class="fw-bold ">Subtotal</th>
+                                            <th class="bg-danger clearAll" > ClearAll</th>
                                         </tr>
 
 
 
                                         <tr>
-                                            <td>01</td>
-                                            <td><select class="form-control" name="product_id" id="product_id">
-                                                <option value="">Select Product</option>
-                                                @forelse ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}
-                                                    </option>
-                                                @empty
-                                                    <option value="">No Product Found</option>
-                                                @endforelse
-                                            </select>
-                                        </td>
-                                            <td><select class="form-control" name="uom_id" id="uom_id">
-                                                <option value="">Select Uom</option>
-                                                @forelse ($uoms as $uom)
-                                                    <option value="{{ $uom->id }}">{{ $uom->name }}
-                                                    </option>
-                                                @empty
-                                                    <option value="">No Product Found</option>
-                                                @endforelse
-                                            </select>
-                                        </td>
-                                            <td><input type="text" disabled class=" form-control p_offer_price"></td>
-                                            <td>30</td>
-                                            <td>5%</td>
-                                            <td>$1,140.00</td>
+                                            <th>01</th>
+                                            <th><select class="form-control" name="product_id" id="product_id">
+                                                    <option value="">Select Product</option>
+                                                    @forelse ($products as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">No Product Found</option>
+                                                    @endforelse
+                                                </select>
+                                            </th>
+                                            <th><select class="form-control" name="uom_id" id="uom_id">
+                                                    <option value="">Select Uom</option>
+                                                    @forelse ($uoms as $uom)
+                                                        <option value="{{ $uom->id }}">{{ $uom->name }}
+                                                        </option>
+                                                    @empty
+                                                        <option value="">No Product Found</option>
+                                                    @endforelse
+                                                </select>
+                                            </th>
+                                            <th>
+                                                <input type="text" disabled class=" form-control p_price">
+
+                                            </th>
+                                            <th><input type="number" class=" form-control p_qty"></th>
+                                            <th><input type="text" class=" form-control p_discount"></th>
+                                            <th></th>
+                                            <th><button class="btn btn-primary add_cart_btn">add</button></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                        <tr>
-                                            <td>02</td>
-                                            <td>Website Development</td>
-                                            <td>Service</td>
-                                            <td>$40.00</td>
-                                            <td>80</td>
-                                            <td>5%</td>
-                                            <td>$3,040.00</td>
-                                        </tr>
-
-
+                                    <tbody class="dataAppend">
                                     </tbody>
+
+
+
                                     <tfoot class="fw-bold">
                                         <tr>
-                                            <td colspan="6" class="text-end">SUBTOTAL</td>
-                                            <td>$5,200.00</td>
+                                            <td colspan="6" class="text-end  ">SUBTOTAL</td>
+                                            <td class="subtotal">$5,200.00</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="6" class="text-end">DISCOUNT (5%)</td>
-                                            <td>$1,300.00</td>
+                                            <td colspan="6" class="text-end"> TOTAL DISCOUNT (25%)</td>
+                                            <td  class="Discount">$1,300.00</td>
                                         </tr>
 
                                         <tr>
-                                            <td colspan="6" class="text-end">TAX (25%)</td>
-                                            <td>$1,300.00</td>
+                                            <td colspan="6" class="text-end">TAX (15%)</td>
+                                            <td class="tax">$1,300.00</td>
                                         </tr>
                                         <tr class="bg-light">
                                             <td colspan="6" class="text-end text-primary">GRAND TOTAL</td>
-                                            <td class="text-primary">$6,500.00</td>
+                                            <td class="text-primary grandtotal">$6,500.00</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -140,7 +139,9 @@
     <script>
         $(function() {
             const cart = new Cart('order');
-            // printCart();
+            //   printCart();
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -180,7 +181,7 @@
                     },
                     success: function(res) {
                         console.log(res);
-                        $(".p_offer_price").val(res.products?.offer_price);
+                        $(".p_price").val(res.product?.offer_price);
                         $(".p_qty").val(1);
                     },
                     error: function(xhr, status, error) {
@@ -191,6 +192,110 @@
                 });
             });
 
+            $('.add_cart_btn').on('click', function() {
+
+
+                let item_id = $("#product_id").val();
+                let name = $("#product_id option:selected").text();
+
+                let price = $(".p_price").val();
+                let qty = $(".p_qty").val();
+                let discount = $(".p_discount").val();
+
+                let total_discount = discount * qty;
+                let subtotal = price * qty - total_discount;
+
+                let item = {
+                    "name": name,
+                    "item_id": item_id,
+                    "price": price,
+                    "qty": parseFloat(qty),
+                    "discount": discount,
+                    'total_discount': total_discount,
+                    "subtotal": subtotal
+
+
+                };
+
+                cart.save(item);
+                printCart();
+
+            });
+
+
+            function printCart() {
+                let cartdata = cart.getCart();
+                if (cartdata) {
+
+
+                    let htmldata = "";
+                    let subtotal = 0;
+                    let dicount = 0;
+                    let grandtotal = 0;
+
+                    cartdata.forEach(element => {
+                        subtotal += element.subtotal
+                        dicount += element.total_discount
+
+                        htmldata += `
+				 <tr>
+                    <td>
+						<p class="fs-14"></p>
+					</td>
+					<td>
+						<p class="fs-14">${element.name}</p>
+					</td>
+					<td>
+						<p class="fs-14 text-gray">${element.name}</p>
+
+					</td>
+					<td><span class="fs-14 text-gray">$${element.price} </span></td>
+					<td>
+						<p class="fs-14 text-gray">${element.qty}</p>
+					</td>
+					<td><span class="fs-14 text-gray">$${element.total_discount} </span></td>
+					<td><span class="fs-14 text-gray">$${element.subtotal} </span></td>
+                    <td>
+						 <button data="${element.item_id}" class=' btn btn-warning remove'>-</button>
+					</td>
+				</tr>
+				`;
+                    });
+
+                    $('.dataAppend').html(htmldata);
+
+
+                    $('.subtotal').html(subtotal);
+                    $('.tax').html(subtotal * 5 / 100);
+                    $('.Discount').html(dicount);
+                    $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
+                    cartIconIncrease()
+                }
+
+            }
+
+            $(document).on('click', '.remove', function() {
+                let id = $(this).attr('data');
+                cart.delItem(id);
+                printCart();
+            })
+
+
+            $(document).on('click', '.clearAll', function() {
+                cart.clearCart();
+                printCart();
+            });
+            cartIconIncrease()
+
+            function cartIconIncrease() {
+                let items = cart.getCart().length
+                $(".cartIcon").html(items);
+            }
+
+
+
+
+
 
 
 
@@ -199,4 +304,5 @@
 
         })
     </script>
+    <script src="{{ asset('assets/js/cart_.js') }}"></script>
 @endsection

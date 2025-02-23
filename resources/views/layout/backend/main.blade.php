@@ -247,7 +247,7 @@
 
 	<script src="{{asset('assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
 	<script src="{{asset('assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-    <script src="{{ asset('assets/js/cart_.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/cart_.js') }}"></script> --}}
 
       {{-- <script>
 		$(document).ready(function() {
