@@ -56,11 +56,11 @@
                         <tbody>
                             @forelse ($uoms as $uom)
                                 <tr>
-                                    <td>{{ $uom->id }}</td>
-                                    <td>{{ $uom->name }}</td>
-                                    <td>{{ $uom->description }}</td>
+                                    <td class="text-center">{{ $uom->id }}</td>
+                                    <td class="text-center">{{ $uom->name }}</td>
+                                    {{-- <td>{{ $uom->description }}</td> --}}
 
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{{ url("uom/$uom->id") }}" class="btn btn-secondary">
                                             <i class="fas fa-eye"></i>
                                         </a>

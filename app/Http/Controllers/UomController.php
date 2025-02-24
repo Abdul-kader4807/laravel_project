@@ -11,7 +11,7 @@ class UomController extends Controller
     public function index()
     {
         // $uoms = Uom::all();
-        $uoms = Uom::paginate(3);
+        $uoms = Uom::paginate(4);
         return view('pages.uoms.index', compact('uoms'));
     }
 
@@ -83,7 +83,7 @@ class UomController extends Controller
 
     public function search(Request $request)
     {
-        $uoms = Uom::where('name', "like", "%{$request->name}%")->paginate(3);
+        $uoms = Uom::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
         return view('pages.uoms.index', compact('uoms', 'requestdata'));
         if ($uoms) {

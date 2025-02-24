@@ -11,7 +11,7 @@ class StatusController extends Controller
     public function index()
     {
         $status = Status::all();
-        $statuses = Status::paginate(2);
+        $statuses = Status::paginate(4);
         // print_r($statuses);
         return view('pages.status.index', compact('statuses','status'));
     }
@@ -95,7 +95,7 @@ class StatusController extends Controller
 
     public function search(Request $request)
     {
-        $statuses = Status::where('name', "like", "%{$request->name}%")->paginate(3);
+        $statuses = Status::where('name', "like", "%{$request->name}%")->paginate(4);
         $requestdata = $request->name;
         return view('pages.status.index', compact('statuses', 'requestdata'));
         if ($statuses) {

@@ -1,9 +1,6 @@
-
-
 @extends('layout.backend.main')
 
 @section('page_content')
-
     <div class="card">
         <div class="card-body">
             <div id="invoice">
@@ -48,20 +45,21 @@
                                 <table class="table table-bordered table-striped text-center">
                                     <thead class="bg-primary text-white fw-bolder ">
                                         <tr>
-                                            <th class="fw-bold ">Item No</th>
+                                            <th class="fw-bold m-2">Item No</th>
                                             <th class="fw-bold ">Item Description</th>
+                                            <th class="fw-bold ">Item Strength</th>
                                             <th class="fw-bold ">Unit of Measure</th>
                                             <th class="fw-bold ">Unit Price</th>
                                             <th class="fw-bold ">Quantity</th>
                                             <th class="fw-bold ">Discount</th>
                                             <th class="fw-bold ">Subtotal</th>
-                                            <th class="bg-danger clearAll" > ClearAll</th>
+                                            <th><button class="btn bg-danger clearAll">ClearAll</button> </th>
                                         </tr>
 
 
 
                                         <tr>
-                                            <th>01</th>
+                                            <th>#</th>
                                             <th><select class="form-control" name="product_id" id="product_id">
                                                     <option value="">Select Product</option>
                                                     @forelse ($products as $product)
@@ -72,6 +70,9 @@
                                                     @endforelse
                                                 </select>
                                             </th>
+
+                                            <th><input type="text" disabled class=" form-control p_strength"></th>
+
                                             <th><select class="form-control" name="uom_id" id="uom_id">
                                                     <option value="">Select Uom</option>
                                                     @forelse ($uoms as $uom)
@@ -82,6 +83,7 @@
                                                     @endforelse
                                                 </select>
                                             </th>
+
                                             <th>
                                                 <input type="text" disabled class=" form-control p_price">
 
@@ -89,7 +91,7 @@
                                             <th><input type="number" class=" form-control p_qty"></th>
                                             <th><input type="text" class=" form-control p_discount"></th>
                                             <th></th>
-                                            <th><button class="btn btn-primary add_cart_btn">add</button></th>
+                                            <th><button class="btn btn-primary add_cart_btn">Add</button></th>
                                         </tr>
                                     </thead>
                                     <tbody class="dataAppend">
@@ -100,11 +102,11 @@
                                     <tfoot class="fw-bold">
                                         <tr>
                                             <td colspan="6" class="text-end  ">SUBTOTAL</td>
-                                            <td class="subtotal">$5,200.00</td>
+                                            <td class="subtotal">5,200.00</td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="text-end"> TOTAL DISCOUNT (25%)</td>
-                                            <td  class="Discount">$1,300.00</td>
+                                            <td class="Discount">1,300.00</td>
                                         </tr>
 
                                         <tr>
@@ -118,6 +120,10 @@
                                     </tfoot>
                                 </table>
                             </div>
+
+
+
+
                             <div class="text-center mt-4">
                                 <h4 class="text-success">Thank You!</h4>
                                 <p class="text-muted">A finance charge of 1.5% will be made on unpaid balances after 30
@@ -128,6 +134,8 @@
                             Invoice was created on a computer and is valid without a signature and seal.
                         </footer>
                     </div>
+
+                    <button class="btn btn-primary btn_process">Order</button>
                 </div>
             </div>
         </div>
@@ -182,6 +190,7 @@
                     success: function(res) {
                         console.log(res);
                         $(".p_price").val(res.product?.offer_price);
+                        $(".p_strength").val(res.product?.strength);
                         $(".p_qty").val(1);
                     },
                     error: function(xhr, status, error) {
@@ -192,6 +201,9 @@
                 });
             });
 
+
+
+
             $('.add_cart_btn').on('click', function() {
 
 
@@ -199,8 +211,11 @@
                 let name = $("#product_id option:selected").text();
 
                 let price = $(".p_price").val();
+                let strength = $(".p_strength").val();
                 let qty = $(".p_qty").val();
                 let discount = $(".p_discount").val();
+                let uom_id = $("#uom_id").val(); // UOM er ID nichi
+                let uom_name = $("#uom_id option:selected").text();
 
                 let total_discount = discount * qty;
                 let subtotal = price * qty - total_discount;
@@ -209,11 +224,12 @@
                     "name": name,
                     "item_id": item_id,
                     "price": price,
+                    "strength": strength,
                     "qty": parseFloat(qty),
                     "discount": discount,
                     'total_discount': total_discount,
-                    "subtotal": subtotal
-
+                    "subtotal": subtotal,
+                    "uom_name": uom_name
 
                 };
 
@@ -233,20 +249,25 @@
                     let dicount = 0;
                     let grandtotal = 0;
 
-                    cartdata.forEach(element => {
+                    cartdata.forEach((element, index) => {
                         subtotal += element.subtotal
                         dicount += element.total_discount
 
                         htmldata += `
 				 <tr>
                     <td>
-						<p class="fs-14"></p>
+						<p class="fs-14">${index + 1}</p>
 					</td>
 					<td>
 						<p class="fs-14">${element.name}</p>
 					</td>
+
+                      <td>
+						<p class="fs-14">${element.p_strength}</p>
+					</td>
+
 					<td>
-						<p class="fs-14 text-gray">${element.name}</p>
+						<p class="fs-14 text-gray">${element.uom_name}</p>
 
 					</td>
 					<td><span class="fs-14 text-gray">$${element.price} </span></td>
@@ -256,7 +277,7 @@
 					<td><span class="fs-14 text-gray">$${element.total_discount} </span></td>
 					<td><span class="fs-14 text-gray">$${element.subtotal} </span></td>
                     <td>
-						 <button data="${element.item_id}" class=' btn btn-warning remove'>-</button>
+						 <button data="${element.item_id}" class=' btn btn-warning remove'>Remove</button>
 					</td>
 				</tr>
 				`;
@@ -293,6 +314,45 @@
             }
 
 
+
+            $('.btn_process').on('click', function() {
+
+                let customer_id = $('#customer_id').val();
+                let order_total = $('.grandtotal').text();
+                let paid_amount = $('.grandtotal').text();
+                let discount = $('.Discount').text();
+                let vat = $('.tax').text();
+                let products = cart.getCart()
+
+
+                // let dataItem = {
+                //     customer_id: customer_id,
+                //     order_total: order_total,
+                //     paid_amount: paid_amount,
+                //     discount: discount,
+                //     vat: vat,
+                //     product: product,
+                // }
+
+                $.ajax({
+                    url: "{{ url('api/order') }}",
+                    type: 'Post',
+                    data: {
+                        customer_id: customer_id,
+                        total_order: total_order,
+                        paid_amount: paid_amount,
+                        discount: discount,
+                        vat: vat,
+                        products: products,
+                    },
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            })
 
 
 

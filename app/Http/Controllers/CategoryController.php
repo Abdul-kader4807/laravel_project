@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         // $categories= Category::get();
 
-        $categories = Category::paginate(3);
+        $categories = Category::paginate(7);
         //  print_r($categories);
         return view('pages.categories.index', compact('categories'));
     }
@@ -97,7 +97,7 @@ class CategoryController extends Controller
 
     public function search(Request $request)
     {
-        $categories = Category::where('name', "like", "%{$request->name}%")->paginate(3);
+        $categories = Category::where('name', "like", "%{$request->name}%")->paginate(7);
         $requestdata = $request->name;
         return view('pages.categories.index', compact('categories', 'requestdata'));
 
