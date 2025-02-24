@@ -38,7 +38,7 @@ class StockController extends Controller
             'price' => 'required|numeric|min:0',
             // 'offer_price' => 'nullable|numeric|min:0',
             'warehouse_id' => 'required|exists:warehouse,id',
-            'quantity' => 'required|integer|min:1',
+            'qty' => 'required|integer|min:1',
             'uom_id' => 'required|exists:uoms,id',
             // 'batch_id' => 'required|exists:batches,id',
             'remark' => 'nullable|string|max:200',
@@ -50,7 +50,7 @@ class StockController extends Controller
         $stock->price = $request->price;
         // $stock->offer_price = $request->offer_price;
         $stock->warehouse_id = $request->warehouse_id;
-        $stock->quantity = $request->quantity;
+        $stock->qty = $request->qty;
         $stock->uom_id = $request->uom_id;
         // $stock->batch_id = $request->batch_id;
         $stock->remark = $request->remark;
@@ -94,7 +94,7 @@ class StockController extends Controller
             'price' => 'required|numeric|min:0',
             // 'offer_price' => 'nullable|numeric|min:0',
             'warehouse_id' => 'required|exists:warehouse,id',
-            'quantity' => 'required|integer|min:1',
+            'qty' => 'required|integer|min:1',
             'uom_id' => 'required|exists:uoms,id',
             // 'batch_id' => 'required|exists:batches,id',
             'remark' => 'nullable|string|max:200',
@@ -106,7 +106,7 @@ class StockController extends Controller
         $stock->price = $request->price;
         // $stock->offer_price = $request->offer_price;
         $stock->warehouse_id = $request->warehouse_id;
-        $stock->quantity = $request->quantity;
+        $stock->qty = $request->qty;
         $stock->uom_id = $request->uom_id;
         // $stock->batch_id = $request->batch_id;
         $stock->remark = $request->remark;

@@ -47,8 +47,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">customer_id</th>
-                                    <th class="text-center">product_id</th>
+                                    <th class="text-center">Customer Name</th>
+                                    <th class="text-center">Product Name</th>
+                                    <th class="text-center">Strength</th>
                                     <th class="text-center">user_id</th>
                                     <th class="text-center">status_id</th>
                                     <th class="text-center">uom_id</th>
@@ -69,6 +70,7 @@
                                         <td>{{ $order->id }}</td>
                                         <td>{{ optional($order->customer)->name }}</td>
                                         <td>{{ optional($order->product)->name }}</td>
+                                        <td>{{ optional($order->product)->strength }}</td>
                                         <td>{{ optional($order->user)->name  }}</td>
                                         <td>{{ optional($order->status)->name  }}</td>
                                         <td>{{ optional($order->uom)->name  }}</td>

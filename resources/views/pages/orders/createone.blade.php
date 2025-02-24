@@ -3,7 +3,7 @@
 @section('page_content')
     <div class="row d-flex">
         <div class="col-12">
-            <h4 class="mb-3 btn btn-secondary px-4">Register order</h4>
+            <h4 class="mb-3 btn btn-secondary px-4">Register order24545</h4>
         </div>
     </div>
     <div class="card">

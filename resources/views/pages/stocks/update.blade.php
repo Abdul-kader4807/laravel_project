@@ -98,13 +98,13 @@
                 </div>
             </div>
 
-            <!-- Quantity -->
+            <!-- qty -->
             <div class="row mb-3">
-                <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
+                <label for="qty" class="col-sm-3 col-form-label">qty</label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control" name="quantity" value="{{ $stock['quantity'] }}"
-                        placeholder="Enter Quantity">
-                    @error('quantity')
+                    <input type="number" class="form-control" name="qty" value="{{ $stock['qty'] }}"
+                        placeholder="Enter qty">
+                    @error('qty')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>

@@ -25,7 +25,7 @@
                 <p><strong>Offer_price:</strong> {{ $stock['offer_price'] }}</p>
                 <p><strong>warehouse_id:</strong> {{ $stock['warehouse_id'] }}</p>
 
-                <p><strong>quantity:</strong> {{ $stock['quantity'] }}</p>
+                <p><strong>qty:</strong> {{ $stock['qty'] }}</p>
                 <p><strong>Uom_id:</strong> {{ $stock['uom_id'] }}</p>
 
                 <p><strong>batch_id:</strong> {{ $stock['batch_id'] }}</p>

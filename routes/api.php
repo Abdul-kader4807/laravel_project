@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::resource('orders', OrderController::class);
+Route::resource('order', OrderController::class);

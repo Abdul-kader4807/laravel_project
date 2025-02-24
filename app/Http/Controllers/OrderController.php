@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Status;
 use App\Models\Uom;
@@ -15,8 +16,11 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::paginate(3);
-        return view('pages.orders.index', compact('orders'));
+        $orders = Order::paginate(8);
+
+        // echo json_encode(OrderDetail::with('product')->where('order_id', 4)->get());
+
+       return view('pages.orders.index', compact('orders'));
     }
 
 
@@ -77,7 +81,7 @@ class OrderController extends Controller
 
     public function show(string $id)
     {
-        $order = Order::find($id);
+        $order = Order::with('order_details')->where('id', $id)->get();
         return view('pages.orders.show', compact('order'));
     }
 
@@ -168,7 +172,7 @@ class OrderController extends Controller
             ->orWhere('customer_id', 'like', "%{$query}%")
             ->orWhere('user_id', 'like', "%{$query}%")
             ->orWhere('status_id', 'like', "%{$query}%")
-            ->paginate(3);
+            ->paginate(8);
         return view('pages.orders.index', compact('orders'));
 
         if ($orders) {
@@ -192,7 +196,7 @@ class OrderController extends Controller
 		return response()->json(['product'=> $product]);
 	}
 
-   
+
 
 
 }

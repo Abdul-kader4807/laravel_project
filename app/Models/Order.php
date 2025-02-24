@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
-{
+{   protected $table = 'orders';
     function customer()
     {
         return   $this->belongsTo(Customer::class);
+    }
+
+    function order_details()
+    {
+        return   $this->hasMany(OrderDetail::class);
     }
 
     function product()
@@ -31,4 +36,8 @@ class Order extends Model
     {
         return $this->belongsTo(Uom::class);
     }
+
+
+
+
 }

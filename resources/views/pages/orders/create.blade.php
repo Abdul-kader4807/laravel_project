@@ -36,9 +36,9 @@
                                     <p>Address: <span class="address"></span></p>
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    <h1 class="invoice-id">INVOICE #321</h1>
-                                    <p>Date of Invoice: 01/10/2018</p>
-                                    <p>Due Date: 30/10/2018</p>
+                                    <h1 class="invoice-id">INVOICE #{{ DB::table('orders')->count() + 1 }}</h1>
+                                    <p>Date of Invoice: {{ date('d/m/Y') }}</p>
+                                    <p>Due Date: {{ date('d/m/Y', strtotime('+7 days')) }}</p>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -110,8 +110,8 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="6" class="text-end">TAX (15%)</td>
-                                            <td class="tax">$1,300.00</td>
+                                            <td colspan="6" class="text-end">VAT (15%)</td>
+                                            <td class="vat">$1,300.00</td>
                                         </tr>
                                         <tr class="bg-light">
                                             <td colspan="6" class="text-end text-primary">GRAND TOTAL</td>
@@ -147,7 +147,7 @@
     <script>
         $(function() {
             const cart = new Cart('order');
-            //   printCart();
+            printCart();
 
 
             $.ajaxSetup({
@@ -263,7 +263,7 @@
 					</td>
 
                       <td>
-						<p class="fs-14">${element.p_strength}</p>
+						<p class="fs-14">${element.strength}</p>
 					</td>
 
 					<td>
@@ -287,7 +287,7 @@
 
 
                     $('.subtotal').html(subtotal);
-                    $('.tax').html(subtotal * 5 / 100);
+                    $('.vat').html(subtotal * 5 / 100);
                     $('.Discount').html(dicount);
                     $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
                     cartIconIncrease()
@@ -318,21 +318,26 @@
             $('.btn_process').on('click', function() {
 
                 let customer_id = $('#customer_id').val();
-                let order_total = $('.grandtotal').text();
+                let uom_id = $('#uom_id').val();
+                let total_order = $('.grandtotal').text();
                 let paid_amount = $('.grandtotal').text();
                 let discount = $('.Discount').text();
-                let vat = $('.tax').text();
+                let vat = $('.vat').text();
                 let products = cart.getCart()
 
 
                 // let dataItem = {
                 //     customer_id: customer_id,
-                //     order_total: order_total,
+                //     uom_id: uom_id,
+                //     total_order: total_order,
                 //     paid_amount: paid_amount,
                 //     discount: discount,
                 //     vat: vat,
-                //     product: product,
-                // }
+                //     product: products,
+                // };
+                // console.log(dataItem);
+
+
 
                 $.ajax({
                     url: "{{ url('api/order') }}",
@@ -346,23 +351,26 @@
                         products: products,
                     },
                     success: function(res) {
-                        console.log(res);
+                        if (res.success) {
+                        cart.clearCart();
+				         printCart();
+                         $('#customer_id').val("");
+                         $(".email").text("");
+                         $(".phone").text("");
+                        $(".address").text("");
+                      }
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
                     }
                 });
-            })
 
 
 
+            });
 
 
-
-
-
-
-        })
+        });
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>
 @endsection

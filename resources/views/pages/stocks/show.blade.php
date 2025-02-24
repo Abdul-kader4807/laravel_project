@@ -43,8 +43,8 @@
 
 
                 <tr>
-                    <th>quantity</th>
-                    <td>{{ $stock['quantity'] }}</td>
+                    <th>Qty</th>
+                    <td>{{ $stock['qty'] }}</td>
                 </tr>
 
                 <tr>

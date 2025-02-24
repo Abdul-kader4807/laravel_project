@@ -13,7 +13,7 @@ class OrderDetailController extends Controller
 
     public function index()
     {
-        $order_details = OrderDetail::paginate(3);
+        $order_details = OrderDetail::paginate(8);
         return view('pages.orderDetails.index', compact('order_details'));
     }
 
@@ -134,7 +134,7 @@ public function destroy_view($id)
         $order_details = OrderDetail::where('order_id', "like", "%{$query}%")
             ->orWhere('product_id', 'like', "%{$query}%")
             ->orWhere('uom_id', 'like', "%{$query}%")
-            ->paginate(3);
+            ->paginate(8);
         return view('pages.orderDetails.index', compact('order_details'));
 
         if ($order_details) {
