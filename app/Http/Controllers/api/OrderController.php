@@ -12,26 +12,20 @@ use function Termwind\parse;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $orders = Order::all();
         return response()->json(['orders' => $orders],'ok');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         //   print_r($request->all());
@@ -44,9 +38,11 @@ class OrderController extends Controller
         $order->shipping_address = "";   //$request->shipping_address;
         $order->total_order = $request->total_order;
         $order->paid_amount = $request->paid_amount;
+        $order->status_id = $request->status_id;
+
 
         $order->remark = "";   //$request->remark;
-        $order->status_id = 1;
+        // $order->status_id = 1;
         $order->discount = $request->discount;
         $order->vat = $request->vat;
         // date_default_timezone_set("Asia/Dhaka");
@@ -65,6 +61,7 @@ class OrderController extends Controller
             $orderdetail = new OrderDetail;
             $orderdetail->order_id = $lastInsertedId;
             $orderdetail->product_id = $value['item_id'];
+            $orderdetail->uom_id = $value['uom_id'];
             $orderdetail->qty = $value['qty'];
             $orderdetail->price = $value['price'];
             $orderdetail->vat = $request->vat;
@@ -114,35 +111,31 @@ class OrderController extends Controller
         // return response()->json(['success' => "success"]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //
     }
+
+
+
+
 }

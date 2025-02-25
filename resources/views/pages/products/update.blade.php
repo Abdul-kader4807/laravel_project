@@ -3,7 +3,7 @@
 @section('page_content')
     <div class="row d-flex">
         <div class="col-6">
-            <h4 class="mb-3 btn btn-secondary px-4">Register product</h4>
+            <h4 class="mb-3 btn btn-secondary px-4">Update product</h4>
         </div>
         <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end mb-2 col-6">
             <a class="btn btn-success" href="{{ url('product') }}">Back</a>
@@ -16,7 +16,7 @@
 
             <form action="{{ url("product/{$product['id']}") }}" method="post" enctype="multipart/form-data">
                 @csrf
-                {{-- @method('PUT') --}}
+                @method('PUT')
                 <input type="hidden" name="_method" value="put">
                 <div class="row mb-3">
                     <label for="input42" class="col-sm-3 col-form-label"> Name</label>
@@ -53,9 +53,6 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="row mb-3">
                     <label for="brand_id" class="col-sm-3 col-form-label">Brand</label>
                     <div class="col-sm-9">
@@ -77,13 +74,13 @@
                     </div>
                 </div>
 
-
                 <div class="row mb-3">
                     <label for="generic_name" class="col-sm-3 col-form-label">Generic Name</label>
                     <div class="col-sm-9">
                         <div class="position-relative input-icon">
-                            <input type="text" name="generic_name" value={{ $product['generic_name'] }}
-                                class="form-control" id="generic_name" placeholder="Enter Generic Name">
+                            <input type="text" name="generic_name" value="{{ $product['generic_name'] }}" class="form-control" id="generic_name" placeholder="Enter Generic Name">
+
+                               
                             @error('generic_name')
                                 <span style="color: red">{{ $message }}</span>
                             @enderror

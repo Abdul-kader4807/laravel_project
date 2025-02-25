@@ -124,15 +124,28 @@
 
 
 
-                            <div class="text-center mt-4">
-                                <h4 class="text-success">Thank You!</h4>
-                                <p class="text-muted">A finance charge of 1.5% will be made on unpaid balances after 30
-                                    days.</p>
+
+                            <div class="row container">
+
+                                <div class=" col-4 p-2 mt-5">
+                                    <label for="status_id" class="form-label status fw-bold">Payment Status</label>
+                                    <select name="status_id" class="status_button form-control">
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status->id }}">
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-8 p-2 mt-5">
+                                    <h4 class="text-success">Thank You!</h4>
+                                    <p class="text-muted">A finance charge of 1.5% will be made on unpaid balances after 30
+                                        days.</p>
+                                </div>
                             </div>
                         </main>
-                        <footer class="text-center text-muted pt-3 mt-3 border-top">
-                            Invoice was created on a computer and is valid without a signature and seal.
-                        </footer>
+
                     </div>
 
                     <button class="btn btn-primary btn_process">Process</button>
@@ -321,6 +334,7 @@
                 let uom_id = $('#uom_id').val();
                 let total_order = $('.grandtotal').text();
                 let paid_amount = $('.grandtotal').text();
+                let status = $('.status_button').val();
                 let discount = $('.Discount').text();
                 let vat = $('.vat').text();
                 let products = cart.getCart()
@@ -331,6 +345,7 @@
                 //     uom_id: uom_id,
                 //     total_order: total_order,
                 //     paid_amount: paid_amount,
+                //     status: status,
                 //     discount: discount,
                 //     vat: vat,
                 //     product: products,
@@ -346,19 +361,20 @@
                         customer_id: customer_id,
                         total_order: total_order,
                         paid_amount: paid_amount,
+                        status: status,
                         discount: discount,
                         vat: vat,
                         products: products,
                     },
                     success: function(res) {
                         if (res.success) {
-                        cart.clearCart();
-				         printCart();
-                         $('#customer_id').val("");
-                         $(".email").text("");
-                         $(".phone").text("");
-                        $(".address").text("");
-                      }
+                            cart.clearCart();
+                            printCart();
+                            $('#customer_id').val("");
+                            $(".email").text("");
+                            $(".phone").text("");
+                            $(".address").text("");
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.log(error);

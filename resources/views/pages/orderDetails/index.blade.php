@@ -50,7 +50,7 @@
                                     {{-- <th class="text-center">Order_Id</th> --}}
                                     <th class="text-center">Product Name</th>
                                     <th class="text-center">Strength</th>
-                                    <th class="text-center">Uom_id</th>
+                                    <th class="text-center">Units of Measure</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">vat</th>

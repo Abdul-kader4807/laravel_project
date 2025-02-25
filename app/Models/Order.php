@@ -16,10 +16,10 @@ class Order extends Model
         return   $this->hasMany(OrderDetail::class);
     }
 
-    function product()
-    {
-        return   $this->belongsTo(Product::class);
-    }
+    // function product()
+    // {
+    //     return   $this->belongsTo(Product::class);
+    // }
 
     function user()
     {
@@ -32,10 +32,10 @@ class Order extends Model
     }
 
 
-    function uom()
-    {
-        return $this->belongsTo(Uom::class);
-    }
+    // function uom()
+    // {
+    //     return $this->belongsTo(Uom::class);
+    // }
 
 
 

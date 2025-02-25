@@ -48,19 +48,19 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Customer Name</th>
-                                    <th class="text-center">Product Name</th>
-                                    <th class="text-center">Strength</th>
-                                    <th class="text-center">user_id</th>
-                                    <th class="text-center">status_id</th>
-                                    <th class="text-center">uom_id</th>
                                     <th class="text-center">total_order</th>
-                                    <th class="text-center">discount</th>
                                     <th class="text-center">paid_amount</th>
+                                    <th class="text-center">status_id</th>
+                                    <th class="text-center">discount</th>
                                     <th class="text-center">vat</th>
+                                    <th class="text-center">user_id</th>
                                     <th class="text-center">order_date</th>
                                     <th class="text-center">delivery_date</th>
+                                    {{-- <th class="text-center">Product Name</th>
+                                    <th class="text-center">Strength</th>
+                                    <th class="text-center">uom_id</th>
                                     <th class="text-center">shipping_address</th>
-                                    <th class="text-center">remark</th>
+                                    <th class="text-center">remark</th> --}}
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -69,19 +69,19 @@
                                     <tr>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ optional($order->customer)->name }}</td>
-                                        <td>{{ optional($order->product)->name }}</td>
-                                        <td>{{ optional($order->product)->strength }}</td>
-                                        <td>{{ optional($order->user)->name  }}</td>
-                                        <td>{{ optional($order->status)->name  }}</td>
-                                        <td>{{ optional($order->uom)->name  }}</td>
                                         <td>{{ $order->total_order }}</td>
-                                        <td>{{ $order->discount }}</td>
                                         <td>{{ $order->paid_amount }}</td>
+                                        <td>{{ optional($order->status)->name  }}</td>
+                                        <td>{{ $order->discount }}</td>
                                         <td>{{ $order->vat }}</td>
+                                        <td>{{ optional($order->user)->name  }}</td>
                                         <td>{{ $order->order_date }}</td>
                                         <td>{{ $order->delivery_date }}</td>
+                                        {{-- <td>{{ optional($order->product)->name }}</td>
+                                        <td>{{ optional($order->product)->strength }}</td> --}}
+                                        {{-- <td>{{ optional($order->uom)->name  }}</td>
                                         <td>{{ $order->shipping_address }}</td>
-                                        <td>{{ $order->remark }}</td>
+                                        <td>{{ $order->remark }}</td> --}}
 
                                         <td>
 

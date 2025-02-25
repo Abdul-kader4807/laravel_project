@@ -256,6 +256,8 @@
             </li>
             <li> <a href="{{url('status')}}"><i class='bx bx-radio-circle'></i>Status List </a>
             </li>
+            <li> <a href="{{url('payment_status')}}"><i class='bx bx-radio-circle'></i>PaymentStatus List </a>
+            </li>
 
         </ul>
     </li>

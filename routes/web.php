@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
@@ -88,6 +89,9 @@ Route::resource('order',OrderController::class);
 Route::post('find_customer', [OrderController::class, 'find_customer']);
  Route::post('find_product', [OrderController::class, 'find_product']);
 
+Route::get('payment_status/delete/{id}',[PaymentStatusController::class,'destroy_view']);
+Route::post('payment_status/search',[PaymentStatusController::class,'search']);
+Route::resource('payment_status',PaymentStatusController::class);
 
 
 

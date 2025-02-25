@@ -350,7 +350,7 @@ CREATE TABLE if not exists `phar_payments` (
 
   CREATE TABLE if not exists `phar_payment_status` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `status` VARCHAR(50) NOT NULL, -- Example: 'Pending', 'Completed', 'Failed', 'Refunded'
+    `name` VARCHAR(50) NOT NULL, -- Example: 'Pending', 'Completed', 'Failed', 'Refunded'
      `description` VARCHAR(255) DEFAULT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -360,7 +360,7 @@ CREATE TABLE if not exists `phar_payments` (
 
 CREATE TABLE phar_payment_methods (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `method_name` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     `payment_status_id` INT NOT NULL,
     `details` VARCHAR(255) NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

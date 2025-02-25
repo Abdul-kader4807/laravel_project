@@ -25,32 +25,32 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        $uoms= Uom::all();
-        return view('pages.products.create', compact('manufacturers', 'brands', 'categories','uoms'));
+        $uoms = Uom::all();
+        return view('pages.products.create', compact('manufacturers', 'brands', 'categories', 'uoms'));
     }
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|min:3',
+            'name'   => 'required|min:0|max:100',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'manufacturer_id' => 'required|exists:manufacturers,id',
-            'generic_name'   => 'required|min:3',
-            'dosage' => 'nullable|min:3',
-            'strength' => 'nullable|min:2',
-            'unit' => 'required|min:2',
+            'generic_name'   => 'required|min:0|max:100',
+            'dosage' => 'nullable|min:0',
+            'strength' => 'nullable|min:0',
+            'unit' => 'required|min:0',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0|lt:price',
             'max_quantity' => 'required|integer|min:1',
             'reorder_level' => 'nullable|integer|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',
             'expiry_date' => 'nullable|date|after:today',
-            'description' => 'nullable|min:4',
+            'description' => 'nullable|min:0|max:100',
             'uom_id' => 'nullable|numeric',
             'barcode' => 'nullable|numeric|digits_between:8,13',
-            'sku' => 'nullable|string|max:50|unique:products,sku',
+            'sku' => 'nullable|string|max:50|unique:products,sku,',
             'star' => 'nullable|string|max:5',
             'weight' => 'nullable|numeric|min:0',
             'size' => 'nullable|string|max:50',
@@ -113,29 +113,29 @@ class ProductController extends Controller
         $manufacturers = Manufacturer::all();
         $brands = Brand::all();
         $categories = Category::all();
-        $uoms= Uom::all();
-        return view('pages.products.update', compact('product', 'manufacturers', 'brands', 'categories','uoms'));
+        $uoms = Uom::all();
+        return view('pages.products.update', compact('product', 'manufacturers', 'brands', 'categories', 'uoms'));
     }
 
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'   => 'required|min:3',
+            'name'   => 'required|min:0|max:100',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'manufacturer_id' => 'required|exists:manufacturers,id',
-            'generic_name'   => 'required|min:5',
-            'dosage' => 'nullable|min:3',
-            'strength' => 'nullable|min:2',
-            'unit' => 'required|min:2',
+            'generic_name'   => 'required|min:0|max:100',
+            'dosage' => 'nullable|min:0',
+            'strength' => 'nullable|min:0',
+            'unit' => 'required|min:0',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0|lt:price',
             'max_quantity' => 'required|integer|min:1',
             'reorder_level' => 'nullable|integer|min:0',
             'discount' => 'nullable|numeric|min:0|max:100',
             'expiry_date' => 'nullable|date|after:today',
-            'description' => 'nullable|min:4',
+            'description' => 'nullable|min:0|max:100',
             'uom_id' => 'nullable|numeric',
             'barcode' => 'nullable|numeric|digits_between:8,13',
             'sku' => 'nullable|string|max:50|unique:products,sku,' . $id,
@@ -146,8 +146,15 @@ class ProductController extends Controller
             'is_brand' => 'required|boolean',
             'photo'  => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
-$product =  Product::find($id);
-$product->name = $request->name;
+
+        // প্রোডাক্ট খুঁজে বের করা
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found');
+        }
+
+        // ইনপুট ফিল্ড আপডেট করা
+        $product->name = $request->name;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->generic_name = $request->generic_name;
@@ -170,19 +177,56 @@ $product->name = $request->name;
         $product->size = $request->size;
         $product->is_featured = $request->is_featured;
         $product->is_brand = $request->is_brand;
-        $photoname = $request->name . "." . $request->file('photo')->extension();
-        $photoPath = public_path('photo/' . $photoname);
-        if (file_exists($photoPath)) {
-            unlink($photoPath);
+
+        // যদি নতুন ছবি আপলোড করা হয়
+        if ($request->hasFile('photo')) {
+            // পুরাতন ছবি মুছে ফেলা
+            if ($product->photo && file_exists(public_path('photo/' . $product->photo))) {
+                unlink(public_path('photo/' . $product->photo));
+            }
+
+            // নতুন ছবি সংরক্ষণ
+            $photoname = time() . '.' . $request->file('photo')->extension();
             $request->file('photo')->move(public_path('photo'), $photoname);
-        $product->photo = $photoname;
-        }else{
-            $product->photo= $product->photo;
+            $product->photo = $photoname;
         }
+
+        // প্রোডাক্ট আপডেট করা
         if ($product->save()) {
-            return redirect('product')->with('success', "product has been registered");
-        };
+            return redirect('product')->with('success', "Product has been updated");
+        }
+
+        return redirect()->back()->with('error', 'Failed to update product');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function destroy_view($id)
@@ -204,14 +248,14 @@ $product->name = $request->name;
     public function search(Request $request)
 
     {
-$query = $request->input('query');
+        $query = $request->input('query');
 
 
         $products = Product::where('name', "like", "%{$query}%")
-        ->orWhere('sku','like',"%{$query}%")
-        ->orWhere('barcode','like',"%{$query}%")
-        ->orWhere('category_id','like',"%{$query}%")
-        ->paginate(3);
+            ->orWhere('sku', 'like', "%{$query}%")
+            ->orWhere('barcode', 'like', "%{$query}%")
+            ->orWhere('category_id', 'like', "%{$query}%")
+            ->paginate(3);
         return view('pages.products.index', compact('products'));
 
         if ($products) {
@@ -220,6 +264,4 @@ $query = $request->input('query');
             $products = [];
         }
     }
-
-
 }

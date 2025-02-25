@@ -6,7 +6,7 @@ use App\Models\status;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
-{
+{ 
 
     public function index()
     {
