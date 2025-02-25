@@ -47,8 +47,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Order_Id</th>
-                                    <th class="text-center">Product_Id</th>
+                                    {{-- <th class="text-center">Order_Id</th> --}}
+                                    <th class="text-center">Product Name</th>
+                                    <th class="text-center">Strength</th>
                                     <th class="text-center">Uom_id</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Price</th>
@@ -61,8 +62,9 @@
                                 @forelse ($order_details as $order_detail)
                                     <tr>
                                         <td>{{ $order_detail->id }}</td>
-                                        <td>{{ optional($order_detail->order)->name }}</td>
+                                        {{-- <td>{{ optional($order_detail->order)->name }}</td> --}}
                                         <td>{{ optional($order_detail->product)->name }}</td>
+                                        <td>{{ optional($order_detail->product)->strength }}</td>
                                         <td>{{ optional($order_detail->uom)->name  }}</td>
                                         <td>{{ $order_detail->qty }}</td>
                                         <td>{{ $order_detail->price }}</td>

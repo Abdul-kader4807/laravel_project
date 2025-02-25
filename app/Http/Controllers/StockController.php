@@ -14,7 +14,7 @@ class StockController extends Controller
 
     public function index()
     {
-        $stocks = Stock::paginate(3);
+        $stocks = Stock::paginate(6);
         return view('pages.stocks.index', compact('stocks'));
     }
 
@@ -145,7 +145,7 @@ class StockController extends Controller
             ->orWhere('warehouse_id', 'like', "%{$query}%")
             ->orWhere('uom_id', 'like', "%{$query}%")
             ->orWhere('batch_id', 'like', "%{$query}%")
-            ->paginate(3);
+            ->paginate(6);
         return view('pages.stocks.index', compact('stocks'));
      }
 

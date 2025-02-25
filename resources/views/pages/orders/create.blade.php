@@ -135,7 +135,7 @@
                         </footer>
                     </div>
 
-                    <button class="btn btn-primary btn_process">Order</button>
+                    <button class="btn btn-primary btn_process">Process</button>
                 </div>
             </div>
         </div>
@@ -364,6 +364,8 @@
                         console.log(error);
                     }
                 });
+
+
 
 
 
