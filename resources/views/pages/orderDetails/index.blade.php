@@ -47,7 +47,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    {{-- <th class="text-center">Order_Id</th> --}}
+                                    <th class="text-center">Order_Id</th>
                                     <th class="text-center">Product Name</th>
                                     <th class="text-center">Strength</th>
                                     <th class="text-center">Units of Measure</th>
@@ -61,17 +61,17 @@
                             <tbody>
                                 @forelse ($order_details as $order_detail)
                                     <tr>
-                                        <td>{{ $order_detail->id }}</td>
-                                        {{-- <td>{{ optional($order_detail->order)->name }}</td> --}}
-                                        <td>{{ optional($order_detail->product)->name }}</td>
-                                        <td>{{ optional($order_detail->product)->strength }}</td>
-                                        <td>{{ optional($order_detail->uom)->name  }}</td>
-                                        <td>{{ $order_detail->qty }}</td>
-                                        <td>{{ $order_detail->price }}</td>
-                                        <td>{{ $order_detail->vat }}</td>
-                                        <td>{{ $order_detail->discount }}</td>
+                                        <td class="text-center">{{ $order_detail->id }}</td>
+                                        <td class="text-center">{{ optional($order_detail->order)->id }}</td>
+                                        <td class="text-center">{{ optional($order_detail->product)->name }}</td>
+                                        <td class="text-center">{{ optional($order_detail->product)->strength }}</td>
+                                        <td class="text-center">{{ optional($order_detail->uom)->name  }}</td>
+                                        <td class="text-center">{{ $order_detail->qty }}</td>
+                                        <td class="text-center">{{ $order_detail->price }}</td>
+                                        <td class="text-center">{{ $order_detail->vat }}</td>
+                                        <td class="text-center">{{ $order_detail->discount }}</td>
 
-                                        <td>
+                                        <td class="text-center">
 
                                             <a href="{{ url("order_detail/$order_detail->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>

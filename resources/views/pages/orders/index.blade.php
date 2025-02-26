@@ -50,10 +50,10 @@
                                     <th class="text-center">Customer Name</th>
                                     <th class="text-center">total_order</th>
                                     <th class="text-center">paid_amount</th>
-                                    <th class="text-center">status_id</th>
+                                    <th class="text-center">status</th>
                                     <th class="text-center">discount</th>
                                     <th class="text-center">vat</th>
-                                    <th class="text-center">user_id</th>
+                                    <th class="text-center">user Name</th>
                                     <th class="text-center">order_date</th>
                                     <th class="text-center">delivery_date</th>
                                     {{-- <th class="text-center">Product Name</th>

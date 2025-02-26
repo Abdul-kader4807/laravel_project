@@ -57,21 +57,21 @@ class OrderController extends Controller
         print_r($productsdata);
 
         foreach ($productsdata as $key => $value) {
-            // print_r( $value['item_id']);
-            $orderdetail = new OrderDetail;
-            $orderdetail->order_id = $lastInsertedId;
-            $orderdetail->product_id = $value['item_id'];
-            $orderdetail->uom_id = $value['uom_id'];
-            $orderdetail->qty = $value['qty'];
-            $orderdetail->price = $value['price'];
-            $orderdetail->vat = $request->vat;
-            $orderdetail->discount = $value['total_discount'];
+            //  print_r( $value['item_id']);
+            $orderdetails = new OrderDetail;
+            $orderdetails->order_id = $lastInsertedId;
+            $orderdetails->product_id = $value['item_id'];
+            $orderdetails->uom_id = $value['uom_id'];
+            $orderdetails->qty = $value['qty'];
+            $orderdetails->price = $value['price'];
+            $orderdetails->discount = $value['total_discount'];
+            $orderdetails->vat = $request->vat;
             // date_default_timezone_set("Asia/Dhaka");
             // $orderdetail->created_at=date('Y-m-d H:i:s');
             //  date_default_timezone_set("Asia/Dhaka");
             // $orderdetail->updated_at=date('Y-m-d H:i:s');
 
-            $orderdetail->save();
+            $orderdetails->save();
             //   $lastInsertedId = $order->id;
 
             // স্টক থেকে প্রোডাক্টের পরিমাণ কমানো
@@ -96,20 +96,9 @@ class OrderController extends Controller
         }
         return response()->json(['success' => "order confirmed successfully"]);
 
-        // $stock = new Stock();
 
-        // $stock->product_id = $product['item_id'];
-        // $stock->qty = $product['quantity'] * (-1);
-        // $stock->transaction_type_id = 2;
-        // $stock->remark = "Sales";
-        // $stock->created_at = date('Y-m-d H:i:s');
-        // $stock->updated_at = date('Y-m-d H:i:s');
-        // $stock->warehouse_id = 1;
-
-        // $stock->save();
-
-        // return response()->json(['success' => "success"]);
     }
+
 
 
     public function show(string $id)

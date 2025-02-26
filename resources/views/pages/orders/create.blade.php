@@ -101,20 +101,20 @@
 
                                     <tfoot class="fw-bold">
                                         <tr>
-                                            <td colspan="6" class="text-end  ">SUBTOTAL</td>
+                                            <td colspan="7" class="text-end  ">SUBTOTAL</td>
                                             <td class="subtotal">5,200.00</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="6" class="text-end"> TOTAL DISCOUNT (25%)</td>
+                                            <td colspan="7" class="text-end"> TOTAL DISCOUNT (25%)</td>
                                             <td class="Discount">1,300.00</td>
                                         </tr>
 
                                         <tr>
-                                            <td colspan="6" class="text-end">VAT (15%)</td>
+                                            <td colspan="7" class="text-end">VAT (15%)</td>
                                             <td class="vat">$1,300.00</td>
                                         </tr>
                                         <tr class="bg-light">
-                                            <td colspan="6" class="text-end text-primary">GRAND TOTAL</td>
+                                            <td colspan="7" class="text-end text-primary">GRAND TOTAL</td>
                                             <td class="text-primary grandtotal">$6,500.00</td>
                                         </tr>
                                     </tfoot>
@@ -138,7 +138,8 @@
                                     </select>
                                 </div>
 
-                                <div class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-8 p-2 mt-5">
+                                <div
+                                    class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-8 p-2 mt-5">
                                     <h4 class="text-success">Thank You!</h4>
                                     <p class="text-muted">A finance charge of 1.5% will be made on unpaid balances after 30
                                         days.</p>
@@ -148,7 +149,7 @@
 
                     </div>
 
-                    <button class="btn btn-primary btn_process">Process</button>
+                    <a class="btn btn-primary btn_process" >Process</a>
                 </div>
             </div>
         </div>
@@ -216,6 +217,29 @@
 
 
 
+            $('#uom_id').on('change', function() {
+                // alert()
+                let uom_id = $(this).val();
+                $.ajax({
+                    url: "{{ url('find_uom') }}",
+                    type: 'POST',
+                    data: {
+                        id: uom_id
+                    },
+                    success: function(res) {
+                        // let data=JSON.parse(res);
+                        console.log(res.uom);
+                        $(".name").text(res.uom?.name);
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+
+
 
             $('.add_cart_btn').on('click', function() {
 
@@ -227,7 +251,7 @@
                 let strength = $(".p_strength").val();
                 let qty = $(".p_qty").val();
                 let discount = $(".p_discount").val();
-                let uom_id = $("#uom_id").val(); // UOM er ID nichi
+                let uom_id = $("#uom_id").val();
                 let uom_name = $("#uom_id option:selected").text();
 
                 let total_discount = discount * qty;
@@ -236,13 +260,14 @@
                 let item = {
                     "name": name,
                     "item_id": item_id,
+                    "uom_id": uom_id,
+                    "uom_name": uom_name,
                     "price": price,
                     "strength": strength,
                     "qty": parseFloat(qty),
                     "discount": discount,
                     'total_discount': total_discount,
-                    "subtotal": subtotal,
-                    "uom_name": uom_name
+                    "subtotal": subtotal
 
                 };
 
@@ -326,15 +351,14 @@
                 $(".cartIcon").html(items);
             }
 
-
+            cart.clearCart();
 
             $('.btn_process').on('click', function() {
 
                 let customer_id = $('#customer_id').val();
-                let uom_id = $('#uom_id').val();
                 let total_order = $('.grandtotal').text();
                 let paid_amount = $('.grandtotal').text();
-                let status = $('.status_button').val();
+                let status_id = $('.status_button').val();
                 let discount = $('.Discount').text();
                 let vat = $('.vat').text();
                 let products = cart.getCart()
@@ -342,7 +366,7 @@
 
                 // let dataItem = {
                 //     customer_id: customer_id,
-                //     uom_id: uom_id,
+                //
                 //     total_order: total_order,
                 //     paid_amount: paid_amount,
                 //     status: status,
@@ -360,13 +384,14 @@
                     data: {
                         customer_id: customer_id,
                         total_order: total_order,
+                        status_id: status_id,
                         paid_amount: paid_amount,
-                        status: status,
                         discount: discount,
                         vat: vat,
                         products: products,
                     },
                     success: function(res) {
+
                         if (res.success) {
                             cart.clearCart();
                             printCart();
@@ -374,6 +399,22 @@
                             $(".email").text("");
                             $(".phone").text("");
                             $(".address").text("");
+
+                             // নতুন URL এ রিডাইরেক্ট
+
+
+                            // Clear input fields
+                            $(".p_price").val("");
+                            $(".p_strength").val("");
+                            $(".p_qty").val("");
+                            $(".p_discount").val("");
+                            $("#uom_id").val("");
+                            $("#product_id").val("");
+
+                            alert("Order processed successfully!");
+
+
+
                         }
                     },
                     error: function(xhr, status, error) {

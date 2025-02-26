@@ -198,5 +198,11 @@ class OrderController extends Controller
 
 
 
+    public function find_uom(Request $request){
+		$uom = Uom::find($request->id);
+		return response()->json(['uom'=> $uom]);
+	}
+
+
 
 }

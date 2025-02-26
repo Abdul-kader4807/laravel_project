@@ -83,6 +83,7 @@ Route::post('purchase/search',[PurchaseController::class,'search']);
 Route::resource('purchase',PurchaseController::class);
 
 
+Route::get('order', [OrderController::class, 'index'])->name('order.index');
 Route::get('order/delete/{id}',[OrderController::class,'destroy_view']);
 Route::post('order/search',[OrderController::class,'search']);
 Route::resource('order',OrderController::class);
