@@ -15,8 +15,6 @@ class Purchase extends Model
     }
 
 
-
-
     function status(){
         return   $this->belongsTo(Status::class, 'status_id');
      }
@@ -28,6 +26,7 @@ function supplier(){
 // function product(){
 //     return $this->belongsTo(Product::class , 'product_id');
 // }
+
 
 
 }

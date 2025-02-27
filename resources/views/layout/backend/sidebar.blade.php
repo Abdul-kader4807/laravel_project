@@ -119,7 +119,7 @@
         <ul>
             <li> <a href="{{url('purchase/create')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
-            <li> <a href="table-datatable.html"><i class='bx bx-radio-circle'></i>Purchase Details</a>
+            <li> <a href="{{'purchase_deatil'}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
             </li>
         </ul>
     </li>

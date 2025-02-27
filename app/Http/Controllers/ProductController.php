@@ -200,35 +200,6 @@ class ProductController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function destroy_view($id)
     {
         $product = Product::find($id);

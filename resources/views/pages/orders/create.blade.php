@@ -149,7 +149,7 @@
 
                     </div>
 
-                    <a class="btn btn-primary btn_process" >Process</a>
+                    <a class="btn btn-primary btn_process" href="{{url('order')}}">Process</a>
                 </div>
             </div>
         </div>
@@ -332,6 +332,8 @@
                 }
 
             }
+
+
 
             $(document).on('click', '.remove', function() {
                 let id = $(this).attr('data');

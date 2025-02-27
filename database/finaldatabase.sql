@@ -98,7 +98,7 @@ CREATE TABLE if not exists `phar_purchases` (
   `supplier_id` INT(11) DEFAULT NULL,
   `product_id` INT(11) DEFAULT NULL,
   `status_id` INT(11) DEFAULT NULL,
-   `uom_id` INT(11) DEFAULT NULL,
+--    `uom_id` INT(11) DEFAULT NULL,
    `total_order` DECIMAL(10,2) DEFAULT 0.00,
   `paid_amount` DECIMAL(10,2) DEFAULT 0.00,
   `total_amount` DECIMAL(10,2) NOT NULL,
@@ -141,14 +141,17 @@ CREATE TABLE if not exists `phar_purchases_items` (
 --8 Table: `phar_purchases_details`
 CREATE TABLE if not exists `phar_purchases_details` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `purchases_id` INT(11) NOT NULL,
+  `purchase_id` INT(11) NOT NULL,
   `product_id` INT(11) NOT NULL,
+  `uom_id` INT(11) DEFAULT NULL,
   `qty` DOUBLE DEFAULT NULL,
   `price` DOUBLE DEFAULT NULL,
   `discount` DOUBLE DEFAULT NULL,
-  `total_price` DECIMAL(10,2) NOT NULL,
+  `discount` DOUBLE DEFAULT NULL,
+   `vat` DECIMAL(10,2) DEFAULT 0.00,
+  `total_purchase` DECIMAL(10,2) NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 
 );
 

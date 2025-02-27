@@ -11,6 +11,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
@@ -81,6 +82,15 @@ Route::resource('uom',UomController::class);
 Route::get('purchase/delete/{id}',[PurchaseController::class,'destroy_view']);
 Route::post('purchase/search',[PurchaseController::class,'search']);
 Route::resource('purchase',PurchaseController::class);
+Route::post('find_supplier',[PurchaseController::class,'find_supplier']);
+Route::post('find_product',[PurchaseController::class,'find_product']);
+
+
+
+Route::get('purchase_deatil/delete/{id}',[PurchaseDetailController::class,'destroy_view']);
+Route::post('purchase_deatil/search',[PurchaseDetailController::class,'search']);
+Route::resource('purchase_deatil',PurchaseDetailController::class);
+
 
 
 Route::get('order', [OrderController::class, 'index'])->name('order.index');
