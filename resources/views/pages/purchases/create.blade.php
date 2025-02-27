@@ -1,196 +1,238 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacy Purchase Invoice</title>
+
+@extends('layout.backend.main')
+
+@section('page_content')
+    <div class="card">
+        <div class="card-body">
+            <div id="invoice">
+                <div class="toolbar hidden-print">
+                    <div class="text-end">
+                        <button type="button" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+                    </div>
+                    <hr />
+                </div>
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 800px">
+                        <header>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:;">
+                                        <img src="{{ asset('assets/images/logo-icon.png') }}" width="80" alt="Pharmacy Logo" />
+                                    </a>
+                                </div>
+                                <div class="col company-details">
+                                    <h2 class="name">
+                                        <a target="_blank" href="#">
+                                            City Pharmacy Ltd.
+                                        </a>
+                                    </h2>
+                                    <div>123 Health Street, Medicity</div>
+                                    <div>Phone: (123) 456-7890</div>
+                                    <div>Email: info@citypharmacy.com</div>
+                                </div>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    {{-- <div class="text-gray-light"></div> --}}
+                                    <h4 class="to">BILL TO:</h4>
+                                    <select class="form-control" name="supplier_id" id="supplier_id">
+                                        @forelse ($suppliers as $supplier)
+                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    @empty
+                                        <option value="">No supplier Found</option>
+                                    @endforelse
+                                    </select>
+                                    <p >Email:<span class="email"></span></p>
+                                    <p >Representative:<span class="contact_person"></span></p>
+                                    <p >Phone:<span class="phone"></span></p>
+                                    <p>Address:<span class="address"></span></p>
+                                </div>
+                                <div class="col invoice-details">
+                                    <h1 class="invoice-id">INVOICE #{{ DB::table('purchases')->count() + 1 }}</h1>
+                                    <div class="date">Date of Invoice: @php echo date('d/m/Y'); @endphp</div>
+                                    <div class="date">Due Date: @php echo date('d/m/Y', strtotime('+15 days')); @endphp</div>
+                                </div>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="fw-bold bg-primary">SL</th>
+                                        <th  class="fw-bold bg-primary">Item Description</th>
+                                        <th  class="fw-bold bg-primary">Strength</th>
+                                        <th  class="fw-bold bg-primary">Uom</th>
+                                        <th  class="fw-bold bg-primary">Price</th>
+                                        <th  class="fw-bold bg-primary">Qty</th>
+                                        <th  class="fw-bold bg-primary">Discount</th>
+                                        <th  class="fw-bold bg-primary">Total</th>
+                                        <th  class="fw-bold bg-primary"><button class="btn bg-danger clearAll">ClearAll</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>M001</td>
+                                        <td><select class="form-control" name="product_id" id="product_id">
+                                            <option value="">Select Product</option>
+                                            @forelse ($products as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}
+                                                </option>
+                                            @empty
+                                                <option value="">No Product Found</option>
+                                            @endforelse
+                                        </select>
+                                    </td>
+                                        <td><input type="text" disabled class=" form-control p_strength"></td>
+                                        <td><select class="form-control" name="uom_id" id="uom_id">
+                                            <option value="">Select Uom</option>
+                                            @forelse ($uoms as $uom)
+                                                <option value="{{ $uom->id }}">{{ $uom->name }}
+                                                </option>
+                                            @empty
+                                                <option value="">No Product Found</option>
+                                            @endforelse
+                                        </select>
+                                    </td>
+                                        <td> <input type="text" disabled class=" form-control p_price"></td>
+                                        <td ><input type="number" class=" form-control p_qty"></td>
+                                        <td><input type="text" class=" form-control p_discount">%</td>
+                                        <td class="total">$190.00</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success add-button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>M002</td>
+                                        <td>Amoxicillin Capsules</td>
+                                        <td>250mg</td>
+                                        <td>250mg</td>
+                                        <td class="unit">$0.50</td>
+                                        <td class="qty">500</td>
+                                        <td class="discount">10%</td>
+                                        <td class="total">$225.00</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success add-button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>M003</td>
+                                        <td>Omeprazole Tablets</td>
+                                        <td>20mg</td>
+                                        <td>20mg</td>
+                                        <td class="unit">$0.75</td>
+                                        <td class="qty">200</td>
+                                        <td class="discount">2%</td>
+                                        <td class="total">$147.00</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success add-button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">SUBTOTAL</td>
+                                        <td>$562.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">TOTAL DISCOUNT (5%)</td>
+                                        <td>$28.10</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">TAX (5%)</td>
+                                        <td>$28.10</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">GRAND TOTAL</td>
+                                        <td>$590.10</td>
+                                    </tr>
+
+                                </tfoot>
+
+                            </table>
+
+
+                            <div class="notices">
+                                <div>NOTES:</div>
+                                <div class="notice">
+                                    1. All prices include VAT where applicable<br>
+                                    2. Please make checks payable to City Pharmacy Ltd.<br>
+                                    3. Returns accepted within 7 days of purchase
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="signature-section" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+                                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                                    <div style="width: 45%;">
+                                        <div class="signature-line" style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
+                                        <div style="font-weight: bold;">Supplier Signature</div>
+
+                                    </div>
+
+                                    <div style="width: 45%;">
+                                        <div class="signature-line" style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
+                                        <div style="font-weight: bold;">Pharmacy Authorized Signature</div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </main>
+                        <footer>Pharmacy Invoice - Valid without signature</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 20px;
-            padding: 20px;
-        }
-        .invoice-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .logo {
-            max-width: 100px;
-        }
-        .invoice-details, .supplier-details {
-            margin-bottom: 10px;
+        .add-button {
+            padding: 3px 8px;
+            border-radius: 50%;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
         }
         th {
-            background: #007bff;
-            color: #fff;
+            background: #f8f9fa;
+            padding: 12px;
+            border-bottom: 2px solid #dee2e6;
         }
-        .total {
-            text-align: right;
-            font-weight: bold;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #555;
-        }
-        .print-btn {
-            display: block;
-            width: 150px;
-            margin: 20px auto;
+        td {
             padding: 10px;
-            background: #007bff;
-            color: white;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+            border-bottom: 1px solid #dee2e6;
         }
-        .print-btn:hover {
-            background: #0056b3;
+        .total, .unit, .qty, .discount {
+            text-align: right;
         }
-        .signature {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        .signature div {
-            text-align: center;
-            border-top: 1px solid #000;
-            width: 45%;
-            padding-top: 10px;
-        }
+
+        .signature-section {
+             margin-top: 40px;
+             padding-top: 20px;
+             border-top: 1px solid #ddd;
+         }
+
     </style>
-</head>
-<body>
+@endsection
 
-    <div class="invoice-container">
-        <div class="header">
-            <img src="https://via.placeholder.com/100" alt="Pharmacy Logo" class="logo">
-            <h2>Pharmacy Purchase Invoice</h2>
-        </div>
 
-        <div class="invoice-details">
-            <p><strong>Invoice ID:</strong> #INV12345</p>
-            <p><strong>Date:</strong> <span id="invoice-date"></span></p>
-        </div>
 
-        <div class="supplier-details">
-            <p><strong>Supplier:</strong> ABC Pharma Ltd.</p>
-            <p><strong>Address:</strong> 123, Medical Street, Dhaka</p>
-        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Unit Price (৳)</th>
-                    <th>Total Price (৳)</th>
-                </tr>
-            </thead>
-            <tbody id="invoice-body">
-                <tr>
-                    <td>Paracetamol 500mg</td>
-                    <td>10</td>
-                    <td>5.00</td>
-                    <td class="total-price">50.00</td>
-                </tr>
-                <tr>
-                    <td>Vitamin C Tablets</td>
-                    <td>5</td>
-                    <td>10.00</td>
-                    <td class="total-price">50.00</td>
-                </tr>
-                <tr>
-                    <td>Antibiotic Capsule</td>
-                    <td>20</td>
-                    <td>15.00</td>
-                    <td class="total-price">300.00</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" class="total">Subtotal</td>
-                    <td id="subtotal">400.00 ৳</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="total">VAT (5%)</td>
-                    <td id="vat">20.00 ৳</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="total">Discount (৳)</td>
-                    <td id="discount">0.00 ৳</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="total">Grand Total</td>
-                    <td id="grand-total">420.00 ৳</td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <div class="signature">
-            <div>
-                <p>Authorized Signature</p>
-            </div>
-            <div>
-                <p>Supplier Signature</p>
-            </div>
-        </div>
 
-        <a href="#" class="print-btn" onclick="window.print();">Print Invoice</a>
 
-        <div class="footer">
-            <p>Thank you for your business! If you have any questions, please contact us.</p>
-        </div>
-    </div>
 
-    <script>
-        document.getElementById("invoice-date").innerText = new Date().toLocaleDateString();
 
-        function calculateInvoice() {
-            let totalElements = document.querySelectorAll(".total-price");
-            let subtotal = 0;
-
-            totalElements.forEach(el => {
-                subtotal += parseFloat(el.innerText);
-            });
-
-            let vat = subtotal * 0.05;
-            let discount = 0; // Change if needed
-            let grandTotal = subtotal + vat - discount;
-
-            document.getElementById("subtotal").innerText = subtotal.toFixed(2) + " ৳";
-            document.getElementById("vat").innerText = vat.toFixed(2) + " ৳";
-            document.getElementById("discount").innerText = discount.toFixed(2) + " ৳";
-            document.getElementById("grand-total").innerText = grandTotal.toFixed(2) + " ৳";
-        }
-
-        calculateInvoice();
-    </script>
-
-</body>
-</html>

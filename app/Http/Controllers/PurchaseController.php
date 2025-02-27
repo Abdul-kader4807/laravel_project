@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Status;
 use App\Models\Supplier;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -175,4 +176,34 @@ class PurchaseController extends Controller
             $purchases = [];
         }
     }
+
+
+
+
+
+
+    public function find_supplier(Request $request){
+		$supplier = Supplier::find($request->id);
+		return response()->json(['supplier'=> $supplier]);
+	}
+
+
+	public function find_product(Request $request){
+		$product = Product::find($request->id);
+        // print_r($product);
+		return response()->json(['product'=> $product]);
+	}
+
+
+
+    public function find_uom(Request $request){
+		$uom = Uom::find($request->id);
+		return response()->json(['uom'=> $uom]);
+	}
+
+
+
+
+
+
 }
