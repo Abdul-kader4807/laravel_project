@@ -14,7 +14,7 @@ class WarehouseController extends Controller
         // print_r($warehouses);
 
         // $warehouses = Warehouse::all();
-        $warehouses = Warehouse::paginate(3);
+        $warehouses = Warehouse::paginate(10);
 
         return view('pages.warehouse.index', compact('warehouses'));
     }
@@ -115,7 +115,7 @@ class WarehouseController extends Controller
         }
 
 
-        
+
 
 
     }

@@ -50,7 +50,7 @@
                                     <th class="text-center">Supplier_Name</th>
                                     <th class="text-center">product_Name</th>
                                     <th class="text-center">Status_Name</th>
-                                    <th class="text-center">total_order</th>
+                                    <th class="text-center">total_purchase</th>
                                     <th class="text-center">paid_amount</th>
                                     <th class="text-center">total_amount</th>
                                     <th class="text-center">discount</th>
@@ -69,7 +69,7 @@
                                         <td>{{ optional($purchase->supplier)->name }}</td>
                                         <td>{{ optional($purchase->product)->name  }}</td>
                                         <td>{{ optional($purchase->status)->name  }}</td>
-                                        <td>{{ $purchase->total_order }}</td>
+                                        <td>{{ $purchase->total_purchase }}</td>
                                         <td>{{ $purchase->paid_amount }}</td>
                                         <td>{{ $purchase->total_amount }}</td>
                                         <td>{{ $purchase->discount }}</td>

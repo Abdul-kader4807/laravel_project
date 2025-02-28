@@ -20,7 +20,7 @@
                 <p><strong>Supplier:</strong> {{ $purchase['supplier_id'] }}</p>
                 <p><strong>Product:</strong> {{ $purchase['product_id'] }}</p>
                 <p><strong>Status:</strong> {{ $purchase['status_id'] }}</p>
-                <p><strong>Total Order:</strong> {{ $purchase['total_order'] }}</p>
+                <p><strong>Total purchase:</strong> {{ $purchase['total_purchase'] }}</p>
                 <p><strong>Paid Amount:</strong> {{ $purchase['paid_amount'] }}</p>
                 <p><strong>Total Amount:</strong> {{ $purchase['total_amount'] }}</p>
                 <p><strong>Discount:</strong> {{ $purchase['discount'] }}</p>

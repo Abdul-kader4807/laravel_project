@@ -77,26 +77,26 @@ class PurchaseController extends Controller
 
 
 
-        
+
         // স্টক থেকে প্রোডাক্টের পরিমাণ কমানো
-        $stock = Stock::where('product_id', $value['item_id'])->first();
+        // $stock = Stock::where('product_id', $value['item_id'])->first();
 
-        if ($stock) {
-            $stock->qty -= $value['qty'];
-            $stock->updated_at = now();
-            $stock->save();
-        } else {
+        // if ($stock) {
+        //     $stock->qty += $value['qty'];
+        //     $stock->updated_at = now();
+        //     $stock->save();
+        // } else {
 
-            $newStock = new Stock();
-            $newStock->product_id = $value['item_id'];
-            $newStock->qty = -$value['qty'];
-            $newStock->transaction_type_id = 2; // Sales transaction type
-            $newStock->remark = "Sales";
-            $newStock->warehouse_id = 1;
-            $newStock->created_at = now();
-            $newStock->updated_at = now();
-            $newStock->save();
-        }
+        //     $newStock = new Stock();
+        //     $newStock->product_id = $value['item_id'];
+        //     $newStock->qty = $value['qty'];
+        //     $newStock->transaction_type_id = 2; // Sales transaction type
+        //     $newStock->remark = "Sales";
+        //     $newStock->warehouse_id = 1;
+        //     $newStock->created_at = now();
+        //     $newStock->updated_at = now();
+        //     $newStock->save();
+        // }
     }
     return response()->json(['success' => "Purchase confirmed successfully"]);
 

@@ -278,26 +278,26 @@
             });
 
 
-            $('#uom_id').on('change', function() {
-                // alert()
-                let uom_id = $(this).val();
-                $.ajax({
-                    url: "{{ url('find_uom') }}",
-                    type: 'POST',
-                    data: {
-                        id: uom_id
-                    },
-                    success: function(res) {
-                        // let data=JSON.parse(res);
-                        console.log(res.uom);
-                        $(".name").text(res.uom?.name);
+            // $('#uom_id').on('change', function() {
+            //     // alert()
+            //     let uom_id = $(this).val();
+            //     $.ajax({
+            //         url: "{{ url('find_uom') }}",
+            //         type: 'POST',
+            //         data: {
+            //             id: uom_id
+            //         },
+            //         success: function(res) {
+            //             // let data=JSON.parse(res);
+            //             console.log(res.uom);
+            //             $(".name").text(res.uom?.name);
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            });
+            //         },
+            //         error: function(xhr, status, error) {
+            //             console.error(error);
+            //         }
+            //     });
+            // });
 
 
             $('.add_cart_btn').on('click', function() {
@@ -488,8 +488,6 @@
 
 
             });
-
-
 
 
 
