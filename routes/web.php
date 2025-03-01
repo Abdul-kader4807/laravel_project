@@ -83,7 +83,7 @@ Route::get('purchase/delete/{id}',[PurchaseController::class,'destroy_view']);
 Route::post('purchase/search',[PurchaseController::class,'search']);
 Route::resource('purchase',PurchaseController::class);
 Route::post('find_supplier',[PurchaseController::class,'find_supplier']);
-Route::post('find_product',[PurchaseController::class,'find_product']);
+Route::post('find_uom',[PurchaseController::class,'find_uom']);
 
 
 
@@ -99,6 +99,9 @@ Route::post('order/search',[OrderController::class,'search']);
 Route::resource('order',OrderController::class);
 Route::post('find_customer', [OrderController::class, 'find_customer']);
  Route::post('find_product', [OrderController::class, 'find_product']);
+ Route::post('find_uom', [OrderController::class, 'find_uom']);
+
+
 
 Route::get('payment_status/delete/{id}',[PaymentStatusController::class,'destroy_view']);
 Route::post('payment_status/search',[PaymentStatusController::class,'search']);

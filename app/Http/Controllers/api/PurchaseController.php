@@ -14,7 +14,7 @@ class PurchaseController extends Controller
     public function index()
     {
         $purchases = Purchase::all();
-        return response()->json(['purchases' => $purchases]);
+        return response()->json(['purchase' => $purchases]);
     }
 
 
@@ -26,121 +26,82 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-    //    print_r($request->all());
+        //   print_r($request->all());
 
 
-    $purchase = new Purchase();
-    $purchase->supplier_id = $request->supplier_id;
-    $purchase->order_date = now();
-    $purchase->delivery_date = date('Y-m-d H:i:s', strtotime('+7 days'));
-    $purchase->shipping_address = "";   //$request->shipping_address;
-    $purchase->total_purchase = $request->total_purchase;
-    $purchase->paid_amount = $request->paid_amount;
-    $purchase->status_id = $request->status_id;
-    $purchase->discount = $request->discount;
-    $purchase->vat = $request->vat;
+        $purchase = new Purchase;
+        $purchase->supplier_id = $request->supplier_id;
+        $purchase->purchase_date = now();
+        $purchase->total_purchase = $request->total_purchase;
+        $purchase->paid_amount = $request->paid_amount;
+        $purchase->total_amount = $request->paid_amount;
+        $purchase->discount = $request->discount;
+        $purchase->vat = $request->vat;
+        $purchase->photo = "";
+        $purchase->shipping_address = "";   //$request->shipping_address;
+        $purchase->description = "";   //$request->shipping_address;
+        $purchase->status_id = $request->status_id;
 
 
-    $purchase->remark = "";   //$request->remark;
-    // $purchase->status_id = 1;
-    // date_default_timezone_set("Asia/Dhaka");
-    // $purchase->created_at=date('Y-m-d H:i:s');
-    // date_default_timezone_set("Asia/Dhaka");
-    // $purchase->updated_at=date('Y-m-d H:i:s');
-    $purchase->save();
-    $lastInsertedId = $purchase->id;
-
-    $productsdata = $request->products;
-
-    print_r($productsdata);
+        date_default_timezone_set("Asia/Dhaka");
+        $purchase->created_at = date('Y-m-d H:i:s');
+        date_default_timezone_set("Asia/Dhaka");
+        $purchase->updated_at = date('Y-m-d H:i:s');
+        $purchase->save();
 
 
+        $lastInsertedId = $purchase->id;
 
-    foreach ($productsdata as $key => $value) {
-        //  print_r( $value['item_id']);
-        $purchasedetails = new PurchaseDetail();
-        $purchasedetails->purchase_id = $lastInsertedId;
-        $purchasedetails->product_id = $value['item_id'];
-        $purchasedetails->uom_id = $value['uom_id'];
-        $purchasedetails->qty = $value['qty'];
-        $purchasedetails->price = $value['price'];
-        $purchasedetails->discount = $value['total_discount'];
-        $purchasedetails->vat = $request->vat;
-        // date_default_timezone_set("Asia/Dhaka");
-        // $purchasedetails->created_at=date('Y-m-d H:i:s');
-        //  date_default_timezone_set("Asia/Dhaka");
-        // $purchasedetails->updated_at=date('Y-m-d H:i:s');
+        $productsdata = $request->products;
 
-        $purchasedetails->save();
-        //   $lastInsertedId = $order->id;
+        print_r($productsdata);
 
 
 
+        // foreach ($productsdata as $key => $value) {
+        //     $purchasedetails = new PurchaseDetail;
+        //     print_r($value);
+        //     // print_r($value['qty']);
 
 
-        // স্টক থেকে প্রোডাক্টের পরিমাণ কমানো
-        // $stock = Stock::where('product_id', $value['item_id'])->first();
+        //     $purchasedetails->purchase_id = $lastInsertedId;
+        //     $purchasedetails->product_id = $value['item_id'];
+            // $purchasedetails->uom_id = $value['uom_id'];
+            // $purchasedetails->qty = $value['qty'];
+            // $purchasedetails->price = $value['price'];
+            // $purchasedetails->discount = $value['total_discount'];
+            // $purchasedetails->vat = $request->vat;
+            // $purchasedetails->total_purchase = $value['subtotal'];
 
-        // if ($stock) {
-        //     $stock->qty += $value['qty'];
-        //     $stock->updated_at = now();
-        //     $stock->save();
-        // } else {
+            // date_default_timezone_set("Asia/Dhaka");
+            // $purchasedetails->created_at=date('Y-m-d H:i:s');
+            //  date_default_timezone_set("Asia/Dhaka");
+            // $purchasedetails->updated_at=date('Y-m-d H:i:s');
 
-        //     $newStock = new Stock();
-        //     $newStock->product_id = $value['item_id'];
-        //     $newStock->qty = $value['qty'];
-        //     $newStock->transaction_type_id = 2; // Sales transaction type
-        //     $newStock->remark = "Sales";
-        //     $newStock->warehouse_id = 1;
-        //     $newStock->created_at = now();
-        //     $newStock->updated_at = now();
-        //     $newStock->save();
+            // $purchasedetails->save();
+
         // }
-    }
-    return response()->json(['success' => "Purchase confirmed successfully"]);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // return response()->json(['success' => "Purchase confirmed successfully"]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //

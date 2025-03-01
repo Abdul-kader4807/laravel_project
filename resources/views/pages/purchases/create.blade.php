@@ -147,6 +147,7 @@
                                 </thead>
                                 <tbody class="dataAppend"> </tbody>
                                 <tfoot>
+
                                     <tr>
                                         <td colspan="5"></td>
                                         <td colspan="2">SUBTOTAL</td>
@@ -170,10 +171,25 @@
 
                                 </tfoot>
 
+
+
                             </table>
 
 
-                            <div class="notices">
+                            <div class="row col-12 mt-">
+                                <div class=" col-4 p-2 mt-5">
+                                    <label for="status_id" class="form-label status fw-bold">Payment Status</label>
+                                    <select name="status_id" class="status_button form-control">
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status->id }}">
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="notices col-12 mt-5">
                                 <div>NOTES:</div>
                                 <div class="notice">
                                     1. All prices include VAT where applicable<br>
@@ -184,6 +200,8 @@
 
 
                             </div>
+
+
 
                             <div class="signature-section"
                                 style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
@@ -202,6 +220,10 @@
 
                                     </div>
                                 </div>
+
+
+
+
 
 
                             </div>
@@ -278,26 +300,26 @@
             });
 
 
-            // $('#uom_id').on('change', function() {
-            //     // alert()
-            //     let uom_id = $(this).val();
-            //     $.ajax({
-            //         url: "{{ url('find_uom') }}",
-            //         type: 'POST',
-            //         data: {
-            //             id: uom_id
-            //         },
-            //         success: function(res) {
-            //             // let data=JSON.parse(res);
-            //             console.log(res.uom);
-            //             $(".name").text(res.uom?.name);
+            $('#uom_id').on('change', function() {
+                // alert()
+                let uom_id = $(this).val();
+                $.ajax({
+                    url: "{{ url('find_uom') }}",
+                    type: 'POST',
+                    data: {
+                        id: uom_id
+                    },
+                    success: function(res) {
+                        // let data=JSON.parse(res);
+                        console.log(res.uom);
+                        $(".name").text(res.uom?.name);
 
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error(error);
-            //         }
-            //     });
-            // });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
 
 
             $('.add_cart_btn').on('click', function() {
@@ -429,14 +451,14 @@
                 // let dataItem = {
                 //     supplier_id: supplier_id,
 
-                //     total_purchase:total_purchase,
+                //     total_purchase: total_purchase,
                 //     paid_amount: paid_amount,
                 //     status: status,
                 //     discount: discount,
                 //     vat: vat,
                 //     product: products,
                 // };
-                // console.log("Processing Data:", dataItem);
+                // console.log(dataItem);
 
 
                 $.ajax({
@@ -452,32 +474,23 @@
                         products: products,
                     },
                     success: function(res) {
-
+                        console.log(res)
                         if (res.success) {
                             cart.clearCart();
                             printCart();
-                            $('#customer_id').val("");
+                            $('#supplier_id').val("");
                             $(".email").text("");
                             $(".phone").text("");
                             $(".address").text("");
                             $(".contact_person").text("");
 
 
-
-                            // Clear input fields
-                            $(".p_price").val("");
-                            $(".p_strength").val("");
-                            $(".p_qty").val("");
-                            $(".p_discount").val("");
-                            $("#uom_id").val("");
-                            $("#product_id").val("");
-
-                            alert("Order processed successfully!");
-
-
-
                         }
+
+
+
                     },
+
                     error: function(xhr, status, error) {
                         console.log(error);
                     }

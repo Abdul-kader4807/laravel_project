@@ -39,10 +39,8 @@ class OrderController extends Controller
         $order->total_order = $request->total_order;
         $order->paid_amount = $request->paid_amount;
         $order->status_id = $request->status_id;
-
-
         $order->remark = "";   //$request->remark;
-        // $order->status_id = 1;
+
         $order->discount = $request->discount;
         $order->vat = $request->vat;
         // date_default_timezone_set("Asia/Dhaka");

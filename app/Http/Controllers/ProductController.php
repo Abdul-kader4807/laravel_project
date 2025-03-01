@@ -235,4 +235,20 @@ class ProductController extends Controller
             $products = [];
         }
     }
+
+
+
+    // public function findUom(Request $request)
+    // {
+    //     $uom = Uom::all(); // যদি UOM টেবিল থাকে
+    //     return response()->json($uom);
+    // }
+
+
+
+
+
+
+
+
 }

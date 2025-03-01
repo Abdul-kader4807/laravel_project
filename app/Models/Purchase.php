@@ -8,6 +8,7 @@ class Purchase extends Model
 {
     protected $table='purchases';
 
+   
 
     function purchase_details()
     {

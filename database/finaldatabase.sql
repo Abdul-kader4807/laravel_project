@@ -138,15 +138,14 @@ CREATE TABLE if not exists `phar_purchases_items` (
 
 );
 
---8 Table: `phar_purchases_details`
-CREATE TABLE if not exists `phar_purchases_details` (
+--8 Table: `phar_purchase_details`
+CREATE TABLE if not exists `phar_purchase_details` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `purchase_id` INT(11) NOT NULL,
   `product_id` INT(11) NOT NULL,
   `uom_id` INT(11) DEFAULT NULL,
   `qty` DOUBLE DEFAULT NULL,
   `price` DOUBLE DEFAULT NULL,
-  `discount` DOUBLE DEFAULT NULL,
   `discount` DOUBLE DEFAULT NULL,
    `vat` DECIMAL(10,2) DEFAULT 0.00,
   `total_purchase` DECIMAL(10,2) NOT NULL,
