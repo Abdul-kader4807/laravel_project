@@ -15,3 +15,4 @@ Route::resource('order', OrderController::class);
 
 Route::resource('purchase', PurchaseController::class);
 
+

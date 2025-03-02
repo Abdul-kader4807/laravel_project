@@ -20,11 +20,11 @@
                 <div class="row d-flex justify-content-between mb-3 m-3">
 
                     <div class="col-md-3">
-                        <a class="btn btn-secondary" href="{{ url('purchase_deatils/create') }}">Register</a>
+                        <a class="btn btn-secondary" href="{{ url('purchase_deatil/create') }}">Register</a>
 
                     </div>
 
-                    <form class="col-md-6" action="{{ url('purchase_deatils/search') }}" method="post">
+                    <form class="col-md-6" action="{{ url('purchase_deatil/search') }}" method="post">
                         @csrf
                         <div class="input-group mb-2">
                             <div class="col-sm-10  position-relative input-icon">
@@ -63,9 +63,9 @@
                                 @forelse ($purchase_deatils as $purchase_deatil)
                                     <tr>
                                         <td>{{ $purchase_deatil->id }}</td>
-                                        <td>{{ optional($purchase_deatil->purchase_id)->id }}</td>
+                                        <td>{{ optional($purchase_deatil->purchase)->id }}</td>
                                         <td>{{ optional($purchase_deatil->product)->name  }}</td>
-                                        <td>{{ optional($purchase_deatil->uom_id)->name  }}</td>
+                                        <td>{{ optional($purchase_deatil->uom)->name  }}</td>
                                         <td>{{ $purchase_deatil->qty }}</td>
                                         <td>{{ $purchase_deatil->price }}</td>
                                         <td>{{ $purchase_deatil->total_purchase }}</td>
@@ -74,13 +74,13 @@
 
                                         <td>
 
-                                            <a href="{{ url("purchase_deatils/$purchase_deatils->id") }}" class="btn btn-secondary">
+                                            <a href="{{ url("purchase_deatil/$purchase_deatil->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ url("purchase_deatils/$purchase_deatils->id/edit") }}" class="btn btn-success">
+                                            <a href="{{ url("purchase_deatil/$purchase_deatil->id/edit") }}" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="{{ url("purchase_deatils/delete/$purchase_deatils->id") }}" class="btn btn-danger">
+                                            <a href="{{ url("purchase_deatil/delete/$purchase_deatil->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                             {{-- <form action="{{ url("purchase_deatils/$purchase_deatils->id") }}" method="post">

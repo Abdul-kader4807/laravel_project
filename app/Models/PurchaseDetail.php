@@ -6,18 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchaseDetail extends Model
 {
-    protected $table ='purchase_details';
+    protected $table='purchase_details';
 
 
-
-    protected $fillable = [
-        'purchase_id', 'product_id', 'uom_id', 'qty',
-        'price', 'discount', 'vat', 'total_purchase'
-    ];
 
     function product()
     {
-        return   $this->belongsTo(product::class);
+        return   $this->belongsTo(Product::class);
     }
 
 
@@ -30,6 +25,11 @@ class PurchaseDetail extends Model
     {
         return $this->belongsTo(Purchase::class);
     }
+
+
+
+
+
 
 
 

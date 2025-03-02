@@ -48,17 +48,17 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">Supplier_Name</th>
-                                    <th class="text-center">product_Name</th>
+                                    {{-- <th class="text-center">product_Name</th> --}}
                                     <th class="text-center">Status_Name</th>
-                                    <th class="text-center">total_purchase</th>
+                                    <th class="text-center">Total_amount</th>
+                                    {{-- <th class="text-center">total_purchase</th> --}}
                                     <th class="text-center">paid_amount</th>
-                                    <th class="text-center">total_amount</th>
                                     <th class="text-center">discount</th>
                                     <th class="text-center">vat</th>
                                     <th class="text-center">purchase_date</th>
-                                    <th class="text-center">shipping_address</th>
-                                    <th class="text-center">description</th>
-                                    <th class="text-center">Photo</th>
+                                    {{-- <th class="text-center">shipping_address</th> --}}
+                                    {{-- <th class="text-center">description</th> --}}
+                                    {{-- <th class="text-center">Photo</th> --}}
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -67,21 +67,21 @@
                                     <tr>
                                         <td>{{ $purchase->id }}</td>
                                         <td>{{ optional($purchase->supplier)->name }}</td>
-                                        <td>{{ optional($purchase->product)->name  }}</td>
+                                        {{-- <td>{{ optional($purchase->product)->name  }}</td> --}}
                                         <td>{{ optional($purchase->status)->name  }}</td>
                                         <td>{{ $purchase->total_purchase }}</td>
                                         <td>{{ $purchase->paid_amount }}</td>
-                                        <td>{{ $purchase->total_amount }}</td>
+                                        {{-- <td>{{ $purchase->total_amount }}</td> --}}
                                         <td>{{ $purchase->discount }}</td>
                                         <td>{{ $purchase->vat }}</td>
                                         <td>{{ $purchase->purchase_date }}</td>
-                                        <td>{{ $purchase->shipping_address }}</td>
-                                        <td>{{ $purchase->description }}</td>
+                                        {{-- <td>{{ $purchase->shipping_address }}</td> --}}
+                                        {{-- <td>{{ $purchase->description }}</td> --}}
 
 
-                                        <td><img width="50" height=""
+                                        {{-- <td><img width="50" height=""
                                                 src="{{ asset('photo') }}/{{ $purchase->photo }}"
-                                                alt="{{ $purchase->name }}" srcset=""></td>
+                                                alt="{{ $purchase->name }}" srcset=""></td> --}}
                                         <td>
 
                                             <a href="{{ url("purchase/$purchase->id") }}" class="btn btn-secondary">

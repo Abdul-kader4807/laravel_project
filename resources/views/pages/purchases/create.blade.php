@@ -439,6 +439,8 @@
 
             $('.btn_process').on('click', function() {
 
+
+
                 let supplier_id = $('#supplier_id').val();
                 let total_purchase = $('.grandtotal').text();
                 let paid_amount = $('.grandtotal').text();
@@ -475,17 +477,17 @@
                     },
                     success: function(res) {
                         console.log(res)
-                        if (res.success) {
-                            cart.clearCart();
-                            printCart();
-                            $('#supplier_id').val("");
-                            $(".email").text("");
-                            $(".phone").text("");
-                            $(".address").text("");
-                            $(".contact_person").text("");
+                        // if (res.success) {
+                        //     cart.clearCart();
+                        //     printCart();
+                        //     $('#supplier_id').val("");
+                        //     $(".email").text("");
+                        //     $(".phone").text("");
+                        //     $(".address").text("");
+                        //     $(".contact_person").text("");
 
 
-                        }
+                        // }
 
 
 

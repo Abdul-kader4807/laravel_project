@@ -122,7 +122,7 @@ class PurchaseController extends Controller
             'photo'  => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
-        $purchase = Purchase::findOrFail($id);
+        $purchase = Purchase::find($id);
         $purchase->supplier_id = $request->supplier_id;
         $purchase->product_id = $request->product_id;
         $purchase->status_id = $request->status_id;

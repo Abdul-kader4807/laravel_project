@@ -14,7 +14,7 @@ class PurchaseDetailController extends Controller
     public function index()
     {
         // $purchase_deatils = Purchase::all();
-        // print_r($purchase_deatils);
+        //  print_r($purchase_deatils);
         $purchase_deatils = PurchaseDetail::paginate(10);
         return view('pages.purchasesDetails.index', compact('purchase_deatils'));
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\OrderReportController;
 use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
@@ -100,6 +101,11 @@ Route::resource('order',OrderController::class);
 Route::post('find_customer', [OrderController::class, 'find_customer']);
  Route::post('find_product', [OrderController::class, 'find_product']);
  Route::post('find_uom', [OrderController::class, 'find_uom']);
+
+Route::get('/order-report',[OrderReportController::class, 'index']);
+Route::post('/order-report',[OrderReportController::class,'show']);
+
+
 
 
 

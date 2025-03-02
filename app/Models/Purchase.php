@@ -8,7 +8,7 @@ class Purchase extends Model
 {
     protected $table='purchases';
 
-   
+
 
     function purchase_details()
     {
@@ -24,9 +24,9 @@ function supplier(){
     return $this->belongsTo(Supplier::class, 'supplier_id');
 }
 
-// function product(){
-//     return $this->belongsTo(Product::class , 'product_id');
-// }
+function product(){
+    return $this->belongsTo(Product::class , 'product_id');
+}
 
 
 
