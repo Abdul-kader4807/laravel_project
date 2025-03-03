@@ -141,13 +141,9 @@
                                             </button>
                                         </th>
                                     </tr>
-
-
-
                                 </thead>
                                 <tbody class="dataAppend"> </tbody>
                                 <tfoot>
-
                                     <tr>
                                         <td colspan="5"></td>
                                         <td colspan="2">SUBTOTAL</td>
@@ -168,14 +164,8 @@
                                         <td colspan="2">GRAND TOTAL</td>
                                         <td class=" grandtotal">$590.10</td>
                                     </tr>
-
                                 </tfoot>
-
-
-
                             </table>
-
-
                             <div class="row col-12 mt-">
                                 <div class=" col-4 p-2 mt-5">
                                     <label for="status_id" class="form-label status fw-bold">Payment Status</label>
@@ -188,7 +178,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="notices col-12 mt-5">
                                 <div>NOTES:</div>
                                 <div class="notice">
@@ -196,13 +185,7 @@
                                     2. Please make checks payable to City Pharmacy Ltd.<br>
                                     3. Returns accepted within 7 days of purchase
                                 </div>
-
-
-
                             </div>
-
-
-
                             <div class="signature-section"
                                 style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
                                 <div style="display: flex; justify-content: space-between; margin-top: 30px;">
@@ -210,24 +193,14 @@
                                         <div class="signature-line"
                                             style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
                                         <div style="font-weight: bold;">Supplier Signature</div>
-
                                     </div>
-
                                     <div style="width: 45%;">
                                         <div class="signature-line"
                                             style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
                                         <div style="font-weight: bold;">Pharmacy Authorized Signature</div>
-
                                     </div>
                                 </div>
-
-
-
-
-
-
                             </div>
-
                         </main>
                         <footer>Pharmacy Invoice - Valid without signature</footer>
                     </div>

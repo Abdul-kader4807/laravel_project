@@ -13,7 +13,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchaseDetailController;
+use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StockReportController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Warehouse;
@@ -92,6 +94,8 @@ Route::get('purchase_deatil/delete/{id}',[PurchaseDetailController::class,'destr
 Route::post('purchase_deatil/search',[PurchaseDetailController::class,'search']);
 Route::resource('purchase_deatil',PurchaseDetailController::class);
 
+Route::get('/purchase-report',[PurchaseReportController::class,'index']);
+Route::post('/purchase-report',[PurchaseReportController::class,'show']);
 
 
 Route::get('order', [OrderController::class, 'index'])->name('order.index');
@@ -120,6 +124,9 @@ Route::get('stock/delete/{id}',[StockController::class,'destroy_view']);
 Route::post('/stock/search', [StockController::class, 'search']);
 // Route::put('/stock/{id}', [StockController::class, 'update']);
 Route::resource('stock',StockController::class);
+
+Route::get('/stock-report',[StockReportController::class,'index']);
+Route::post('/stock-report',[StockReportController::class,'show']);
 
 
 Route::get('order_detail/delete/{id}',[OrderDetailController::class,'destroy_view']);

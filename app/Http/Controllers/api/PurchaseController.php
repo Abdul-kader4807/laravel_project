@@ -42,19 +42,17 @@ class PurchaseController extends Controller
         $purchases->description = "";   //$request->shipping_address;
         $purchases->status_id = $request->status_id;
 
-        $purchases->save();
 
         // date_default_timezone_set("Asia/Dhaka");
         // $purchases->created_at = date('Y-m-d H:i:s');
         // date_default_timezone_set("Asia/Dhaka");
         // $purchases->updated_at = date('Y-m-d H:i:s');
 
-        //  print_r($productsdata);
+        $purchases->save();
+        $lastInsertedId = $purchases->id;
+        $productsdata = $request->products;
+        print_r($productsdata);
 
-
-
-         $lastInsertedId = $purchases->id;
-         $productsdata = $request->products;
         foreach ($productsdata as $key => $value) {
             $purchasedetails = new PurchaseDetail;
             $purchasedetails->purchase_id = $lastInsertedId;
@@ -65,33 +63,36 @@ class PurchaseController extends Controller
             $purchasedetails->discount = $value['total_discount'];
             $purchasedetails->vat = $request->vat;
             $purchasedetails->total_purchase = $value['subtotal'];
-            $purchasedetails->save();
+            // $purchasedetails->save();
 
 
-            $stock = Stock::where('product_id', $value['item_id'])->first();
+            // $stock = Stock::where('product_id', $value['item_id'])->first();
 
-            if ($stock) {
-                $stock->qty += $value['qty'];
-                $stock->updated_at = now();
-                $stock->save();
-            } else {
-                $newStock = new Stock();
-                $newStock->product_id = $value['item_id'];
-                $newStock->qty = $value['qty'];
-                $newStock->transaction_type_id = 1;
-                $newStock->remark = "Purchase";
-                $newStock->warehouse_id = 1;
-                $newStock->created_at = now();
-                $newStock->updated_at = now();
-                $newStock->save();
-            }
+            // if ($stock) {
+            //     $stock->qty += $value['qty'];
+            //     $stock->updated_at = now();
+            //     $stock->save();
+            // } else {
+            //     $newStock = new Stock();
+            //     $newStock->product_id = $value['item_id'];
+            //     $newStock->qty = $value['qty'];
+            //     $newStock->transaction_type_id = 1;
+            //     $newStock->remark = "Purchase";
+            //     $newStock->warehouse_id = 1;
+            //     $newStock->created_at = now();
+            //     $newStock->updated_at = now();
+            //     $newStock->save();
+            // }
 
+        $stock= new Stock;
+        $stock->product_id=$value['item_id'];
+        $stock->qty=$value['qty'] *(+1);
 
-
+        $stock->save();
 
 
         }
-         return response()->json(['success' => "Purchase confirmed successfully"]);
+        return response()->json(['success' => "Purchase confirmed successfully"]);
     }
 
     public function show(string $id)
