@@ -402,8 +402,7 @@
                             $(".phone").text("");
                             $(".address").text("");
 
-                             // নতুন URL এ রিডাইরেক্ট
-
+                             
 
                             // Clear input fields
                             $(".p_price").val("");

@@ -52,7 +52,7 @@ class OrderController extends Controller
 
         $productsdata = $request->products;
 
-        print_r($productsdata);
+        // print_r($productsdata);
 
         foreach ($productsdata as $key => $value) {
             //  print_r( $value['item_id']);
@@ -72,21 +72,21 @@ class OrderController extends Controller
             $orderdetails->save();
             //   $lastInsertedId = $order->id;
 
-            // স্টক থেকে প্রোডাক্টের পরিমাণ কমানো
+
             $stock = Stock::where('product_id', $value['item_id'])->first();
 
             if ($stock) {
-                $stock->qty -= $value['qty']; // প্রোডাক্টের পরিমাণ কমানো
+                $stock->qty -= $value['qty'];
                 $stock->updated_at = now();
                 $stock->save();
             } else {
-                // যদি স্টক না থাকে, তাহলে নতুন এন্ট্রি তৈরি করা
+
                 $newStock = new Stock();
                 $newStock->product_id = $value['item_id'];
-                $newStock->qty = -$value['qty']; // নেগেটিভ মান রাখার কারণ: বিক্রি হলে পরিমাণ কমবে
+                $newStock->qty = -$value['qty'];
                 $newStock->transaction_type_id = 2; // Sales transaction type
                 $newStock->remark = "Sales";
-                $newStock->warehouse_id = 1; // ধরলাম ডিফল্ট warehouse আইডি 1
+                $newStock->warehouse_id = 1;
                 $newStock->created_at = now();
                 $newStock->updated_at = now();
                 $newStock->save();

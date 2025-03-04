@@ -51,7 +51,7 @@ class PurchaseController extends Controller
         $purchases->save();
         $lastInsertedId = $purchases->id;
         $productsdata = $request->products;
-        print_r($productsdata);
+        // print_r($productsdata);
 
         foreach ($productsdata as $key => $value) {
             $purchasedetails = new PurchaseDetail;
@@ -63,7 +63,7 @@ class PurchaseController extends Controller
             $purchasedetails->discount = $value['total_discount'];
             $purchasedetails->vat = $request->vat;
             $purchasedetails->total_purchase = $value['subtotal'];
-            // $purchasedetails->save();
+            $purchasedetails->save();
 
 
             // $stock = Stock::where('product_id', $value['item_id'])->first();
@@ -76,21 +76,30 @@ class PurchaseController extends Controller
             //     $newStock = new Stock();
             //     $newStock->product_id = $value['item_id'];
             //     $newStock->qty = $value['qty'];
-            //     $newStock->transaction_type_id = 1;
+            //     $newStock->transaction_type_id = "";
             //     $newStock->remark = "Purchase";
-            //     $newStock->warehouse_id = 1;
+            //     $newStock->price = "";
+            //     $newStock->offer_price = "";
+            //     $newStock->warehouse_id = "";
+            //     $newStock->uom_id = "";
+            //     $newStock->batch_id = "";
             //     $newStock->created_at = now();
             //     $newStock->updated_at = now();
             //     $newStock->save();
             // }
 
-        $stock= new Stock;
-        $stock->product_id=$value['item_id'];
-        $stock->qty=$value['qty'] *(+1);
+            $stock = new Stock;
+            $stock->product_id = $value['item_id'];
+            $stock->transaction_type_id = null;
+            $stock->price = $value['price'];
+            $stock->offer_price = null;
+            $stock->warehouse_id = null;
+            $stock->uom_id = $value['uom_id'];
+            $stock->batch_id = null;
+            $stock->remark = "Purchase";
+            $stock->qty = $value['qty'] * (+1);
 
-        $stock->save();
-
-
+            $stock->save();
         }
         return response()->json(['success' => "Purchase confirmed successfully"]);
     }

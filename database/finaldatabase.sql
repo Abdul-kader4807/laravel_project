@@ -115,16 +115,6 @@ CREATE TABLE if not exists `phar_purchases` (
   CONSTRAINT `fk_status` FOREIGN KEY (`status_id`) REFERENCES `statuses`(`id`) ON DELETE SET NULL);
 
 
-
-
-
-
-
-
-
-
-
-
 --7 Table: `phar_purchases_items`
 CREATE TABLE if not exists `phar_purchases_items` (
   `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

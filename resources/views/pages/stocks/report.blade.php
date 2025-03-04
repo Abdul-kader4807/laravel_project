@@ -20,7 +20,7 @@
             <div class="row d-flex justify-content-between mb-3 m-3">
 
                 <div class="col-md-3">
-                    <a class="btn btn-secondary" href="{{ url('stock') }}">Register</a>
+                    <a class="btn btn-success" href="{{ url('stock') }}">Back</a>
 
                 </div>
 

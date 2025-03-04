@@ -35,12 +35,4 @@ class Stock extends Model
     // }
 
 
-
-
-
-
-
-
-
-
 }
