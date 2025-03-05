@@ -465,6 +465,41 @@ CREATE TABLE if not exists `phar_roles` (
 
 
 
+-- new work
+
+
+CREATE TABLE IF NOT EXISTS `phar_order_returns` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `customer_id` INT NOT NULL,
+  `order_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `total_sold` DECIMAL(10,2) NOT NULL,
+  `total_return` DECIMAL(10,2) NOT NULL, -- phar_sales.quantity er sathe connected
+  `return_reason` TEXT,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`order_id`) REFERENCES `phar_sales`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE
+);
 
 
 
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `phar_purchase_returns` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `supplier_id` INT NOT NULL,
+  `purchase_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `total_purchased` DECIMAL(10,2) NOT NULL,
+  `total_returned` DECIMAL(10,2) NOT NULL,
+  `return_reason` TEXT,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`supplier_id`) REFERENCES `suppliers`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`purchase_id`) REFERENCES `phar_purchases`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE
+);

@@ -20,17 +20,14 @@ class StockController extends Controller
         // $stocks = Stock::paginate(6);
 
 
+            $stocks = DB::table('stock as s')
+                ->select('p.id', 'p.name', DB::raw('SUM(s.qty) as total_qty'))
+                ->join('products as p', 'p.id', '=', 's.product_id')
+                ->groupBy('p.id', 'p.name')
+                ->paginate(10);
 
-        $stocks = DB::table('stock as s') // ✅ Corrected table name
-    ->select('p.id', 'p.name', DB::raw('SUM(s.qty) as qty')) // ✅ Use 'quantity' instead of 'qty'
-    ->join('products as p', 'p.id', '=', 's.product_id') // ✅ Correct join condition
-    ->groupBy('p.id', 'p.name')
-    ->paginate(10);
+            return view('pages.stocks.index', compact('stocks'));
 
-
-
-
-        return view('pages.stocks.index', compact('stocks'));
     }
 
 

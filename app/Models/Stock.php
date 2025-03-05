@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    protected $table ='stock';
-
+     protected $table ='stock';
+     protected $guarded = [];
 
     function product()
     {
@@ -33,6 +33,5 @@ class Stock extends Model
     // {
     //     return $this->belongsTo(Batch::class);
     // }
-
 
 }

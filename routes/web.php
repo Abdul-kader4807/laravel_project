@@ -6,6 +6,7 @@ use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderReportController;
+use App\Http\Controllers\OrderReturnController;
 use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
@@ -132,6 +133,15 @@ Route::post('/stock-report',[StockReportController::class,'show']);
 Route::get('order_detail/delete/{id}',[OrderDetailController::class,'destroy_view']);
 Route::post('order_detail/search',[OrderDetailController::class,'search']);
 Route::resource('order_detail',OrderDetailController::class);
+
+
+Route::resource('order_return' ,OrderReturnController::class);
+Route::post('find_customer', [OrderReturnController::class, 'find_customer']);
+ Route::post('find_product', [OrderReturnController::class, 'find_product']);
+ Route::post('find_uom', [OrderReturnController::class, 'find_uom']);
+
+
+
 
 
 
