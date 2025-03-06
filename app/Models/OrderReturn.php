@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderReturn extends Model
 {
-    
-    protected $table = 'order_returns'; // Add this line
 
+    protected $table = 'order_returns'; // Add this line
+    protected $guarded = [];
     // Define relationships if needed
     public function order()
     {

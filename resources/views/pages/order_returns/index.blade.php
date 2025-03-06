@@ -1,107 +1,97 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-    <div class="row">
+<div class="container">
+    <h2>Order Return Management</h2>
 
-        @if (@session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+    <!-- Search Form -->
+    <form method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="number" name="order_id" class="form-control"
+                   placeholder="Enter Order ID" value="{{ $orderId ?? '' }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+        @error('order_id')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </form>
+
+    @if(isset($orderId))
+        @if($order)
+            <!-- Return Form -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5>New Return</h5>
+                    <form method="POST" action="{{ route('order_returns.store') }}">
+                        @csrf
+                        <input type="hidden" name="order_id" value="{{ $orderId }}">
+
+                        <div class="mb-3">
+                            <label>Select Product</label>
+                            <select name="product_id" class="form-select" required>
+                                @foreach($order->products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('product_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Return Quantity</label>
+                            <input type="number" step="0.01" name="total_return"
+                                   class="form-control" required>
+                            @error('total_return')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Return Reason</label>
+                            <textarea name="return_reason" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <div class="alert alert-danger">
+                Order #{{ $orderId }} not found!
+            </div>
         @endif
 
-
-        <div class="col-3">
-            <h4 class="mb-3 btn btn-warning px-4">Order-Retutn List</h4>
-        </div>
-
-
-        </div>
-        <div class="card">
-            <div class="row">
-
-                <div class="row d-flex justify-content-between mb-3 m-3">
-
-                    <div class="col-md-3">
-                        <a class="btn btn-secondary" href="{{ url('order_return/create') }}">Register</a>
-
-                    </div>
-
-                    <form class="col-md-6" action="{{ url('order_return/search') }}" method="post">
-                        @csrf
-                        <div class="input-group mb-2">
-                            <div class="col-sm-10  position-relative input-icon">
-                                <div class="d-flex mb-2">
-                                    <input type="text" class="form-control " name="query" value="{{ @$requestdata }}"
-                                        id="input42" placeholder="Search">
-                                    <span class="position-absolute top-50 translate-middle-y"><i
-                                            class="bx bx-search"></i></span>
-                                    <button type="submit" class="btn btn-primary px-2 ">Search</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive ">
-                        <table id="example2" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">customer_id Name</th>
-                                    <th class="text-center">order_id</th>
-                                    <th class="text-center">product_id</th>
-                                    <th class="text-center">total_sold</th>
-                                    <th class="text-center">total_return</th>
-                                    <th class="text-center">return_reason</th>
-
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($returns as $return)
-                                    <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ optional($order_return->customer)->name }}</td>
-                                         <td>{{ optional($order_return->product)->name }}</td>
-                                         <td>{{ optional($order_return->order)->id }}</td>
-                                        <td>{{ $order_return->total_sold }}</td>
-                                        <td>{{ $order_return->total_return }}</td>
-                                        <td>{{ $order_return->return_reason }}</td>
-
-
-                                        <td>
-
-                                            <a href="{{ url("order_return/$order_return->id") }}" class="btn btn-secondary">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ url("order_return/$order_return->id/edit") }}" class="btn btn-success">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="{{ url("order_return/delete/$order_return->id") }}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-
-
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center">Data Not found</td>
-                                    </tr>
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-end mt-5">
-                        {!! $returns->links('pagination::bootstrap-5') !!}
-                    </div>
-
-                </div>
-
+        <!-- Existing Returns -->
+        @if($returns->count() > 0)
+            <h4>Return History</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Sold Qty</th>
+                        <th>Returned Qty</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($returns as $return)
+                    <tr>
+                        <td>{{ $return->product->name }}</td>
+                        <td>{{ $return->total_sold }}</td>
+                        <td>{{ $return->total_return }}</td>
+                        <td>{{ $return->return_reason ?? 'N/A' }}</td>
+                        <td>{{ $return->created_at->format('d/m/Y') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <div class="alert alert-info">
+                No returns found for this order.
             </div>
-        </div>
-        </div>
-    </div>
-    @endsection
+        @endif
+    @endif
+</div>
+@endsection

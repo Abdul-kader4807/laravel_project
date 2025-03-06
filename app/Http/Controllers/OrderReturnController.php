@@ -2,115 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderReturn;
 use App\Models\Product;
-use App\Models\Uom;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OrderReturnController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $returns = DB::table('order_returns as sr') // Use correct table name
-            ->join('orders as o', 'o.id', '=', 'sr.order_id') // Corrected join condition
-            ->join('products as p', 'p.id', '=', 'sr.product_id')
-            ->join('customers as c', 'c.id', '=', 'sr.customer_id')
-            ->select('sr.id', 'c.name as customer', 'p.name as product', 'sr.total_sold', 'sr.total_return', 'sr.return_reason', 'sr.created_at')
-            ->orderBy('sr.created_at', 'desc')
-            ->paginate(10);
+        $orderId = $request->input('order_id');
+        $order = null;
+        $returns = [];
 
-        return view('pages.order_returns.index', compact('returns'));
-    }
+        if ($orderId) {
+            $order = Order::with('products')->find($orderId);
+            $returns = OrderReturn::with(['product', 'order'])
+                ->where('order_id', $orderId)
+                ->get();
+        }
 
-    public function create()
-    {
-        $orders = Order::all();
-        $products = Product::all();
-        $customers = Customer::all();
-        $uoms = Uom::all();
-        return view('pages.order_returns.create', compact('orders', 'products', 'customers','uoms'));
+        return view('pages.order_returns.index', compact('returns', 'orderId', 'order'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'customer_id' => 'required|exists:customers,id',
+        $validated = $request->validate([
             'order_id' => 'required|exists:orders,id',
             'product_id' => 'required|exists:products,id',
-            'total_sold' => 'required|numeric|min:1',
-            'total_return' => 'required|numeric|min:1|lte:total_sold',
-            'return_reason' => 'nullable|string|max:255'
+            'total_return' => 'required|numeric|min:0.01',
+            'return_reason' => 'nullable|string'
         ]);
 
-        $return = new OrderReturn();
-        $return->customer_id = $request->customer_id;
-        $return->order_id = $request->order_id;
-        $return->product_id = $request->product_id;
-        $return->total_sold = $request->total_sold;
-        $return->total_return = $request->total_return;
-        $return->return_reason = $request->return_reason;
-        $return->save();
+        // Verify product belongs to order
+        $order = Order::findOrFail($validated['order_id']);
+        $product = $order->products()->find($validated['product_id']);
 
-        return redirect()->route('order_returns')->with('success', 'Sales return recorded successfully.');
+        if (!$product) {
+            return back()->withErrors(['product_id' => 'This product does not belong to the order']);
+        }
+
+        // Calculate remaining return quantity
+        $originalQuantity = $product->pivot->quantity;
+        $existingReturns = OrderReturn::where('order_id', $validated['order_id'])
+            ->where('product_id', $validated['product_id'])
+            ->sum('total_return');
+
+        $remainingQuantity = $originalQuantity - $existingReturns;
+
+        if ($validated['total_return'] > $remainingQuantity) {
+            return back()->withErrors(['total_return' => "Maximum return quantity allowed: $remainingQuantity"]);
+        }
+
+        // Create return record
+        $return = OrderReturn::create([
+            'customer_id' => auth()->id(),
+            'order_id' => $validated['order_id'],
+            'product_id' => $validated['product_id'],
+            'total_sold' => $originalQuantity,
+            'total_return' => $validated['total_return'],
+            'return_reason' => $validated['return_reason']
+        ]);
+
+        // Update stock
+        Product::where('id', $validated['product_id'])
+            ->increment('stock', $validated['total_return']);
+
+        return redirect()->route('order_returns.index', ['order_id' => $validated['order_id']])
+            ->with('success', 'Return processed successfully!');
     }
-
-    public function show($id)
-    {
-        $return = OrderReturn::find($id);
-        return view('pages.order_returns.show', compact('return'));
-    }
-
-
-    public function destroy_view($id)
-    {
-        $return = OrderReturn::find($id);
-        return view('pages.order_returns.delete', compact('return'));
-    }
-
-
-
-
-
-    public function destroy($id)
-    {
-        OrderReturn::destroy($id);
-        return redirect()->route('order_returns')->with('success', 'Sales return deleted successfully.');
-    }
-
-
-
-
-
-
-
-    public function find_customer(Request $request){
-		$customer = Customer::find($request->id);
-		return response()->json(['customer'=> $customer]);
-	}
-
-
-	public function find_product(Request $request){
-		$product = Product::find($request->id);
-        // print_r($product);
-		return response()->json(['product'=> $product]);
-	}
-
-
-
-    public function find_uom(Request $request){
-		$uom = Uom::find($request->id);
-		return response()->json(['uom'=> $uom]);
-	}
-
-
-
-
-
-
-
 
 }
+
+
+

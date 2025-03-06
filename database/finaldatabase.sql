@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `phar_order_returns` (
   `return_reason` TEXT,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`order_id`) REFERENCES `phar_sales`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`order_id`) REFERENCES `phar_orders`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE
 );
 

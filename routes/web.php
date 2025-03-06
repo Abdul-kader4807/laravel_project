@@ -135,14 +135,14 @@ Route::post('order_detail/search',[OrderDetailController::class,'search']);
 Route::resource('order_detail',OrderDetailController::class);
 
 
-Route::resource('order_return' ,OrderReturnController::class);
-Route::post('find_customer', [OrderReturnController::class, 'find_customer']);
- Route::post('find_product', [OrderReturnController::class, 'find_product']);
- Route::post('find_uom', [OrderReturnController::class, 'find_uom']);
+// Route::resource('order_returns' ,OrderReturnController::class);
+// Route::post('find_customer', [OrderReturnController::class, 'find_customer']);
+//  Route::post('find_product', [OrderReturnController::class, 'find_product']);
+//  Route::post('find_uom', [OrderReturnController::class, 'find_uom']);
+//  Route::get('/order-returns/{orderId}', [OrderReturnController::class, 'getReturnsByOrderId']);
 
 
-
-
-
+Route::get('/order-returns', [OrderReturnController::class, 'index'])->name('order_returns.index');
+Route::post('/order-returns', [OrderReturnController::class, 'store'])->name('order_returns.store');
 
 require __DIR__.'/auth.php';
