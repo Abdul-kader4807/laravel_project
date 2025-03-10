@@ -79,11 +79,33 @@ class OrderController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show($orderId)
     {
-        $order = Order::with('order_details')->where('id', $id)->get();
+        $order = Order::with(['orderDetails.product', 'customer'])->findOrFail($orderId);
+
         return view('pages.orders.show', compact('order'));
+
     }
+
+
+
+
+
+//cgb
+    // public function showInvoice($orderId)
+    // {
+
+    //     $order = Order::with(['orderDetails.product', 'customer'])->findOrFail($orderId);
+
+    //     return view('pages.orders.invoice', compact('order'));
+    // }
+
+
+
+
+
+
+
 
 
 

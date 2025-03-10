@@ -15,7 +15,7 @@
                                 <img src="{{ asset('assets') }}/images/logo-icon.png" width="120" alt="Company Logo" />
                             </div>
                             <div class="text-end">
-                                <h2 class="fw-bold text-primary">MF-Pharma</h2>
+                                <h2 class="fw-bold text-primary">City Pharmacy Ltd.</h2>
                                 <p>61, Progoti Sharoni, Shajadpur, Gulshan, Dhaka-1212</p>
                                 <p>(+880)16344-31926 | mf-pharma25@gmail.com</p>
                             </div>
@@ -402,7 +402,7 @@
                             $(".phone").text("");
                             $(".address").text("");
 
-                             
+
 
                             // Clear input fields
                             $(".p_price").val("");

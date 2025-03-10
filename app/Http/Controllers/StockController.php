@@ -160,4 +160,7 @@ class StockController extends Controller
             ->paginate(6);
         return view('pages.stocks.index', compact('stocks'));
     }
+
+
+    
 }

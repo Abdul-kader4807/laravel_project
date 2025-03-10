@@ -17,6 +17,7 @@ use App\Http\Controllers\PurchaseDetailController;
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockReportController;
+use App\Http\Controllers\SupplierReportController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Warehouse;
@@ -46,6 +47,10 @@ Route::resource('customer',CustomerController::class);
 Route::get('supplier/delete/{id}' ,[SupplierController::class, 'destroy_view']);
  Route::post('supplier/search' ,[SupplierController::class, 'search']);
 Route::resource('supplier', SupplierController::class);
+
+Route::get('/supplier-report',[SupplierReportController::class,'index']);
+Route::post('/supplier-report',[SupplierReportController::class,'show']);
+
 
 Route::get('category/delete/{id}', [CategoryController::class,'destroy_view']);
 Route::post('category/search',[CategoryController::class,'search']);
@@ -109,6 +114,7 @@ Route::post('find_customer', [OrderController::class, 'find_customer']);
 
 Route::get('/order-report',[OrderReportController::class, 'index']);
 Route::post('/order-report',[OrderReportController::class,'show']);
+Route::get('/order/invoice/{id}', [OrderController::class, 'showInvoice'])->name('order.invoice');
 
 
 
