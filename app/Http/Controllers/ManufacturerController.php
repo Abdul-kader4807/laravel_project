@@ -15,7 +15,7 @@ class ManufacturerController extends Controller
 
 
         $manufacturers = Manufacturer::all();
-        $manufacturers = Manufacturer::paginate(4);
+        $manufacturers = Manufacturer::paginate(10);
         return view('pages.manufacturers.index', compact('manufacturers'));
     }
 

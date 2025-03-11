@@ -12,7 +12,7 @@ class SupplierController extends Controller
     public function index()
     {
         // $suppliers=Supplier::get();
-        $suppliers = Supplier::paginate(3);
+        $suppliers = Supplier::paginate(10);
 
         // print_r($suppliers);
 

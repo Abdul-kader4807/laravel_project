@@ -1,67 +1,16 @@
-@extends('layout.backend.main')
 
-@section('page_content')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Report</title>
     <style>
-        .add-button {
-            padding: 3px 8px;
-            border-radius: 50%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #f8f9fa;
-            padding: 12px;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .total,
-        .unit,
-        .qty,
-        .discount {
-            text-align: right;
-        }
-
-        .signature-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            #invoice,
-            #invoice * {
-                visibility: visible;
-            }
-
-            #invoice {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-
-            /* .printInvoice {
-                display: none;
-            } */
-        }
-  </style>
-
-
-
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
 
     <div class="card">
         <div class="card-body">
@@ -69,10 +18,7 @@
                 <div class="toolbar hidden-print">
                     <div class="text-end">
                         <button type="button" class="btn btn-dark printInvoice"><i class="fa fa-print"></i> Print</button>
-                        <a href="{{ route('order.pdf', $order->id) }}" class="btn btn-danger">
-                            <i class="fa fa-file-pdf-o"></i> Export as PDF
-                        </a>
-
+                        <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
                     </div>
                     <hr />
                 </div>
@@ -109,17 +55,15 @@
                                 </div>
                                 <div class="col invoice-details">
                                     <h1 class="invoice-id">INVOICE#CP-{{ $order->id }}</h1>
-                                    <h6>Date of Invoice:{{ optional($order->order_date)->format('d-m-Y') ?? 'N/A' }}</h6>
-                                    <h6>Delivery_date:  {{ optional($order->delivery_date)->format('d-m-Y') ?? 'N/A' }}</h6>
+                                    {{ optional($order->order_date)->format('d-m-Y') ?? 'N/A' }}
 
-
+                                    {{ optional($order->delivery_date)->format('d-m-Y') ?? 'N/A' }}
 
                                 </div>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>SL</th>
                                         <th>Item</th>
                                         <th>Qty</th>
                                         <th>Unit Price</th>
@@ -129,14 +73,13 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($order->orderDetails as $key=> $detail)
+                                    @foreach ($order->orderDetails as $detail)
                                         <tr>
-                                            <td>{{ $key+1 }}</td>
                                             <td>{{ optional($detail->product)->name ?? 'N/A' }}</td>
                                             <td>{{ $detail->qty }}</td>
-                                            <td>{{ number_format($detail->price, 2) }}</td>
-                                            <td>{{ number_format($detail->discount, 2) }}</td>
-                                            <td>{{ number_format($detail->price * $detail->qty - $detail->discount, 2) }}
+                                            <td>${{ number_format($detail->price, 2) }}</td>
+                                            <td>${{ number_format($detail->discount, 2) }}</td>
+                                            <td>${{ number_format($detail->price * $detail->qty - $detail->discount, 2) }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -146,16 +89,16 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="4" class="text-end">Subtotal</td>
-                                        <td>{{ number_format($order->total_order, 2) }}</td>
+                                        <td>${{ number_format($order->total_order, 2) }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-end">VAT ({{ $order->vat }}%)</td>
-                                        <td>{{ number_format($order->total_order * ($order->vat / 100), 2) }}</td>
+                                        <td>${{ number_format($order->total_order * ($order->vat / 100), 2) }}</td>
                                     </tr>
                                     <tr class="bg-light">
                                         <td colspan="4" class="text-end text-primary">Grand Total</td>
                                         <td class="text-primary">
-                                            {{ number_format($order->total_order + $order->total_order * ($order->vat / 100), 2) }}
+                                            ${{ number_format($order->total_order + $order->total_order * ($order->vat / 100), 2) }}
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -204,27 +147,6 @@
             </div>
         </div>
     </div>
-@endsection
 
-
-@section('script')
-    <script>
-        $(document).ready(function() {
-            $('.printInvoice').on('click', function() {
-                var printContents = document.getElementById('invoice').innerHTML;
-                var originalContents = document.body.innerHTML;
-
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
-                location.reload();
-            });
-        });
-    </script>
-
-
-
-
-
-
-@endsection
+</body>
+</html>

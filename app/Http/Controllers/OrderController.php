@@ -10,13 +10,14 @@ use App\Models\Status;
 use App\Models\Uom;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
 
     public function index()
     {
-        $orders = Order::paginate(8);
+        $orders = Order::paginate(10);
 
         // echo json_encode(OrderDetail::with('product')->where('order_id', 4)->get());
 
@@ -87,26 +88,35 @@ class OrderController extends Controller
 
     }
 
+//sir pdf work
+    public function generatePDF($orderId)
+    {
+        // Fetch data from database
+        $order = Order::with(['orderDetails.product', 'customer'])->findOrFail($orderId);
+
+        // Load view and pass data
+        $pdf = Pdf::loadView('pages.orders.pdf', compact('order'));
+
+        // Return PDF for download
+        // return $pdf->download('invoice.pdf');
+        \Illuminate\Support\Facades\Storage::put('public/invoice.pdf', $pdf->output());
+        return $pdf->stream('invoice.pdf');
+
+    }
 
 
+//chatgbt pdf work
+    public function downloadPDF($orderId)
+    {
+        // অর্ডার ও প্রয়োজনীয় সম্পর্কিত তথ্য লোড করা
+        $order = Order::with(['orderDetails.product', 'customer'])->findOrFail($orderId);
 
+        // PDF ফাইল জেনারেট করা
+        $pdf = Pdf::loadView('pages.orders.pdf', compact('order'));
 
-//cgb
-    // public function showInvoice($orderId)
-    // {
-
-    //     $order = Order::with(['orderDetails.product', 'customer'])->findOrFail($orderId);
-
-    //     return view('pages.orders.invoice', compact('order'));
-    // }
-
-
-
-
-
-
-
-
+        // ফাইল ডাউনলোড করা
+        return $pdf->download("invoice_{$order->id}.pdf");
+    }
 
 
 

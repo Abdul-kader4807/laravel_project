@@ -73,12 +73,12 @@
 
                                         <td class="text-center">
 
-                                            <a href="{{ url("order_detail/$order_detail->id") }}" class="btn btn-secondary">
+                                            <a href="{{ url("order/$order_detail->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ url("order_detail/$order_detail->id/edit") }}" class="btn btn-success">
+                                            {{-- <a href="{{ url("order_detail/$order_detail->id/edit") }}" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
+                                            </a> --}}
                                             <a href="{{ url("order_detail/delete/$order_detail->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>

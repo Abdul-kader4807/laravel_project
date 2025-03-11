@@ -114,7 +114,10 @@ Route::post('find_customer', [OrderController::class, 'find_customer']);
 
 Route::get('/order-report',[OrderReportController::class, 'index']);
 Route::post('/order-report',[OrderReportController::class,'show']);
-Route::get('/order/invoice/{id}', [OrderController::class, 'showInvoice'])->name('order.invoice');
+
+Route::get('/order/invoice/{id}/pdf', [OrderController::class, 'generatePDF']); //sir pdf work
+Route::get('/order/{id}/pdf', [OrderController::class, 'downloadPDF'])->name('order.pdf');//chatgbt pdf work
+
 
 
 

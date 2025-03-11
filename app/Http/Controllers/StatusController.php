@@ -6,12 +6,12 @@ use App\Models\status;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
-{ 
+{
 
     public function index()
     {
         $status = Status::all();
-        $statuses = Status::paginate(4);
+        $statuses = Status::paginate(10);
         // print_r($statuses);
         return view('pages.status.index', compact('statuses','status'));
     }

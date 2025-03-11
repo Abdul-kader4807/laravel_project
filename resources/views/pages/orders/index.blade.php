@@ -53,7 +53,7 @@
                                     <th class="text-center">status</th>
                                     <th class="text-center">discount</th>
                                     <th class="text-center">vat</th>
-                                    <th class="text-center">user Name</th>
+                                    {{-- <th class="text-center">user Name</th> --}}
                                     <th class="text-center">order_date</th>
                                     <th class="text-center">delivery_date</th>
                                     {{-- <th class="text-center">Product Name</th>
@@ -74,7 +74,7 @@
                                         <td>{{ optional($order->status)->name  }}</td>
                                         <td>{{ $order->discount }}</td>
                                         <td>{{ $order->vat }}</td>
-                                        <td>{{ optional($order->user)->name  }}</td>
+                                        {{-- <td>{{ optional($order->user)->name  }}</td> --}}
                                         <td>{{ $order->order_date }}</td>
                                         <td>{{ $order->delivery_date }}</td>
                                         {{-- <td>{{ optional($order->product)->name }}</td>

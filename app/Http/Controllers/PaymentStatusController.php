@@ -11,7 +11,7 @@ class PaymentStatusController extends Controller
     public function index()
     {
         // $payment_status = PaymentStatus::all();
-        $payment_statuses = PaymentStatus::paginate(4);
+        $payment_statuses = PaymentStatus::paginate(10);
         // print_r($payment_status);
         return view('pages.paymentStatus.index', compact('payment_statuses'));
     }

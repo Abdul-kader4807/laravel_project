@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         // $categories= Category::get();
 
-        $categories = Category::paginate(7);
+        $categories = Category::paginate(10);
         //  print_r($categories);
         return view('pages.categories.index', compact('categories'));
     }

@@ -13,7 +13,7 @@ class OrderDetailController extends Controller
 
     public function index()
     {
-        $order_details = OrderDetail::paginate(8);
+        $order_details = OrderDetail::paginate(10);
         return view('pages.orderDetails.index', compact('order_details'));
     }
 

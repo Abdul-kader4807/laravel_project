@@ -64,11 +64,11 @@
                                     <tr>
                                         <td>{{ $stock->id }}</td>
                                         <td>{{ optional($stock->product)->name }}</td>
-                                        <td>{{ $stock->qty }}</td>
-                                        <td>{{ $stock->price }}</td>
+                                        <td>{{ $stock->total_qty }}</td>
+                                        <td>{{ $stock->product->price }}</td>
                                         <td>{{ optional($stock->warehouse)->name  }}</td>
                                         {{-- <td>{{ optional($stock->transaction_type)->name  }}</td> --}}
-                                        <td>{{ optional($stock->uom)->name  }}</td>
+                                        <td>{{ optional($stock->product->uom)->name  }}</td>
                                         {{-- <td>{{ optional($stock->batch)->expiry_date  }}</td> --}}
                                         {{-- <td>{{ $stock->offer_price }}</td> --}}
                                         <td>{{ $stock->remark }}</td>

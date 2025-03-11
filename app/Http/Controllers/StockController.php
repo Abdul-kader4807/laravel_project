@@ -20,15 +20,39 @@ class StockController extends Controller
         // $stocks = Stock::paginate(6);
 
 
-            $stocks = DB::table('stock as s')
-                ->select('p.id', 'p.name', DB::raw('SUM(s.qty) as total_qty'))
-                ->join('products as p', 'p.id', '=', 's.product_id')
-                ->groupBy('p.id', 'p.name')
-                ->paginate(10);
+        // $stocks = DB::table('phar_stock as s')
+        //     ->select('s.id', 'p.name', DB::raw('SUM(s.qty) as total_qty'))
+        //     ->join('products as p', 'p.id', '=', 's.product_id')
+        //     ->groupBy('s.product_id')
+        //     ->paginate(10);
 
-            return view('pages.stocks.index', compact('stocks'));
+        $stocks = Stock::selectRaw('product_id, remark, SUM(qty) as total_qty')
+            ->with([
+                'product:id,name,price,uom_id', // Ensure uom_id is included to avoid relationship issues
+                'product.uom:id,name' // Load only id and name from UOM
+            ])
+            ->groupBy('product_id')
+            ->paginate(10);
+
+
+
+        // echo json_encode($stocks);
+
+        return view('pages.stocks.index', compact('stocks'));
 
     }
+
+    // public function generatePDF()
+    // {
+    //     // Fetch data from database
+    //     $stocks = Stock::with(['product:id,name,price'])->get();
+
+    //     // Load view and pass data
+    //     $pdf = Pdf::loadView('pdf.stock_report', compact('stocks'));
+
+    //     // Return PDF for download
+    //     return $pdf->download('stock_report.pdf');
+    // }
 
 
     public function create()
@@ -160,7 +184,4 @@ class StockController extends Controller
             ->paginate(6);
         return view('pages.stocks.index', compact('stocks'));
     }
-
-
-    
 }

@@ -1,132 +1,173 @@
+
 @extends('layout.backend.main')
 
 @section('page_content')
+    <style>
+        .add-button {
+            padding: 3px 8px;
+            border-radius: 50%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 12px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .total,
+        .unit,
+        .qty,
+        .discount {
+            text-align: right;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
     <div class="card">
         <div class="card-body">
             <div id="invoice">
-                <div class="toolbar hidden-print text-end mb-3">
-                    <button type="button" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
-                    <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+                <div class="toolbar hidden-print">
+                    <div class="text-end">
+                        <button type="button" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+                    </div>
+                    <hr />
                 </div>
                 <div class="invoice overflow-auto">
-                    <div style="min-width: 600px">
-                        <header class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
-                            <div>
-                                <img src="{{ asset('assets') }}/images/logo-icon.png" width="120" alt="Company Logo" />
-                            </div>
-                            <div class="text-end">
-                                <h2 class="fw-bold text-primary">City Pharmacy Ltd.</h2>
-                                <p>61, Progoti Sharoni, Shajadpur, Gulshan, Dhaka-1212</p>
-                                <p>(+880)16344-31926 | mf-pharma25@gmail.com</p>
+                    <div style="min-width: 800px">
+                        <header>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="javascript:;">
+                                        <img src="{{ asset('assets/images/logo-icon.png') }}" width="80"
+                                            alt="Pharmacy Logo" />
+                                    </a>
+                                </div>
+                                <div class="col company-details">
+                                    <h2 class="name">
+                                        <a target="_blank" href="#">
+                                            City Pharmacy Ltd.
+                                        </a>
+                                    </h2>
+                                    <div>123 Health Street, Medicity</div>
+                                    <div>Phone: (123) 456-7890</div>
+                                    <div>Email: info@citypharmacy.com</div>
+                                </div>
                             </div>
                         </header>
                         <main>
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <h4 class="text-primary">INVOICE TO:</h4>
-                                    <select class="form-control" name="customer_id" id="customer_id">
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    {{-- <div class="text-gray-light"></div> --}}
+                                    <h4 class="to">INVOICE TO:</h4>
+                                    <select class="form-control customer_id" name="customer_id" id="customer_id">
                                         @forelse ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                         @empty
                                             <option value="">No Customer Found</option>
                                         @endforelse
                                     </select>
-                                    <p>Email: <span class="email"></span></p>
-                                    <p>Phone: <span class="phone"></span></p>
-                                    <p>Address: <span class="address"></span></p>
+                                    <p>Email:<span class="email"></span></p>
+                                    <p>Phone:<span class="phone"></span></p>
+                                    <p>Address:<span class="address"></span></p>
+
                                 </div>
-                                <div class="col-md-6 text-end">
+                                <div class="col invoice-details">
                                     <h1 class="invoice-id">INVOICE #{{ DB::table('orders')->count() + 1 }}</h1>
-                                    <p>Date of Invoice: {{ date('d/m/Y') }}</p>
-                                    <p>Due Date: {{ date('d/m/Y', strtotime('+7 days')) }}</p>
+                                    <div class="date">Date of Invoice: @php echo date('d/m/Y'); @endphp</div>
+                                    <div class="date">Due Date: @php echo date('d/m/Y', strtotime('+7 days')); @endphp</div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped text-center">
-                                    <thead class="bg-primary text-white fw-bolder ">
-                                        <tr>
-                                            <th class="fw-bold m-2">Item No</th>
-                                            <th class="fw-bold ">Item Description</th>
-                                            <th class="fw-bold ">Item Strength</th>
-                                            <th class="fw-bold ">Unit of Measure</th>
-                                            <th class="fw-bold ">Unit Price</th>
-                                            <th class="fw-bold ">Quantity</th>
-                                            <th class="fw-bold ">Discount</th>
-                                            <th class="fw-bold ">Subtotal</th>
-                                            <th><button class="btn bg-danger clearAll">ClearAll</button> </th>
-                                        </tr>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="fw-bold bg-primary">SL</th>
+                                        <th class="fw-bold bg-primary">Item Description</th>
+                                        <th class="fw-bold bg-primary">Strength</th>
+                                        <th class="fw-bold bg-primary">Uom</th>
+                                        <th class="fw-bold bg-primary">Price</th>
+                                        <th class="fw-bold bg-primary">Qty</th>
+                                        <th class="fw-bold bg-primary">Discount</th>
+                                        <th class="fw-bold bg-primary">Total</th>
+                                        <th class="fw-bold bg-primary"><button
+                                                class="btn bg-danger clearAll">ClearAll</button></th>
+                                    </tr>
 
+                                    <tr>
+                                        <th>#</th>
+                                        <th><select class="form-control" name="product_id" id="product_id">
+                                                <option value="">Select Product</option>
+                                                @forelse ($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}
+                                                    </option>
+                                                @empty
+                                                    <option value="">No Product Found</option>
+                                                @endforelse
+                                            </select>
+                                        </th>
+                                        <th><input type="text" disabled class=" form-control p_strength"></th>
+                                        <th>
+                                            <select class="form-control" name="uom_id" id="uom_id">
+                                                <option value="">Select Uom</option>
+                                                @forelse ($uoms as $uom)
+                                                    <option value="{{ $uom->id }}">{{ $uom->name }}
+                                                    </option>
+                                                @empty
+                                                    <option value="">No Product Found</option>
+                                                @endforelse
+                                            </select>
 
-
-                                        <tr>
-                                            <th>#</th>
-                                            <th><select class="form-control" name="product_id" id="product_id">
-                                                    <option value="">Select Product</option>
-                                                    @forelse ($products as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }}
-                                                        </option>
-                                                    @empty
-                                                        <option value="">No Product Found</option>
-                                                    @endforelse
-                                                </select>
-                                            </th>
-
-                                            <th><input type="text" disabled class=" form-control p_strength"></th>
-
-                                            <th><select class="form-control" name="uom_id" id="uom_id">
-                                                    <option value="">Select Uom</option>
-                                                    @forelse ($uoms as $uom)
-                                                        <option value="{{ $uom->id }}">{{ $uom->name }}
-                                                        </option>
-                                                    @empty
-                                                        <option value="">No Product Found</option>
-                                                    @endforelse
-                                                </select>
-                                            </th>
-
-                                            <th>
-                                                <input type="text" disabled class=" form-control p_price">
-
-                                            </th>
-                                            <th><input type="number" class=" form-control p_qty"></th>
-                                            <th><input type="text" class=" form-control p_discount"></th>
-                                            <th></th>
-                                            <th><button class="btn btn-primary add_cart_btn">Add</button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="dataAppend">
-                                    </tbody>
-
-
-
-                                    <tfoot class="fw-bold">
-                                        <tr>
-                                            <td colspan="7" class="text-end  ">SUBTOTAL</td>
-                                            <td class="subtotal">5,200.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="7" class="text-end"> TOTAL DISCOUNT (25%)</td>
-                                            <td class="Discount">1,300.00</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="7" class="text-end">VAT (15%)</td>
-                                            <td class="vat">$1,300.00</td>
-                                        </tr>
-                                        <tr class="bg-light">
-                                            <td colspan="7" class="text-end text-primary">GRAND TOTAL</td>
-                                            <td class="text-primary grandtotal">$6,500.00</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-
-
-
-
-
-                            <div class="row container">
-
+                                        </th>
+                                        <th> <input type="text" disabled class=" form-control p_price"></th>
+                                        <th><input type="number" class=" form-control p_qty"></th>
+                                        <th><input type="text" class=" form-control p_discount"></th>
+                                        <th class="total"></th>
+                                        <th>
+                                            <button class="btn btn-sm btn-success  add_cart_btn">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="dataAppend"> </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">SUBTOTAL</td>
+                                        <td class="subtotal">$562.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">TOTAL DISCOUNT (5%)</td>
+                                        <td class="Discount">$28.10</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">VAT (15%)</td>
+                                        <td class="vat">$28.10</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td colspan="2">GRAND TOTAL</td>
+                                        <td class=" grandtotal">$590.10</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="row col-12 mt-">
                                 <div class=" col-4 p-2 mt-5">
                                     <label for="status_id" class="form-label status fw-bold">Payment Status</label>
                                     <select name="status_id" class="status_button form-control">
@@ -137,24 +178,41 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div
-                                    class="d-md-flex d-grid align-items-center gap-3 d-flex justify-content-end col-8 p-2 mt-5">
-                                    <h4 class="text-success">Thank You!</h4>
-                                    <p class="text-muted">A finance charge of 1.5% will be made on unpaid balances after 30
-                                        days.</p>
+                            </div>
+                            <div class="notices col-12 mt-5">
+                                <div>NOTES:</div>
+                                <div class="notice">
+                                    1. "Thank you, come again."<br>
+                                    1. All prices include VAT where applicable<br>
+                                    2. Please make checks payable to City Pharmacy Ltd.<br>
+                                    3. Returns accepted within 2 days of seals
+                                </div>
+                            </div>
+                            <div class="signature-section"
+                                style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+                                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                                    <div style="width: 45%;">
+                                        <div class="signature-line"
+                                            style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
+                                        <div style="font-weight: bold;">Customer Signature</div>
+                                    </div>
+                                    <div style="width: 45%;">
+                                        <div class="signature-line"
+                                            style="border-bottom: 1px solid #000; width: 80%; margin: 20px 0;"></div>
+                                        <div style="font-weight: bold;">Pharmacy Authorized Signature</div>
+                                    </div>
                                 </div>
                             </div>
                         </main>
-
+                        <footer>Pharmacy Invoice - Valid without signature</footer>
                     </div>
-
                     <a class="btn btn-primary btn_process" href="{{url('order')}}">Process</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
 
 
 @section('script')
@@ -308,12 +366,12 @@
 						<p class="fs-14 text-gray">${element.uom_name}</p>
 
 					</td>
-					<td><span class="fs-14 text-gray">$${element.price} </span></td>
+					<td><span class="fs-14 text-gray">${element.price} </span></td>
 					<td>
 						<p class="fs-14 text-gray">${element.qty}</p>
 					</td>
-					<td><span class="fs-14 text-gray">$${element.total_discount} </span></td>
-					<td><span class="fs-14 text-gray">$${element.subtotal} </span></td>
+					<td><span class="fs-14 text-gray">${element.total_discount} </span></td>
+					<td><span class="fs-14 text-gray">${element.subtotal} </span></td>
                     <td>
 						 <button data="${element.item_id}" class=' btn btn-warning remove'>Remove</button>
 					</td>

@@ -11,7 +11,7 @@ class UomController extends Controller
     public function index()
     {
         // $uoms = Uom::all();
-        $uoms = Uom::paginate(4);
+        $uoms = Uom::paginate(10);
         return view('pages.uoms.index', compact('uoms'));
     }
 
