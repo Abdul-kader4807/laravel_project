@@ -102,6 +102,12 @@ Route::resource('purchase_deatil',PurchaseDetailController::class);
 
 Route::get('/purchase-report',[PurchaseReportController::class,'index']);
 Route::post('/purchase-report',[PurchaseReportController::class,'show']);
+Route::get('/purchases/{id}/pdf', [PurchaseController::class, 'downloadPDF'])->name('purchases.pdf');//chatgbt pdf work
+
+
+
+
+
 
 
 Route::get('order', [OrderController::class, 'index'])->name('order.index');

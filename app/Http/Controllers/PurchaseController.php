@@ -8,7 +8,7 @@ use App\Models\Status;
 use App\Models\Supplier;
 use App\Models\Uom;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class PurchaseController extends Controller
 {
 
@@ -86,11 +86,37 @@ class PurchaseController extends Controller
 
 
 
-    public function show($id)
+    public function show($purchaseId)
     {
-        $purchase = Purchase::find($id);
+        // $purchase = Purchase::find($id);
+
+        $purchase = Purchase::with(['purchaseDetails.product', 'supplier'])->findOrFail($purchaseId);
+
         return view('pages.purchases.show', compact('purchase'));
     }
+
+
+
+
+//chatgbt pdf work
+public function downloadPDF($purchaseId)
+{
+    // অর্ডার ও প্রয়োজনীয় সম্পর্কিত তথ্য লোড করা
+    $purchase = Purchase::with(['purchaseDetails.product', 'supplier'])->findOrFail($purchaseId);
+
+    // PDF ফাইল জেনারেট করা
+    $pdf = Pdf::loadView('pages.purchases.pdf', compact('purchase'));
+
+    // ফাইল ডাউনলোড করা
+    return $pdf->download("invoice_{$purchase->id}.pdf");
+}
+
+
+
+
+
+
+
 
     public function edit($id)
     {

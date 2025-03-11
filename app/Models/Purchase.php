@@ -10,10 +10,34 @@ class Purchase extends Model
 
 
 
-    function purchase_details()
+    // function purchase_details()
+    // {
+    //     return   $this->hasMany(PurchaseDetail::class);
+    // }
+
+    protected $fillable = [
+        'supplier_id', 'purchase_date',  'total_purchase', 'vat'];
+
+
+
+    public function purchaseDetails()
     {
-        return   $this->hasMany(PurchaseDetail::class);
+        return $this->hasMany(PurchaseDetail::class, 'purchase_id');
     }
+
+    protected $casts = [
+        'purchase_date' => 'datetime',
+        'delivery_date' => 'datetime',
+    ];
+
+
+
+
+
+
+
+
+
 
 
     function status(){

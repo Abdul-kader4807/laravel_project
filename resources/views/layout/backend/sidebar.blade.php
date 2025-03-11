@@ -56,7 +56,7 @@
             </li>
             <li> <a href="{{url('order_detail')}}"><i class='bx bx-radio-circle'></i>Sales List</a>
             </li>
-            <li> <a href="ecommerce-add-new-products.html"><i class='bx bx-radio-circle'></i>Invoices</a>
+            <li> <a href="{{url('order-report')}}"><i class='bx bx-radio-circle'></i>Sales Report</a>
             </li>
             {{-- <li> <a href="ecommerce-orders.html"><i class='bx bx-radio-circle'></i>Orders</a> --}}
             </li>
@@ -120,6 +120,7 @@
             <li> <a href="{{url('purchase/create')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
             <li> <a href="{{'purchase_deatil'}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
+            <li> <a href="{{'purchase-report'}}"><i class='bx bx-radio-circle'></i>Purchase Report</a>
             </li>
         </ul>
     </li>
@@ -134,6 +135,8 @@
         </a>
         <ul>
             <li> <a href="{{url('stock')}}"><i class='bx bx-radio-circle'></i>Stock </a>
+            </li>
+            <li> <a href="{{url('stock-report')}}"><i class='bx bx-radio-circle'></i>Stock-Report </a>
             </li>
             <li> <a href="content-grid-system.html"><i class='bx bx-radio-circle'></i>Transactions </a>
             </li>
@@ -166,6 +169,8 @@
         </a>
         <ul>
             <li> <a href="{{url('supplier')}}"><i class='bx bx-radio-circle'></i>Supplier-List </a>
+            </li>
+            <li> <a href="{{url('supplier-report')}}"><i class='bx bx-radio-circle'></i>Supplier-Report </a>
             </li>
             <li> <a href="icons-boxicons.html"><i class='bx bx-radio-circle'></i>Supplier Returns </a>
             </li>
