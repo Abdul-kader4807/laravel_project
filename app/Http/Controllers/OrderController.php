@@ -11,6 +11,7 @@ use App\Models\Uom;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -117,6 +118,42 @@ class OrderController extends Controller
         // ফাইল ডাউনলোড করা
         return $pdf->download("invoice_{$order->id}.pdf");
     }
+
+
+
+
+
+
+// //stock order chgbt
+// public function placeOrder(Request $request)
+// {
+//     $product = DB::table('products')->where('id', $request->product_id)->first();
+
+//     if ($product->qty >= $request->qty) {
+//         DB::table('orders')->insert([
+//             'product_id' => $request->product_id,
+//             'qty' => $request->qty
+//         ]);
+
+//         DB::table('products')->where('id', $request->product_id)->decrement('qty', $request->qty);
+
+//         return back()->with('success', 'Order placed successfully!');
+//     } else {
+//         return back()->with('error', 'Not enough stock!');
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

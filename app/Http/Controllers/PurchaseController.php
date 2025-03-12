@@ -9,6 +9,8 @@ use App\Models\Supplier;
 use App\Models\Uom;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 class PurchaseController extends Controller
 {
 
@@ -112,7 +114,22 @@ public function downloadPDF($purchaseId)
 }
 
 
-  
+
+//stock work chgbt
+// public function addStock(Request $request)
+// {
+//     DB::table('purchases')->insert([
+//         'product_id' => $request->product_id,
+//         'qty' => $request->qty
+//     ]);
+
+//     DB::table('products')->where('id', $request->product_id)->increment('qty', $request->qty);
+
+//     return back()->with('success', 'Stock updated successfully!');
+// }
+
+
+
 
 
 
