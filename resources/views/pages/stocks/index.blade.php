@@ -19,10 +19,10 @@
 
                 <div class="row d-flex justify-content-between mb-3 m-3">
 
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <a class="btn btn-secondary" href="{{ url('stock/create') }}">Register</a>
 
-                    </div>
+                    </div> --}}
 
                     <form class="col-md-6" action="{{ url('stock/search') }}" method="post">
                         @csrf
@@ -52,34 +52,34 @@
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">price</th>
                                     {{-- <th class="text-center">offer_price</th> --}}
-                                    <th class="text-center">warehouse_Name</th>
+                                    {{-- <th class="text-center">warehouse_Name</th> --}}
                                     <th class="text-center">uom</th>
-                                    {{-- <th class="text-center">batch</th> --}}
+
                                     <th class="text-center">remark</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($stocks as $stock)
+                                @forelse ($stocks as $key=> $stock)
                                     <tr>
-                                        <td>{{ $stock->id }}</td>
+                                        <td>{{$key+1  }}</td>
                                         <td>{{ optional($stock->product)->name }}</td>
                                         <td>{{ $stock->total_qty }}</td>
                                         <td>{{ $stock->product->price }}</td>
-                                        <td>{{ optional($stock->warehouse)->name  }}</td>
+                                        {{-- <td>{{ optional($stock->warehouse)->name  }}</td> --}}
                                         {{-- <td>{{ optional($stock->transaction_type)->name  }}</td> --}}
                                         <td>{{ optional($stock->product->uom)->name  }}</td>
-                                        {{-- <td>{{ optional($stock->batch)->expiry_date  }}</td> --}}
+
                                         {{-- <td>{{ $stock->offer_price }}</td> --}}
                                         <td>{{ $stock->remark }}</td>
                                         <td>
 
-                                            <a href="{{ url("stock/$stock->id") }}" class="btn btn-secondary">
+                                             {{-- <a href="{{ url("stock/$stock->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="{{ url("stock/$stock->id/edit") }}" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
+                                            </a> --}}
                                             <a href="{{ url("stock/delete/$stock->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>

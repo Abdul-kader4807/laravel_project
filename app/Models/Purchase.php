@@ -35,11 +35,6 @@ class Purchase extends Model
 
 
 
-
-
-
-
-
     function status(){
         return   $this->belongsTo(Status::class, 'status_id');
      }

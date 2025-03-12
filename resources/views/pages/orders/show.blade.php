@@ -55,17 +55,17 @@
             }
 
             /* .printInvoice {
-                display: none;
-            } */
+                    display: none;
+                } */
         }
-  </style>
+    </style>
 
 
 
 
     <div class="card">
         <div class="card-body">
-            <div >
+            <div>
                 <div class="toolbar hidden-print">
                     <div class="text-end">
                         <button type="button" class="btn btn-dark printInvoice"><i class="fa fa-print"></i> Print</button>
@@ -101,7 +101,9 @@
                         <main>
                             <div class="row contacts">
                                 <div class="col invoice-to">
-                                    <div class="text-gray-light"><h4>INVOICE TO:</h4></div>
+                                    <div class="text-gray-light">
+                                        <h4>INVOICE TO:</h4>
+                                    </div>
                                     <p>Name: {{ optional($order->customer)->name ?? 'N/A' }}</p>
                                     <p>Email: {{ optional($order->customer)->email ?? 'N/A' }}</p>
                                     <p>Phone: {{ optional($order->customer)->phone ?? 'N/A' }}</p>
@@ -110,7 +112,7 @@
                                 <div class="col invoice-details">
                                     <h1 class="invoice-id">INVOICE#CP-{{ $order->id }}</h1>
                                     <h6>Date of Invoice:{{ optional($order->order_date)->format('d-m-Y') ?? 'N/A' }}</h6>
-                                    <h6>Delivery_date:  {{ optional($order->delivery_date)->format('d-m-Y') ?? 'N/A' }}</h6>
+                                    <h6>Delivery_date: {{ optional($order->delivery_date)->format('d-m-Y') ?? 'N/A' }}</h6>
 
 
 
@@ -119,46 +121,78 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Item</th>
-                                        <th>Qty</th>
-                                        <th>Unit Price</th>
-                                        <th>Discount</th>
-                                        <th>Total</th>
+                                        <th class="fw-bold bg-primary">SL</th>
+                                        <th class="fw-bold bg-primary">Item Description</th>
+                                        <th class="fw-bold bg-primary">Strength</th>
+                                        <th class="fw-bold bg-primary">Uom</th>
+                                        <th class="fw-bold bg-primary">Price</th>
+                                        <th class="fw-bold bg-primary">Qty</th>
+                                        <th class="fw-bold bg-primary">Discount</th>
+                                        <th class="fw-bold bg-primary">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($order->orderDetails as $key=> $detail)
+                                    {{-- @foreach ($order->orderDetails as $key => $detail)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ optional($detail->product)->name ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->product)->strength ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->uom)->name ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->product)->offer_price ?? 'N/A' }}</td>
                                             <td>{{ $detail->qty }}</td>
                                             <td>{{ number_format($detail->price, 2) }}</td>
                                             <td>{{ number_format($detail->discount, 2) }}</td>
                                             <td>{{ number_format($detail->price * $detail->qty - $detail->discount, 2) }}
                                             </td>
                                         </tr>
+                                    @endforeach --}}
+                                    @php $subtotal = 0; @endphp
+                                    @foreach ($order->orderDetails as $key => $detail)
+                                        @php
+                                            $total =
+                                                $detail->qty * optional($detail->product)->offer_price -
+                                                $detail->discount;
+                                            $subtotal += $total;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ optional($detail->product)->name ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->product)->strength ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->uom)->name ?? 'N/A' }}</td>
+                                            <td>{{ optional($detail->product)->offer_price ?? 'N/A' }}</td>
+                                            <td>{{ $detail->qty }}</td>
+                                            <td>{{ number_format($detail->discount, 2) }}</td>
+                                            <td>{{ number_format($total, 2) }}</td>
+                                        </tr>
                                     @endforeach
-
 
                                 </tbody>
                                 <tfoot>
+
+
+
+
+                                -- @php
+                                    $vatAmount = $subtotal * ($order->vat / 100);
+                                    $grandTotal = $subtotal + $vatAmount;
+                                @endphp
+
+                                <tfoot>
                                     <tr>
-                                        <td colspan="4" class="text-end">Subtotal</td>
-                                        <td>{{ number_format($order->total_order, 2) }}</td>
+                                        <td colspan="7" class="text-end">Subtotal</td>
+                                        <td>{{ number_format($subtotal) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" class="text-end">VAT ({{ $order->vat }}%)</td>
-                                        <td>{{ number_format($order->total_order * ($order->vat / 100), 2) }}</td>
+                                        <td colspan="7" class="text-end">VAT ({{ $order->vat }}%)</td>
+                                        <td>{{ number_format($vatAmount, 2) }}</td>
                                     </tr>
                                     <tr class="bg-light">
-                                        <td colspan="4" class="text-end text-primary">Grand Total</td>
-                                        <td class="text-primary">
-                                            {{ number_format($order->total_order + $order->total_order * ($order->vat / 100), 2) }}
-                                        </td>
+                                        <td colspan="7" class="text-end text-primary">Grand Total</td>
+                                        <td class="text-primary">{{ number_format($grandTotal, 2) }}</td>
                                     </tr>
-                                </tfoot>
+                                </tfoot> 
+
 
                             </table>
 
@@ -220,11 +254,9 @@
                 location.reload();
             });
         });
+
+
+
     </script>
-
-
-
-
-
-
 @endsection
+

@@ -112,7 +112,7 @@ public function downloadPDF($purchaseId)
 }
 
 
-
+  
 
 
 
@@ -240,6 +240,7 @@ public function downloadPDF($purchaseId)
         $uom = Uom::find($request->id);
         return response()->json(['uom' => $uom]);
     }
+
 
 
 

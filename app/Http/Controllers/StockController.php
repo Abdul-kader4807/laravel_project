@@ -39,7 +39,6 @@ class StockController extends Controller
         // echo json_encode($stocks);
 
         return view('pages.stocks.index', compact('stocks'));
-
     }
 
     // public function generatePDF()
@@ -61,40 +60,57 @@ class StockController extends Controller
         $transactionTypes = TransactionType::all();
         $warehouses = Warehouse::all();
         $uoms = Uom::all();
-        $batches = Batch::all();
-        return view('pages.stocks.create', compact('products',  'warehouses', 'uoms'));
+
+        return view('pages.stocks.create', compact('products','transactionTypes' , 'warehouses', 'uoms'));
     }
 
 
     public function store(Request $request)
     {
+        // $request->validate([
+        //     'product_id' => 'required|exists:products,id',
+        //     'transaction_type_id' => 'required|exists:transaction_types,id',
+        //     'price' => 'required|numeric|min:0',
+        //     'offer_price' => 'nullable|numeric|min:0',
+        //     'warehouse_id' => 'required|exists:warehouses,id',
+        //     'qty' => 'required|integer|min:1',
+        //     'uom_id' => 'required|exists:uoms,id',
+        //     'batch_id' => 'required|exists:batches,id',
+        //     'remark' => 'nullable|string|max:200',
+        // ]);
+
+        // $stock = new Stock();
+        // $stock->product_id = $request->product_id;
+        // $stock->transaction_type_id = $request->transaction_type_id;
+        // $stock->price = $request->price;
+        // $stock->offer_price = $request->offer_price;
+        // $stock->warehouse_id = $request->warehouse_id;
+        // $stock->qty = $request->qty;
+        // $stock->uom_id = $request->uom_id;
+        // $stock->batch_id = $request->batch_id;
+        // $stock->remark = $request->remark;
+
+
+        // if ($stock->save()) {
+        //     return redirect('stock')->with('success', "Stock has been registred");
+        // };
+
+
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'transaction_type_id' => 'required|exists:transaction_types,id',
+            'transaction_type_id' => 'nullable|exists:transaction_types,id',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0',
             'warehouse_id' => 'required|exists:warehouse,id',
             'qty' => 'required|integer|min:1',
             'uom_id' => 'required|exists:uoms,id',
-            'batch_id' => 'required|exists:batches,id',
+
             'remark' => 'nullable|string|max:200',
         ]);
 
-        $stock = new Stock();
-        $stock->product_id = $request->product_id;
-        $stock->transaction_type_id = $request->transaction_type_id;
-        $stock->price = $request->price;
-        $stock->offer_price = $request->offer_price;
-        $stock->warehouse_id = $request->warehouse_id;
-        $stock->qty = $request->qty;
-        $stock->uom_id = $request->uom_id;
-        $stock->batch_id = $request->batch_id;
-        $stock->remark = $request->remark;
+        $stock = Stock::create($request->all());
 
-
-        if ($stock->save()) {
-            return redirect('stock')->with('success', "Stock has been registred");
-        };
+        return redirect('stock')->with('success', "Stock has been registered");
     }
 
 
@@ -113,10 +129,10 @@ class StockController extends Controller
         $transactionTypes = TransactionType::all();
         $warehouses = Warehouse::all();
         $uoms = Uom::all();
-        $batches = Batch::all();
-        $stock = Stock::where('id', $id)->get();
 
-        return view('pages.stocks.update', compact('stock', 'products', 'warehouses', 'uoms'));
+        // $stock = Stock::where('id', $id)->get();
+
+        return view('pages.stocks.update', compact('stock', 'products','transactionTypes', 'warehouses', 'uoms'));
     }
 
 
@@ -124,33 +140,51 @@ class StockController extends Controller
 
     public function update(Request $request, $id)
     {
+        // $request->validate([
+        //     'product_id' => 'required|exists:products,id',
+        //     'transaction_type_id' => 'required|exists:transaction_types,id',
+        //     'price' => 'required|numeric|min:0',
+        //     'offer_price' => 'nullable|numeric|min:0',
+        //     'warehouse_id' => 'required|exists:warehouse,id',
+        //     'qty' => 'required|integer|min:1',
+        //     'uom_id' => 'required|exists:uoms,id',
+        //     'batch_id' => 'required|exists:batches,id',
+        //     'remark' => 'nullable|string|max:200',
+        // ]);
+        // $stock =  Stock::find($id);
+        // $stock->update($request->all());
+        // $stock->product_id = $request->product_id;
+        // $stock->transaction_type_id = $request->transaction_type_id;
+        // $stock->price = $request->price;
+        // $stock->offer_price = $request->offer_price;
+        // $stock->warehouse_id = $request->warehouse_id;
+        // $stock->qty = $request->qty;
+        // $stock->uom_id = $request->uom_id;
+        // $stock->batch_id = $request->batch_id;
+        // $stock->remark = $request->remark;
+
+
+        // if ($stock->save()) {
+        //     return redirect('stock')->with('success', "Stock has been updated");
+        // };
+
+
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'transaction_type_id' => 'required|exists:transaction_types,id',
+           'transaction_type_id' => 'nullable|exists:transaction_types,id',
             'price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0',
             'warehouse_id' => 'required|exists:warehouse,id',
             'qty' => 'required|integer|min:1',
             'uom_id' => 'required|exists:uoms,id',
-            'batch_id' => 'required|exists:batches,id',
+
             'remark' => 'nullable|string|max:200',
         ]);
-        $stock =  Stock::find($id);
+
+        $stock = Stock::findOrFail($id);
         $stock->update($request->all());
-        $stock->product_id = $request->product_id;
-        $stock->transaction_type_id = $request->transaction_type_id;
-        $stock->price = $request->price;
-        $stock->offer_price = $request->offer_price;
-        $stock->warehouse_id = $request->warehouse_id;
-        $stock->qty = $request->qty;
-        $stock->uom_id = $request->uom_id;
-        $stock->batch_id = $request->batch_id;
-        $stock->remark = $request->remark;
 
-
-        if ($stock->save()) {
-            return redirect('stock')->with('success', "Stock has been updated");
-        };
+        return redirect('stock')->with('success', "Stock has been updated");
     }
 
     public function destroy_view($id)
@@ -180,7 +214,7 @@ class StockController extends Controller
             ->orWhere('transaction_type_id', 'like', "%{$query}%")
             ->orWhere('warehouse_id', 'like', "%{$query}%")
             ->orWhere('uom_id', 'like', "%{$query}%")
-            ->orWhere('batch_id', 'like', "%{$query}%")
+           
             ->paginate(6);
         return view('pages.stocks.index', compact('stocks'));
     }

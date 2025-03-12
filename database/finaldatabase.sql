@@ -171,7 +171,7 @@ CREATE TABLE if not exists `phar_stock` (
   `price` DECIMAL(8,2) NOT NULL,
   `offer_price` DOUBLE DEFAULT NULL,
   `warehouse_id` INT NOT NULL,
-  `quantity` INT NOT NULL,
+  `qty` INT NOT NULL,
   `uom_id` INT NOT NULL,
   `batch_id` INT NULL,
   `remark` VARCHAR(200),

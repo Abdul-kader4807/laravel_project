@@ -7,7 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
      protected $table ='stock';
-     protected $guarded = [];
+
+
+     protected $fillable = [
+        'product_id',
+        'transaction_type_id',
+        'price',
+        'offer_price',
+        'warehouse_id',
+        'uom_id',
+        'remark',
+        'qty'
+    ];
+
+
 
     function product()
     {
@@ -29,9 +42,5 @@ class Stock extends Model
         return $this->belongsTo(Uom::class);
     }
 
-    // function batch()
-    // {
-    //     return $this->belongsTo(Batch::class);
-    // }
 
 }

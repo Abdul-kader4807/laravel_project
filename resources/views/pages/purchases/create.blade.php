@@ -204,7 +204,7 @@
                         </main>
                         <footer>Pharmacy Invoice - Valid without signature</footer>
                     </div>
-                    <a class="btn btn-primary btn_process">Process</a>
+                    <a class="btn btn-primary btn_process" href="{{url('purchase')}}">Process</a>
                 </div>
             </div>
         </div>
@@ -293,6 +293,9 @@
                     }
                 });
             });
+
+
+
 
 
             $('.add_cart_btn').on('click', function() {

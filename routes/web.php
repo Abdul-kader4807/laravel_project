@@ -20,7 +20,7 @@ use App\Http\Controllers\StockReportController;
 use App\Http\Controllers\SupplierReportController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarehouseController;
-use App\Models\Warehouse;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -93,6 +93,7 @@ Route::post('purchase/search',[PurchaseController::class,'search']);
 Route::resource('purchase',PurchaseController::class);
 Route::post('find_supplier',[PurchaseController::class,'find_supplier']);
 Route::post('find_uom',[PurchaseController::class,'find_uom']);
+Route::post('find_status',[PurchaseController::class,'find_status']);
 
 
 

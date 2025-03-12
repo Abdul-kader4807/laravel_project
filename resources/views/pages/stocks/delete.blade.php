@@ -16,7 +16,7 @@
             <h5 class="text-danger">Are you sure you want to delete this stock?</h5>
 
             <div class="mb-3">
-                <p><strong>stock ID:</strong> {{ $stock['id'] }}</p>
+                <p><strong>Stock ID:</strong> {{ $stock->id }}</p>
 
                 <p><strong>Category_id:</strong> {{ $stock['category_id'] }}</p>
                 <p><strong>product_id:</strong> {{ $stock['product_id'] }}</p>
@@ -28,7 +28,7 @@
                 <p><strong>qty:</strong> {{ $stock['qty'] }}</p>
                 <p><strong>Uom_id:</strong> {{ $stock['uom_id'] }}</p>
 
-                <p><strong>batch_id:</strong> {{ $stock['batch_id'] }}</p>
+                
 
                 <p><strong>remark:</strong> {{ $stock['remark'] }}</p>
                 <p><strong>created_at:</strong> {{ $stock['created_at'] }}</p>

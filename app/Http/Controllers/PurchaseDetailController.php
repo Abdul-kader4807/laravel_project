@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
+use App\Models\Status;
 use App\Models\Uom;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class PurchaseDetailController extends Controller
         $purchases = Purchase::all();
         $products = Product::all();
         $uoms = Uom::all();
-        return view('pages.purchasesDetails.create', compact('purchases', 'products', 'uoms'));
+        $status = Status::all();
+        return view('pages.purchasesDetails.create', compact('purchases', 'products', 'uoms','status'));
     }
 
 

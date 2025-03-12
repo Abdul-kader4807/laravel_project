@@ -52,10 +52,7 @@
                     <td>{{ $stock['uom_id'] }}</td>
                 </tr>
 
-                <tr>
-                    <th>batch_id</th>
-                    <td>{{ $stock['batch_id'] }}</td>
-                </tr>
+               
                 <tr>
                     <th>remark</th>
                     <td>{{ $stock['remark'] }}</td>

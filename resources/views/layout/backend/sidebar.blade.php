@@ -37,7 +37,7 @@
             </li>
         </ul>
     </li>
-    <li class="menu-label">Sales Management</li>
+    {{-- <li class="menu-label">Sales Management</li> --}}
     <li>
         <a href="widgets.html">
             <div class="parent-icon"><i class='bx bx-cookie'></i>
@@ -109,7 +109,7 @@
         </ul>
     </li>
 
-    <li class="menu-label">Purchase Management</li>
+    {{-- <li class="menu-label">Purchase Management</li> --}}
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class="bx bx-basket"></i>
@@ -117,7 +117,7 @@
             <div class="menu-title">Purchases </div>
         </a>
         <ul>
-            <li> <a href="{{url('purchase/create')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
+            <li> <a href="{{url('purchase')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
             <li> <a href="{{'purchase_deatil'}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
             <li> <a href="{{'purchase-report'}}"><i class='bx bx-radio-circle'></i>Purchase Report</a>
@@ -126,7 +126,7 @@
     </li>
 
 
-    <li class="menu-label">Inventory Management</li>
+    {{-- <li class="menu-label">Inventory Management</li> --}}
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class="bx bx-box"></i>
@@ -182,7 +182,7 @@
 
 
 
-    <li class="menu-label">Product Management</li>
+    {{-- <li class="menu-label">Product Management</li> --}}
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class='bx bx-layer'></i>

@@ -81,7 +81,7 @@
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">price</th>
                                     {{-- <th class="text-center">offer_price</th> --}}
-                                    <th class="text-center">warehouse_Name</th>
+                                    {{-- <th class="text-center">warehouse_Name</th> --}}
                                     <th class="text-center">uom</th>
                                     {{-- <th class="text-center">batch</th> --}}
                                     <th class="text-center">remark</th>
@@ -96,7 +96,7 @@
                                         <td>{{ optional($stock->product)->name }}</td>
                                         <td>{{ $stock->qty }}</td>
                                         <td>{{ $stock->price }}</td>
-                                        <td>{{ optional($stock->warehouse)->name }}</td>
+                                        {{-- <td>{{ optional($stock->warehouse)->name }}</td> --}}
                                         {{-- <td>{{ optional($stock->transaction_type)->name  }}</td> --}}
                                         <td>{{ optional($stock->uom)->name }}</td>
                                         {{-- <td>{{ optional($stock->batch)->expiry_date  }}</td> --}}

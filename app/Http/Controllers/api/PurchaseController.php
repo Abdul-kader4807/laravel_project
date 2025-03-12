@@ -95,7 +95,7 @@ class PurchaseController extends Controller
             $stock->offer_price = null;
             $stock->warehouse_id = null;
             $stock->uom_id = $value['uom_id'];
-            $stock->batch_id = null;
+            
             $stock->remark = "Purchase";
             $stock->qty = $value['qty'] * (+1);
 

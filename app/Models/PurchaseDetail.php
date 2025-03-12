@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchaseDetail extends Model
 {
-    protected $table='purchases_details';
+    protected $table='purchase_details';
 
 
 
@@ -35,12 +35,9 @@ class PurchaseDetail extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class, 'status_id');
-    }
+
+  
 
 
 

@@ -73,24 +73,47 @@ class OrderController extends Controller
             //   $lastInsertedId = $order->id;
 
 
-            $stock = Stock::where('product_id', $value['item_id'])->first();
+            // $stock = Stock::where('product_id', $value['item_id'])->first();
 
-            if ($stock) {
-                $stock->qty -= $value['qty'];
-                $stock->updated_at = now();
-                $stock->save();
-            } else {
+            // if ($stock) {
+            //     $stock->qty -= $value['qty'];
+            //     $stock->updated_at = now();
+            //     $stock->save();
+            // } else {
 
-                $newStock = new Stock();
-                $newStock->product_id = $value['item_id'];
-                $newStock->qty = -$value['qty'];
-                $newStock->transaction_type_id = 2; // Sales transaction type
-                $newStock->remark = "Sales";
-                $newStock->warehouse_id = 1;
-                $newStock->created_at = now();
-                $newStock->updated_at = now();
-                $newStock->save();
-            }
+            //     $newStock = new Stock();
+            //     // $newStock->product_id = $value['item_id'];
+            //     $newStock->qty = -$value['qty'];
+            //     // $newStock->transaction_type_id = 2; // Sales transaction type
+            //     // $newStock->remark = "Sales";
+            //     // $newStock->warehouse_id = 1;
+            // //     $newStock->created_at = now();
+            // //     $newStock->updated_at = now();
+            // //     $newStock->save();
+            // // }
+
+
+
+
+
+            $stock = new Stock;
+            $stock->product_id = $value['item_id'];
+            $stock->transaction_type_id = null;
+            $stock->price = $value['price'];
+            $stock->offer_price = null;
+            $stock->warehouse_id = null;
+            $stock->uom_id = $value['uom_id'];
+
+            $stock->remark = "Sales";
+            $stock->qty = $value['qty'] * (-1);
+
+            $stock->save();
+
+
+
+
+
+
         }
         return response()->json(['success' => "order confirmed successfully"]);
 
@@ -99,7 +122,7 @@ class OrderController extends Controller
 
 
 
-    
+
 
     public function show(string $id)
     {
