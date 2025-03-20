@@ -74,7 +74,7 @@
 
                                         <td>
 
-                                            <a href="{{ url("purchase_deatil/$purchase_deatil->id") }}" class="btn btn-secondary">
+                                            <a href="{{ url("purchase/$purchase_deatil->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="{{ url("purchase_deatil/$purchase_deatil->id/edit") }}" class="btn btn-success">

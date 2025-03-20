@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class PurchaseController extends Controller
 {
 
-    public function index()
+    public function react()
     {
         $purchases = Purchase::all();
         return response()->json(['purchase' => $purchases]);
@@ -95,7 +95,7 @@ class PurchaseController extends Controller
             $stock->offer_price = null;
             $stock->warehouse_id = null;
             $stock->uom_id = $value['uom_id'];
-            
+
             $stock->remark = "Purchase";
             $stock->qty = $value['qty'] * (+1);
 

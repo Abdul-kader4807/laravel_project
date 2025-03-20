@@ -13,10 +13,10 @@ use function Termwind\parse;
 class OrderController extends Controller
 {
 
-    public function index()
+    public function react()
     {
         $orders = Order::all();
-        return response()->json(['orders' => $orders],'ok');
+        return response()->json(['orders' => $orders]);
     }
 
 
