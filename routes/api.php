@@ -16,10 +16,11 @@ Route::get('/user', function (Request $request) {
 
 
 Route::resource('order', OrderController::class);
-Route::get('order', [OrderController::class,'react']);
+Route::get('order', [CustomerController::class,'order']);
+Route::get('invoicebyId/{id}', [CustomerController::class,'invoicebyId']);
 
 Route::resource('purchase', PurchaseController::class);
-Route::get('purchase', [PurchaseController::class,'react']);
+Route::get('purchase', [CustomerController::class,'purchase']);
 
 Route::get('suppliers',[SupplierController::class, 'index']);
 Route::get('warehouses',[SupplierController::class, 'warehouse']);
@@ -30,5 +31,6 @@ Route::post('saveReactpurchase',[SupplierController::class, 'saveReactpurchase']
 Route::get('customers',[CustomerController::class, 'index']);
 Route::get('warehouses',[CustomerController::class, 'warehouse']);
 Route::get('products',[CustomerController::class, 'products']);
+Route::get('stocks',[CustomerController::class, 'react']);
 
 Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);

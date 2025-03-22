@@ -18,6 +18,9 @@ class PurchaseController extends Controller
     }
 
 
+
+
+
     public function create()
     {
         //

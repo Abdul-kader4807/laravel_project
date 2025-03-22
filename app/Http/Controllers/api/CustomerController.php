@@ -7,17 +7,49 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+//CustomerController eta sudu react to laravel er jonno api banano hoyeche
+
+
     public function index()
     {
         $customers = Customer::all();
         return response()->json(["customers" =>  $customers]);
     }
+
+
+
+
+    public function react()
+    {
+        $stocks = Stock::with(['product', 'warehouse'])->get();
+        return response()->json(['stocks' => $stocks]);
+    }
+
+
+    public function purchase()
+    {
+        $purchases = Purchase::with('supplier')->get();  // Supplier তথ্য লোড করবে
+        return response()->json(['purchase' => $purchases]);
+    }
+
+
+
+
+    public function order()
+    {
+        $orders = Order::with('customer')->get();  // Customer তথ্য লোড করবে
+        return response()->json(['orders' => $orders]);
+    }
+
+
 
 
     public function warehouse()
@@ -97,7 +129,7 @@ class CustomerController extends Controller
 
                     $stock = new Stock();
                     $stock->product_id = $product['item_id'];
-                    $stock->qty = -$product['qty']; 
+                    $stock->qty = -$product['qty'];
                     $stock->transaction_type_id = 2;
                     $stock->remark = "sales";
                     $stock->created_at = now();
@@ -119,9 +151,10 @@ class CustomerController extends Controller
 
 
 
-    public function create()
+    public function invoicebyId(Request $request)
     {
-        //
+        $order =Order::with(["orderDetails","customer"])->where("id",$request->id)->get();
+        return response()->json(['order' =>   $order]);
     }
 
     /**

@@ -214,7 +214,7 @@ class StockController extends Controller
             ->orWhere('transaction_type_id', 'like', "%{$query}%")
             ->orWhere('warehouse_id', 'like', "%{$query}%")
             ->orWhere('uom_id', 'like', "%{$query}%")
-           
+
             ->paginate(6);
         return view('pages.stocks.index', compact('stocks'));
     }

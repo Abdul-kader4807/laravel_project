@@ -17,6 +17,9 @@ class OrderController extends Controller
     {
         $orders = Order::all();
         return response()->json(['orders' => $orders]);
+
+
+        
     }
 
 
