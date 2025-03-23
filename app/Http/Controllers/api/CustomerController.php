@@ -148,14 +148,39 @@ class CustomerController extends Controller
 
 
 
+    // public function invoicebyId(Request $request)
+    // {
+    //     $order =Order::with(["orderDetails","customer"])->where("id",$request->id)->get();
+    //     return response()->json(['order' =>   $order]);
+    // }
 
 
 
     public function invoicebyId(Request $request)
     {
-        $order =Order::with(["orderDetails","customer"])->where("id",$request->id)->get();
-        return response()->json(['order' =>   $order]);
+        $order = Order::with(["orderDetails.product","customer"])
+                     ->where("id", $request->id)
+                     ->get();
+        return response()->json(['order' => $order]);
     }
+
+
+
+
+    public function invoicebyshow(Request $request, $id)
+{
+    $purchase = Purchase::with(["purchaseDetails.product", "supplier"])
+                 ->where("id", $id)
+                 ->first(); // get() পরিবর্তে first()
+
+    if (!$purchase) {
+        return response()->json(['error' => 'Purchase not found'], 404);
+    }
+
+    return response()->json(['purchase' => $purchase]);
+}
+
+
 
     /**
      * Store a newly created resource in storage.

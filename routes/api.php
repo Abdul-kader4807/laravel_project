@@ -21,6 +21,7 @@ Route::get('invoicebyId/{id}', [CustomerController::class,'invoicebyId']);
 
 Route::resource('purchase', PurchaseController::class);
 Route::get('purchase', [CustomerController::class,'purchase']);
+Route::get('invoicebyshow/{id}', [CustomerController::class,'invoicebyshow']);
 
 Route::get('suppliers',[SupplierController::class, 'index']);
 Route::get('warehouses',[SupplierController::class, 'warehouse']);
