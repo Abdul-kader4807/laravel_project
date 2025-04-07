@@ -4,7 +4,7 @@ use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\PurchaseController;
 use App\Http\Controllers\api\SupplierController;
-
+use App\Http\Controllers\api\vue\CustomersController;
 use Illuminate\Console\View\Components\Warn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +35,6 @@ Route::get('products',[CustomerController::class, 'products']);
 Route::get('stocks',[CustomerController::class, 'react']);
 
 Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);
+
+//VUE
+Route::apiResource('customers',CustomersController::class);
