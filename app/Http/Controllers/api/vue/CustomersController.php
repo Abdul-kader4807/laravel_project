@@ -15,7 +15,7 @@ class CustomersController extends Controller
         if ($request->search) {
             $query->where('name', 'like', "%{$request->search}%");
         }
-        return response()->json($query->paginate(10));
+        return response()->json($query->paginate(5));
     }
 
 
@@ -38,7 +38,7 @@ class CustomersController extends Controller
             if (isset($request->photo)) {
                 $customer->photo = $request->photo;
             }
-            $customer->mobile = $request->mobile;
+
             $customer->save();
             if (isset($request->photo)) {
                 $imageName = $customer->id . '.' . $request->photo->extension();
@@ -57,7 +57,12 @@ class CustomersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $customer =  Customer::find($id);
+            return response()->json(["customer" =>  $customer]);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => $th->getMessage()]);
+        }
     }
 
     /**
@@ -65,7 +70,33 @@ class CustomersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $customer =  Customer::find($id);
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->photo = $request->photo;
+            $customer->phone = $request->phone;
+            $customer->address = $request->address;
+
+            date_default_timezone_set("Asia/Dhaka");
+            $customer->created_at = date('Y-m-d H:i:s');
+            $customer->updated_at = date('Y-m-d H:i:s');
+
+            if (isset($request->photo)) {
+                $customer->photo = $request->photo;
+            }
+
+            $customer->save();
+            if (isset($request->photo)) {
+                $imageName = $customer->id . '.' . $request->photo->extension();
+                $customer->photo = $imageName;
+                $customer->update();
+                $request->photo->move(public_path('img'), $imageName);
+            }
+            return response()->json(["customer" =>  $customer]);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => $th->getMessage()]);
+        }
     }
 
     /**
@@ -73,6 +104,15 @@ class CustomersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $deleteCustomer =  Customer::destroy($id);
+            return response()->json(["deleted" =>  $deleteCustomer]);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => $th->getMessage()]);
+        }
     }
+
+
+
+
 }

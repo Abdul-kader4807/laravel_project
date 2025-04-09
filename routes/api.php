@@ -4,7 +4,9 @@ use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\PurchaseController;
 use App\Http\Controllers\api\SupplierController;
+use App\Http\Controllers\api\vue\CategoryController;
 use App\Http\Controllers\api\vue\CustomersController;
+use App\Http\Controllers\api\vue\ProductController;
 use App\Http\Controllers\api\vue\userController;
 use Illuminate\Console\View\Components\Warn;
 use Illuminate\Http\Request;
@@ -41,3 +43,6 @@ Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);
 Route::apiResource('customers',CustomersController::class);
 
 Route::apiResource('users', UserController::class);
+Route::apiResource('category', CategoryController::class);
+Route::apiResource('product', ProductController::class);
+
