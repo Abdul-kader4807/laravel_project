@@ -11,6 +11,9 @@ class Order extends Model
         'customer_id', 'order_date', 'delivery_date', 'total_order', 'vat'];
 
 
+
+
+
         public function orderDetails()
         {
             return $this->hasMany(OrderDetail::class, 'order_id');
