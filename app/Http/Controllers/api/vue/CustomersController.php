@@ -44,7 +44,7 @@ class CustomersController extends Controller
                 $imageName = $customer->id . '.' . $request->photo->extension();
                 $customer->photo = $imageName;
                 $customer->update();
-                $request->photo->move(public_path('img'), $imageName);
+                $request->photo->move(public_path('photo'), $imageName);
             }
             return response()->json(["customer" =>  $customer]);
         } catch (\Throwable $th) {
@@ -91,7 +91,7 @@ class CustomersController extends Controller
                 $imageName = $customer->id . '.' . $request->photo->extension();
                 $customer->photo = $imageName;
                 $customer->update();
-                $request->photo->move(public_path('img'), $imageName);
+                $request->photo->move(public_path('photo'), $imageName);
             }
             return response()->json(["customer" =>  $customer]);
         } catch (\Throwable $th) {
