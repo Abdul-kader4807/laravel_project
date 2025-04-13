@@ -4,6 +4,7 @@ use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\PurchaseController;
 use App\Http\Controllers\api\SupplierController;
+use App\Http\Controllers\api\vue\AuthController;
 use App\Http\Controllers\api\vue\BrandsController;
 use App\Http\Controllers\api\vue\CategoryController;
 use App\Http\Controllers\api\vue\CustomersController;
@@ -62,3 +63,13 @@ Route::apiResource('brands',BrandsController::class);
 Route::apiResource('uoms',UomController::class);
 Route::apiResource('status',StatusController::class);
 
+
+
+
+
+
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('refresh', [AuthController::class, 'refresh']);
+Route::post('logout', [AuthController::class, 'logout']);
