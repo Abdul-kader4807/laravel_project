@@ -46,7 +46,7 @@ class CustomersController extends Controller
                 $customer->update();
                 $request->photo->move(public_path('photo'), $imageName);
             }
-            return response()->json(["customer" =>  $customer]);
+            return response()->json(["customer" =>  $request->all()]);
         } catch (\Throwable $th) {
             return response()->json(["error" => $th->getMessage()]);
         }
