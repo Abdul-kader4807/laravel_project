@@ -11,7 +11,8 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $query = Product::query();
+        // $query = Product::query();
+        $query = Product::with(['category', 'brand', 'uom','manufacturer']);
 
         if ($request->search) {
             $query->where('name', 'like', "%{$request->search}%");
@@ -40,12 +41,13 @@ class ProductController extends Controller
             $product->reorder_level = $request->reorder_level;
             $product->expiry_date = $request->expiry_date;
             $product->photo = $request->photo;
-            $product->description = $request->description;
-            $product->discount = $request->discount;
             $product->uom_id = $request->uom_id;
+            $product->manufacturer_id = $request->manufacturer_id;
+            $product->description = $request->description;
+//niser golo newa hoy nai vue te
+            $product->discount = $request->discount;
             $product->barcode = $request->barcode;
             $product->sku = $request->sku;
-            $product->manufacturer_id = $request->manufacturer_id;
             $product->star = $request->star;
             $product->weight = $request->weight;
             $product->size = $request->size;
@@ -66,7 +68,7 @@ class ProductController extends Controller
                 $imageName = $product->id . '.' . $request->photo->extension();
                 $product->photo = $imageName;
                 $product->update();
-                $request->photo->move(public_path('img'), $imageName);
+                $request->photo->move(public_path('photo'), $imageName);
             }
             return response()->json(["product" =>  $product]);
         } catch (\Throwable $th) {
@@ -107,12 +109,14 @@ class ProductController extends Controller
             $product->reorder_level = $request->reorder_level;
             $product->expiry_date = $request->expiry_date;
             $product->photo = $request->photo;
-            $product->description = $request->description;
-            $product->discount = $request->discount;
             $product->uom_id = $request->uom_id;
+            $product->manufacturer_id = $request->manufacturer_id;
+            $product->description = $request->description;
+
+            // niser golo newa hoy nai
+            $product->discount = $request->discount;
             $product->barcode = $request->barcode;
             $product->sku = $request->sku;
-            $product->manufacturer_id = $request->manufacturer_id;
             $product->star = $request->star;
             $product->weight = $request->weight;
             $product->size = $request->size;
@@ -133,7 +137,7 @@ class ProductController extends Controller
                 $imageName = $product->id . '.' . $request->photo->extension();
                 $product->photo = $imageName;
                 $product->update();
-                $request->photo->move(public_path('img'), $imageName);
+                $request->photo->move(public_path('photo'), $imageName);
             }
             return response()->json(["product" =>  $product]);
         } catch (\Throwable $th) {
