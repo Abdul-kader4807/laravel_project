@@ -46,7 +46,7 @@ class SuppliersController extends Controller
                 $imageName = $supplier->id . '.' . $request->photo->extension();
                 $supplier->photo = $imageName;
                 $supplier->update();
-                $request->photo->move(public_path('img'), $imageName);
+                $request->photo->move(public_path('photo'), $imageName);
             }
             return response()->json(["supplier" =>  $supplier]);
         } catch (\Throwable $th) {
@@ -93,7 +93,7 @@ class SuppliersController extends Controller
             $imageName = $supplier->id . '.' . $request->photo->extension();
             $supplier->photo = $imageName;
             $supplier->update();
-            $request->photo->move(public_path('img'), $imageName);
+            $request->photo->move(public_path('photo'), $imageName);
         }
         return response()->json(["supplier" =>  $supplier]);
     } catch (\Throwable $th) {

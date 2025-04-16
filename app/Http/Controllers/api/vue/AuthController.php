@@ -91,3 +91,7 @@ class AuthController extends Controller
         ]);
     }
 }
+
+
+//jiwta tocken install
+//https://jurin.medium.com/securing-laravel-10-api-using-jwt-a5b6dca58fd7

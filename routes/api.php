@@ -13,6 +13,7 @@ use App\Http\Controllers\api\vue\OrdersController;
 use App\Http\Controllers\api\vue\ProductController;
 use App\Http\Controllers\api\vue\PurchasesController;
 use App\Http\Controllers\api\vue\StatusController;
+use App\Http\Controllers\api\vue\StockController;
 use App\Http\Controllers\api\vue\SuppliersController;
 use App\Http\Controllers\api\vue\UomController;
 use App\Http\Controllers\api\vue\userController;
@@ -52,7 +53,7 @@ Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);
 Route::apiResource('customers',CustomersController::class);
 
 Route::apiResource('users', UserController::class);
-Route::apiResource('category', CategoryController::class);
+Route::apiResource('categories', CategoryController::class);
 Route::apiResource('product', ProductController::class);
 Route::apiResource('manufacturer', ManufacturerController::class);
 Route::apiResource('orders', OrdersController::class);
@@ -62,6 +63,7 @@ Route::apiResource('warehouse',WarehouseController::class);
 Route::apiResource('brands',BrandsController::class);
 Route::apiResource('uoms',UomController::class);
 Route::apiResource('status',StatusController::class);
+Route::apiResource('stocks',StockController::class);
 
 
 
