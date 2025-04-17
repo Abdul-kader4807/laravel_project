@@ -74,17 +74,17 @@ class SalesReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function salesReport(Request $request)
     { {
         $startDate = $request->start_date;
         $endDate = $request->end_date;
         $customer_id = $request->customer_id;
         $status_id = $request->status_id;
 
-        $query = Order::query();
+        $query = Order::with(['customer', 'status']);
 
         if ($startDate && $endDate) {
-            $query->whereBetween('	order_date', [$startDate, $endDate]);
+            $query->whereBetween('order_date', [$startDate, $endDate]);
         }
 
         if ($customer_id) {
@@ -101,15 +101,19 @@ class SalesReportController extends Controller
         $customers = Customer::all();
         $status = Status::all();
 
-        return view('pages.orders.report', compact(
-            'sales',
-            'startDate',
-            'endDate',
-            'customers',
-            'customer_id',
-            'status_id',
-            'total_order'
-        ));
+            return response()->json(compact(
+                'orders',
+                'startDate',
+                'endDate',
+                'customers',
+                'customer_id',
+                'status_id',
+                'total_order'
+            ));
+
+
+
+
     }
     }
 

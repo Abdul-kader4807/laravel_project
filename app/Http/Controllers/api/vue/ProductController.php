@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\vue;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,8 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+
+
         // $query = Product::query();
         $query = Product::with(['category', 'brand', 'uom','manufacturer']);
 
@@ -61,6 +64,8 @@ class ProductController extends Controller
             if (isset($request->photo)) {
                 $product->photo = $request->photo;
             }
+
+
 
             $product->save();
 

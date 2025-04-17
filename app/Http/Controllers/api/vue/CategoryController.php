@@ -3,13 +3,25 @@
 namespace App\Http\Controllers\api\vue;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Manufacturer;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
+    public function data(Request $request)
+    {
+        $category = Category::all();
+        $brands = Brand:: all();
+        $uoms = Uom::all();
+        $manufacturers = Manufacturer::all();
 
+
+        return response()->json(compact('category', 'brands', 'uoms', 'manufacturers'));
+    }
 
     public function index(Request $request)
     {

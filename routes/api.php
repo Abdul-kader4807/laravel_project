@@ -49,7 +49,7 @@ Route::get('products',[CustomerController::class, 'products']);
 Route::get('stocks',[CustomerController::class, 'react']);
 
 Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);
-
+Route::get('/categories/data', [CategoryController::class, 'data']);
 //VUE
 Route::apiResource('customers',CustomersController::class);
 
@@ -70,6 +70,7 @@ Route::apiResource('stocks',StockController::class);
 
 
 Route::get('/sealsReport/data', [SalesReportController::class, 'index']);
+Route::post('/sealsReport', [SalesReportController::class, 'salesReport']);
 
 
 Route::post('register', [AuthController::class, 'register']);
