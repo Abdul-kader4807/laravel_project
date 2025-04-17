@@ -12,6 +12,7 @@ use App\Http\Controllers\api\vue\ManufacturerController;
 use App\Http\Controllers\api\vue\OrdersController;
 use App\Http\Controllers\api\vue\ProductController;
 use App\Http\Controllers\api\vue\PurchasesController;
+use App\Http\Controllers\api\vue\SalesReportController;
 use App\Http\Controllers\api\vue\StatusController;
 use App\Http\Controllers\api\vue\StockController;
 use App\Http\Controllers\api\vue\SuppliersController;
@@ -68,7 +69,7 @@ Route::apiResource('stocks',StockController::class);
 
 
 
-
+Route::get('/sealsReport/data', [SalesReportController::class, 'index']);
 
 
 Route::post('register', [AuthController::class, 'register']);
