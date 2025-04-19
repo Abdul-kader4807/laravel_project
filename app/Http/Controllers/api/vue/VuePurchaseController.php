@@ -42,11 +42,12 @@ class VuePurchaseController extends Controller
 		$purchase->shipping_address=$request->supplier['address'];
 		$purchase->total_purchase=$request->grandtotal;
 		$purchase->paid_amount=$request->grandtotal;
-        $purchase->total_amount = $request->grandtotal;
-		$purchase->description="purchase";
-		$purchase->status_id=$request->status;
-		$purchase->discount=$request->discount;
-		$purchase->vat=0;
+        $purchase->total_amount ="";
+		$purchase->description="";
+        $purchase->status_id = $request->status['id'];
+
+        $purchase->discount=$request->discount;
+		$purchase->vat=$request->vat;
 
         date_default_timezone_set("Asia/Dhaka");
 		$purchase->created_at=date('Y-m-d H:i:s');
@@ -61,7 +62,9 @@ class VuePurchaseController extends Controller
             $purchasedetail->product_id=$product['item_id'];
             $purchasedetail->qty=$product['qty'];
             $purchasedetail->price=$product['price'];
-            $purchasedetail->vat=0;
+            $purchasedetail->total_purchase=$product['subtotal'];
+            $purchasedetail->uom_id = $product['uom'];
+            $purchasedetail->vat=$request->vat;
             $purchasedetail->discount=$product['discount'];
             date_default_timezone_set("Asia/Dhaka");
             $purchasedetail->created_at=date('Y-m-d H:i:s');

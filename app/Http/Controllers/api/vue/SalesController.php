@@ -46,7 +46,7 @@ class SalesController extends Controller
 		$order->remark="sales";
 		$order->status_id=1;
 		$order->discount=$request->discount;
-		$order->vat=0;
+		$order->vat=$request->vat;
         date_default_timezone_set("Asia/Dhaka");
 		$order->created_at=date('Y-m-d H:i:s');
         date_default_timezone_set("Asia/Dhaka");
@@ -61,7 +61,8 @@ class SalesController extends Controller
             $orderdetail->product_id=$product['item_id'];
             $orderdetail->qty=$product['qty'];
             $orderdetail->price=$product['price'];
-            $orderdetail->vat=0;
+            $orderdetail->vat=$request->vat;
+            $orderdetail->uom_id= $product['uom'];
             $orderdetail->discount=$product['discount'];
             date_default_timezone_set("Asia/Dhaka");
             $orderdetail->created_at=date('Y-m-d H:i:s');
@@ -89,5 +90,14 @@ class SalesController extends Controller
       }
 
     }
+
+
+
+
+
+
+
+
+
 
 }

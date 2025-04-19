@@ -33,6 +33,13 @@ Route::get('/user', function (Request $request) {
 
 
 
+//vue purchase ,mone rakhben jodi akoy name api resource ar upore thake rout jodi nise dei kaj korbe na
+Route::get('purchases/data', [VuePurchaseController::class, "index"]);
+Route::post('/purchases/processPurchase', [VuePurchaseController::class, "process"]);
+
+
+
+
 Route::resource('order', OrderController::class);
 Route::get('order', [CustomerController::class,'order']);
 Route::get('invoicebyId/{id}', [CustomerController::class,'invoicebyId']);
@@ -84,8 +91,6 @@ Route::post('/purchaseReport', [PurchaseReportController::class, 'purchaseReport
 Route::get('sales/data', [SalesController::class, "index"]);
 Route::post('/sales/processOrder', [SalesController::class, "process"]);
 
-Route::get('purchases/data', [VuePurchaseController::class, "index"]);
-Route::post('/purchase/processPurchase', [VuePurchaseController::class, "process"]);
 
 
 
