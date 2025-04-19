@@ -11,13 +11,17 @@ use App\Http\Controllers\api\vue\CustomersController;
 use App\Http\Controllers\api\vue\ManufacturerController;
 use App\Http\Controllers\api\vue\OrdersController;
 use App\Http\Controllers\api\vue\ProductController;
+use App\Http\Controllers\api\vue\PurchaseReportController;
 use App\Http\Controllers\api\vue\PurchasesController;
+use App\Http\Controllers\api\vue\SalesController;
 use App\Http\Controllers\api\vue\SalesReportController;
 use App\Http\Controllers\api\vue\StatusController;
 use App\Http\Controllers\api\vue\StockController;
+use App\Http\Controllers\api\vue\StockReportController;
 use App\Http\Controllers\api\vue\SuppliersController;
 use App\Http\Controllers\api\vue\UomController;
 use App\Http\Controllers\api\vue\userController;
+use App\Http\Controllers\api\vue\VuePurchaseController;
 use App\Http\Controllers\api\vue\WarehouseController;
 use Illuminate\Console\View\Components\Warn;
 use Illuminate\Http\Request;
@@ -49,6 +53,8 @@ Route::get('products',[CustomerController::class, 'products']);
 Route::get('stocks',[CustomerController::class, 'react']);
 
 Route::post('saveReactorder',[CustomerController::class, 'saveReactorder']);
+
+//vue eksathe data niyechi
 Route::get('/categories/data', [CategoryController::class, 'data']);
 //VUE
 Route::apiResource('customers',CustomersController::class);
@@ -68,9 +74,19 @@ Route::apiResource('stocks',StockController::class);
 
 
 
-
+//vue report
 Route::get('/sealsReport/data', [SalesReportController::class, 'index']);
 Route::post('/sealsReport', [SalesReportController::class, 'salesReport']);
+
+Route::get('/purchaseReport/data', [PurchaseReportController::class, 'index']);
+Route::post('/purchaseReport', [PurchaseReportController::class, 'purchaseReport']);
+
+Route::get('sales/data', [SalesController::class, "index"]);
+Route::post('/sales/processOrder', [SalesController::class, "process"]);
+
+Route::get('purchases/data', [VuePurchaseController::class, "index"]);
+Route::post('/purchase/processPurchase', [VuePurchaseController::class, "process"]);
+
 
 
 Route::post('register', [AuthController::class, 'register']);

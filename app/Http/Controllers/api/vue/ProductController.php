@@ -20,7 +20,7 @@ class ProductController extends Controller
         if ($request->search) {
             $query->where('name', 'like', "%{$request->search}%");
         }
-        return response()->json($query->paginate(5));
+        return response()->json($query->paginate(10));
     }
 
 

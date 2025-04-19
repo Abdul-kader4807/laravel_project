@@ -88,6 +88,7 @@ Route::post('uom/search', [UomController::class,'search']);
 Route::resource('uom',UomController::class);
 
 
+Route::get('purchase', [PurchaseController::class, 'index'])->name('purchases.index'); //new add korchi
 Route::get('purchase/delete/{id}',[PurchaseController::class,'destroy_view']);
 Route::post('purchase/search',[PurchaseController::class,'search']);
 Route::resource('purchase',PurchaseController::class);

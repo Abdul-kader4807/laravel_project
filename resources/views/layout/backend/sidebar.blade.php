@@ -119,8 +119,8 @@
         <ul>
             <li> <a href="{{url('purchase')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
-            <li> <a href="{{'purchase_deatil'}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
-            <li> <a href="{{'purchase-report'}}"><i class='bx bx-radio-circle'></i>Purchase Report</a>
+            <li> <a href="{{url('purchase_deatil')}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
+            <li> <a href="{{url('purchase-report')}}"><i class='bx bx-radio-circle'></i>Purchase Report</a>
             </li>
         </ul>
     </li>
