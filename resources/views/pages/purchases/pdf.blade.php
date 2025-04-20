@@ -2,6 +2,7 @@
 
 @section('page_content')
     <style>
+
         .add-button {
             padding: 3px 8px;
             border-radius: 50%;
@@ -167,7 +168,7 @@
                                 </tfoot>
 
                             </table>
-                            <td>{{ ($detail->status)->name ?? 'PAID' }}</td>
+                            {{-- <td>{{ ($detail->status)->name ?? 'PAID' }}</td> --}}
 
                             <div class="notices">
                                 <div>NOTES:</div>

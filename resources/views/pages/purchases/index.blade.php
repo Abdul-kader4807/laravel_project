@@ -87,9 +87,9 @@
                                             <a href="{{ url("purchase/$purchase->id") }}" class="btn btn-secondary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ url("purchase/$purchase->id/edit") }}" class="btn btn-success">
+                                            {{-- <a href="{{ url("purchase/$purchase->id/edit") }}" class="btn btn-success">
                                                 <i class="fas fa-edit"></i>
-                                            </a>
+                                            </a> --}}
                                             <a href="{{ url("purchase/delete/$purchase->id") }}" class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>

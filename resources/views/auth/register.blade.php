@@ -158,6 +158,7 @@
                                                     <label for="inputSelectCountry" class="form-label">Country</label>
                                                     <select class="form-select" id="inputSelectCountry"
                                                         aria-label="Default select example">
+                                                        <option selected>Bangladesh</option>
                                                         <option selected>India</option>
                                                         <option value="1">United Kingdom</option>
                                                         <option value="2">America</option>

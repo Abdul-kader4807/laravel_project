@@ -14,7 +14,7 @@
             </li>
         </ul> --}}
     </li>
-    <li>
+    {{-- <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bx bx-category"></i>
             </div>
@@ -36,15 +36,18 @@
             <li> <a href="app-fullcalender.html"><i class='bx bx-radio-circle'></i>Calendar</a>
             </li>
         </ul>
-    </li>
+    </li> --}}
+
+
+
     {{-- <li class="menu-label">Sales Management</li> --}}
-    <li>
+    {{-- <li>
         <a href="widgets.html">
             <div class="parent-icon"><i class='bx bx-cookie'></i>
             </div>
             <div class="menu-title">Widgets</div>
         </a>
-    </li>
+    </li> --}}
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class='bx bx-cart'></i>
@@ -52,9 +55,9 @@
             <div class="menu-title">Sales </div>
         </a>
         <ul>
-            <li> <a href="{{url('order')}}"><i class='bx bx-radio-circle'></i>Sales</a>
+            <li> <a href="{{url('order/create')}}"><i class='bx bx-radio-circle'></i>Sales</a>
             </li>
-            <li> <a href="{{url('order_detail')}}"><i class='bx bx-radio-circle'></i>Sales List</a>
+            <li> <a href="{{url('order')}}"><i class='bx bx-radio-circle'></i>Sales List</a>
             </li>
             <li> <a href="{{url('order-report')}}"><i class='bx bx-radio-circle'></i>Sales Report</a>
             </li>
@@ -117,9 +120,9 @@
             <div class="menu-title">Purchases </div>
         </a>
         <ul>
-            <li> <a href="{{url('purchase')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
+            <li> <a href="{{url('purchase/create')}}"><i class='bx bx-radio-circle'></i>Purchase Orders</a>
             </li>
-            <li> <a href="{{url('purchase_deatil')}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
+            <li> <a href="{{url('purchase')}}"><i class='bx bx-radio-circle'></i>Purchase Details</a>
             <li> <a href="{{url('purchase-report')}}"><i class='bx bx-radio-circle'></i>Purchase Report</a>
             </li>
         </ul>
@@ -209,7 +212,7 @@
     </li>
 
 
-    <li class="menu-label">Reports management</li>
+    {{-- <li class="menu-label">Reports management</li> --}}
     <li>
         <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><i class='bx bx-bar-chart-square'></i>
@@ -217,11 +220,11 @@
             <div class="menu-title">Reports</div>
         </a>
         <ul>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Audit Logs </a>
+             <li> <a href="{{url('purchase-report')}}"><i class='bx bx-radio-circle'></i>Purchase Reports </a>
             </li>
-            <li> <a href="form-input-group.html"><i class='bx bx-radio-circle'></i>Sales Reports</a>
+            <li> <a href="{{url('order-report')}}"><i class='bx bx-radio-circle'></i>Sales Reports</a>
             </li>
-            <li> <a href="form-radios-and-checkboxes.html"><i class='bx bx-radio-circle'></i>Inventory Reports</a>
+            <li> <a href="{{url('stock-report')}}"><i class='bx bx-radio-circle'></i>Inventory Reports</a>
             </li>
            {{--
             <li> <a href="form-layouts.html"><i class='bx bx-radio-circle'></i>Manufacturers</a>
@@ -229,6 +232,31 @@
 
         </ul>
     </li>
+
+ <li>
+        <a class="has-arrow" href="javascript:;">
+            <div class="parent-icon"><i class='bx bx-book-bookmark'></i>
+            </div>
+            <div class="menu-title"> Reference Data</div>
+        </a>
+        <ul>
+            <li> <a href="{{url('uom')}}"><i class='bx bx-radio-circle'></i>UOMs </a>
+            </li>
+            <li> <a href="{{url('status')}}"><i class='bx bx-radio-circle'></i>Status List </a>
+            </li>
+            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Adjustment Types </a>
+            </li>
+            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Transaction Types </a>
+            </li>
+            <li> <a href="{{url('payment_status')}}"><i class='bx bx-radio-circle'></i>PaymentStatus List </a>
+            </li>
+
+        </ul>
+    </li>
+
+
+
+
 
     <li class="menu-label">Settings-system</li>
     <li>
@@ -246,26 +274,7 @@
     </li>
 
 
-    <li>
-        <a class="has-arrow" href="javascript:;">
-            <div class="parent-icon"><i class='bx bx-book-bookmark'></i>
-            </div>
-            <div class="menu-title"> Reference Data</div>
-        </a>
-        <ul>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Adjustment Types </a>
-            </li>
-            <li> <a href="form-elements.html"><i class='bx bx-radio-circle'></i>Transaction Types </a>
-            </li>
-            <li> <a href="{{url('uom')}}"><i class='bx bx-radio-circle'></i>UOMs </a>
-            </li>
-            <li> <a href="{{url('status')}}"><i class='bx bx-radio-circle'></i>Status List </a>
-            </li>
-            <li> <a href="{{url('payment_status')}}"><i class='bx bx-radio-circle'></i>PaymentStatus List </a>
-            </li>
 
-        </ul>
-    </li>
 
 
     <li>
